@@ -24,6 +24,5 @@ void AFloor::BeginPlay()
 void AFloor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
