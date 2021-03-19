@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "BuildingActor.h"
 #include "Floor.generated.h"
 
 UCLASS()
-class JPSVISUE_API AFloor : public AActor
+class JPSVISUE_API AFloor : public ABuildingActor
 {
 	GENERATED_BODY()
 	
