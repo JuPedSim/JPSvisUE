@@ -9,6 +9,7 @@ using namespace std;
 #include "Wall.h"
 #include "Line.h"
 #include "GlobalVariables.h"
+#include "FloorDimensions.h"
 #include "FloorStructure.generated.h"
 
 /**

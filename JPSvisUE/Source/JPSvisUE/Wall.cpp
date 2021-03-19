@@ -26,3 +26,11 @@ void AWall::Tick(float DeltaTime)
 
 }
 
+void AWall::InitVariables(Line line, vector<AFloor*>* floors)
+{
+	wallLine = line;
+	connectedFloors = floors;
+	//last operation
+	variablesInitialized = true;
+}
+

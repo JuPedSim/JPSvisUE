@@ -14,9 +14,10 @@ AFloorStructure::~AFloorStructure()
 
 void AFloorStructure::Init(vector<Line>* wallLines, float height)
 {
+	//floors must be computed before Walls
 	floorSegments = SpawnItems<AFloor*>(1, floorClass);
 	PositionFloors(wallLines, height);
-
+	//walls must be computed after floors
 	wallSegments = SpawnItems<AWall*>(wallLines->size(), wallClass);
 	PositionWalls(wallLines, height);
 }
@@ -48,6 +49,8 @@ void AFloorStructure::PositionWalls(vector<Line>* wallLines, float height)
 {
 	for (int i = 0; i < wallLines->size(); i++)
 	{
+		wallSegments->at(i)->InitVariables(wallLines->at(i), floorSegments);
+
 		FVector p1 = wallLines->at(i).GetPoint1();
 		FVector p2 = wallLines->at(i).GetPoint2();
 		FVector vec = p2 - p1;
@@ -120,5 +123,9 @@ void AFloorStructure::PositionFloors(vector<Line>* wallLines, float height)
 	FVector scaleing = FVector(scaleX, scaleY, scaleZ);
 	FTransform transform = FTransform(rotation, translation, scaleing);
 	floorSegments->at(0)->SetActorTransform(transform);
+	vector<FloorDimensions>* vec = new vector<FloorDimensions>();
+	vec->resize(1);
+	vec->at(0) = FloorDimensions();
+	floorSegments->at(0)->InitVariables(vec);
 	floorSegments->at(0)->SetActorHiddenInGame(false);
 }
