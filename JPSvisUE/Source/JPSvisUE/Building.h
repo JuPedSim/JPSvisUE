@@ -7,6 +7,7 @@ using namespace std;
 #include "GameFramework/Actor.h"
 #include <vector>
 #include "Floor.h"
+#include "Line.h"
 #include "FloorStructure.h"
 #include <stdlib.h>
 
