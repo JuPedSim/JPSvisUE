@@ -7,6 +7,8 @@ using namespace std;
 #include <vector>
 #include "Floor.h"
 #include "Wall.h"
+#include "Line.h"
+#include "GlobalVariables.h"
 #include "FloorStructure.generated.h"
 
 /**
@@ -19,7 +21,7 @@ class JPSVISUE_API AFloorStructure : public AActor
 public:
 	AFloorStructure();
 	~AFloorStructure();
-	void Init();
+	void Init(vector<Line>* wallLines, float height);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,11 +37,12 @@ private:
 	template <class T>
 	vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
 
-	void PositionFloors();
+	void PositionFloors(vector<Line>* wallLines, float height);
 
-	void PositionWalls();
+	void PositionWalls(vector<Line>* wallLines, float height);
 
 	vector<AFloor*>* floorSegments;
 
 	vector<AWall*>* wallSegments;
+
 };

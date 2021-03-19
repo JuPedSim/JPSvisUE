@@ -5,27 +5,25 @@
 
 AFloorStructure::AFloorStructure()
 {
-	
+
 }
 
 AFloorStructure::~AFloorStructure()
 {
 }
 
-void AFloorStructure::Init()
+void AFloorStructure::Init(vector<Line>* wallLines, float height)
 {
+	floorSegments = SpawnItems<AFloor*>(1, floorClass);
+	PositionFloors(wallLines, height);
 
+	wallSegments = SpawnItems<AWall*>(wallLines->size(), wallClass);
+	PositionWalls(wallLines, height);
 }
 
 void AFloorStructure::BeginPlay()
 {
 	Super::BeginPlay();
-
-	floorSegments = SpawnItems<AFloor*>(2, floorClass);
-	PositionFloors();
-
-	wallSegments = SpawnItems<AWall*>(2, wallClass);
-	PositionWalls();
 }
 
 AActor* AFloorStructure::SpawnItem(UClass* item)
@@ -46,15 +44,34 @@ vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass
 	return vec;
 }
 
-void AFloorStructure::PositionWalls()
+void AFloorStructure::PositionWalls(vector<Line>* wallLines, float height)
 {
-	for (AActor* wall : *wallSegments)
+	for (int i = 0; i < wallLines->size(); i++)
 	{
-		FRotator rotation = FRotator(rand() % 360, rand() % 360, rand() % 360);
-		FVector translation = FVector(rand() % 10, rand() % 10, 0);
-		FVector scaleing = FVector(rand() % 5, rand() % 5, rand() % 5);
+		FVector p1 = wallLines->at(i).GetPoint1();
+		FVector p2 = wallLines->at(i).GetPoint2();
+		FVector vec = p2 - p1;
+		FVector mittle = p1 + (vec * 0.5f);
+
+		float length = sqrt((vec.X * vec.X) + (vec.Y * vec.Y));
+
+		float objSize = 100;
+		float sizeX = length * scalingFactor;
+		float sizeY = wallThigness * scalingFactor;
+		float sizeZ = wallHeight * scalingFactor;
+		float scaleX = sizeX / objSize;
+		float scaleY = sizeY / objSize;
+		float scaleZ = sizeZ / objSize;
+		float shiftX = mittle.X * scalingFactor;
+		float shiftY = mittle.Y * scalingFactor;
+		float shiftZ = (height * scalingFactor);
+		float rot = ((atan2(vec.X, vec.Y) * 180) / PI) + 90.f;
+
+		FRotator rotation = FRotator(0.f, rot, 0.f);
+		FVector translation = FVector(shiftX, shiftY, shiftZ);
+		FVector scaleing = FVector(scaleX, scaleY, scaleZ);
 		FTransform transform = FTransform(rotation, translation, scaleing);
-		wall->SetActorTransform(transform);
+		wallSegments->at(i)->SetActorTransform(transform);
 	}
 
 	for (AActor* wall : *wallSegments)
@@ -63,19 +80,45 @@ void AFloorStructure::PositionWalls()
 	}
 }
 
-void AFloorStructure::PositionFloors()
+void AFloorStructure::PositionFloors(vector<Line>* wallLines, float height)
 {
-	for (AActor* floor : *floorSegments)
-	{
-		FRotator rotation = FRotator(rand() % 360, rand() % 360, rand() % 360);
-		FVector translation = FVector(rand() % 10, rand() % 10, 0);
-		FVector scaleing = FVector(rand() % 5, rand() % 5, rand() % 5);
-		FTransform transform = FTransform(rotation, translation, scaleing);
-		floor->SetActorTransform(transform);
-	}
+	float minX = numeric_limits<float>::max();
+	float maxX = numeric_limits<float>::min();
+	float minY = numeric_limits<float>::max();
+	float maxY = numeric_limits<float>::min();
 
-	for (AActor* floor : *floorSegments)
+	for (Line line : *wallLines)
 	{
-		floor->SetActorHiddenInGame(false);
+		FVector p1 = line.GetPoint1();
+		FVector p2 = line.GetPoint2();
+
+		minX = min(minX, p1.X);
+		minX = min(minX, p2.X);
+
+		minY = min(minY, p1.Y);
+		minY = min(minY, p2.Y);
+
+		maxX = max(maxX, p1.X);
+		maxX = max(maxX, p2.X);
+
+		maxY = max(maxY, p1.Y);
+		maxY = max(maxY, p2.Y);
 	}
+	float objSize = 100;
+	float sizeX = (maxX - minX) * scalingFactor;
+	float sizeY = (maxY - minY) * scalingFactor;
+	float sizeZ = wallThigness * scalingFactor;
+	float scaleX = sizeX / objSize;
+	float scaleY = sizeY / objSize;
+	float scaleZ = sizeZ / objSize;
+	float shiftX = (minX * scalingFactor) + (0.5 * sizeX);
+	float shiftY = (minY * scalingFactor) + (0.5 * sizeY);
+	float shiftZ = (height * scalingFactor) - sizeZ;
+
+	FRotator rotation = FRotator(0.f);
+	FVector translation = FVector(shiftX, shiftY, shiftZ);
+	FVector scaleing = FVector(scaleX, scaleY, scaleZ);
+	FTransform transform = FTransform(rotation, translation, scaleing);
+	floorSegments->at(0)->SetActorTransform(transform);
+	floorSegments->at(0)->SetActorHiddenInGame(false);
 }

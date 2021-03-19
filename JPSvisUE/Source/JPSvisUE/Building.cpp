@@ -6,7 +6,7 @@
 // Sets default values
 ABuilding::ABuilding()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -14,8 +14,21 @@ ABuilding::ABuilding()
 void ABuilding::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	vector<Line>* lines = new vector<Line>();
+	lines->resize(6);
+	lines->at(0) = Line(FVector(-10, -10, 0.f), FVector(-10, 70, 0.f));
+	lines->at(1) = Line(FVector(-10, 70, 0.f), FVector(30, 70, 0.f));
+	lines->at(2) = Line(FVector(30, 70, 0.f), FVector(30, 50, 0.f));
+	lines->at(3) = Line(FVector(30, 50, 0.f), FVector(60, 50, 0.f));
+	lines->at(4) = Line(FVector(60, 50, 0.f), FVector(60, -10, 0.f));
+	lines->at(5) = Line(FVector(60, -10, 0.f), FVector(-10, -10, 0.f));
+
 	floors = SpawnItems<AFloorStructure*>(1, floorStructureClass);
+	for (AFloorStructure* floor : *floors)
+	{
+		floor->Init(lines, 0);
+	}
 }
 
 // Called every frame
