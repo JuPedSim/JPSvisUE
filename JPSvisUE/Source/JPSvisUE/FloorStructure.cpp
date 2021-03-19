@@ -5,10 +5,16 @@
 
 AFloorStructure::AFloorStructure()
 {
+	
 }
 
 AFloorStructure::~AFloorStructure()
 {
+}
+
+void AFloorStructure::Init()
+{
+
 }
 
 void AFloorStructure::BeginPlay()
@@ -17,6 +23,9 @@ void AFloorStructure::BeginPlay()
 
 	floorSegments = SpawnItems<AFloor*>(2, floorClass);
 	PositionFloors();
+
+	wallSegments = SpawnItems<AWall*>(2, wallClass);
+	PositionWalls();
 }
 
 AActor* AFloorStructure::SpawnItem(UClass* item)
@@ -37,6 +46,23 @@ vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass
 	return vec;
 }
 
+void AFloorStructure::PositionWalls()
+{
+	for (AActor* wall : *wallSegments)
+	{
+		FRotator rotation = FRotator(rand() % 360, rand() % 360, rand() % 360);
+		FVector translation = FVector(rand() % 10, rand() % 10, 0);
+		FVector scaleing = FVector(rand() % 5, rand() % 5, rand() % 5);
+		FTransform transform = FTransform(rotation, translation, scaleing);
+		wall->SetActorTransform(transform);
+	}
+
+	for (AActor* wall : *wallSegments)
+	{
+		wall->SetActorHiddenInGame(false);
+	}
+}
+
 void AFloorStructure::PositionFloors()
 {
 	for (AActor* floor : *floorSegments)
@@ -50,6 +76,6 @@ void AFloorStructure::PositionFloors()
 
 	for (AActor* floor : *floorSegments)
 	{
-		//floor->SetActorHiddenInGame(false);
+		floor->SetActorHiddenInGame(false);
 	}
 }
