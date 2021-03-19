@@ -25,3 +25,15 @@ void AFloor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AFloor::InitVariables(vector<FloorDimensions>* dims)
+{
+	dimensions = dims;
+	//last operation
+	variablesInitialized = true;
+}
+
+vector<FloorDimensions>* AFloor::GetDimensions()
+{
+	return dimensions;
+}
+
