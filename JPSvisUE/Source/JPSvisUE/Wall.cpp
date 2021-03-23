@@ -31,7 +31,7 @@ void AWall::Tick(float DeltaTime)
 	
 
 	
-	bool collsion = false;
+	bool renderSmall = false;
 	for (FVector v : *this->camCheckPoints)
 	{
 		FVector dir = v - camLocation;
@@ -42,18 +42,24 @@ void AWall::Tick(float DeltaTime)
 			vector<FloorDimensions>* fD = floor->GetDimensions();
 			for (FloorDimensions &dim : *fD)
 			{
-				collsion = collsion || dim.checkCollision(v,checkV);
+				if (dim.checkCollision(v, checkV))
+				{
+					//in 2 dimesions
+					//dir = a*direction + b*normal
+					//b = (dirX-dirY*directionX)/(normalX*directionY + normalY*directionX)
+					//b = dir part in normal direction
+					float b = (dir.X - dir.Y * this->direction.X) / (this->normal.X * this->direction.Y + this->normal.Y * this->direction.X);
+					float lengthHor = abs(b);
+					float lengthVer = abs(dir.Z);
+					float obstractionDegree = (atan(lengthHor/ lengthVer)/(2.f*PI))*360.f;
+					if (obstractionDegree> allowedObstractionDegree)
+					{
+						renderSmall = true;
+					}
+				}
 			}
 		}
 	}
-
-	bool renderSmall = false;
-	if (collsion)
-	{
-		renderSmall = true;
-	}
-
-
 	if (renderSmall)
 	{
 		this->SetSmall();
@@ -66,8 +72,13 @@ void AWall::Tick(float DeltaTime)
 
 void AWall::InitVariables(Line line, vector<AFloor*>* floors)
 {
-	wallLine = line;
-	connectedFloors = floors;
+	FVector temp = line.GetPoint2() - line.GetPoint1();
+	this->direction = FVector2D(temp.X, temp.Y);
+	this->normal = FVector2D(temp.Y,-temp.X);
+	this->direction.Normalize();
+	this->normal.Normalize();
+	this->wallLine = line;
+	this->connectedFloors = floors;
 
 	this->SetCamCheckPoints();
 	this->SetPosition();

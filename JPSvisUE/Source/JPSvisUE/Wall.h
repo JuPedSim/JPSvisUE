@@ -43,6 +43,8 @@ private:
 	void SetSmall();
 	void SetBig();
 	FVector ComputeViewObstructedVector(FVector dir);
+	FVector2D normal;
+	FVector2D direction;
 
 	bool isBig;
 

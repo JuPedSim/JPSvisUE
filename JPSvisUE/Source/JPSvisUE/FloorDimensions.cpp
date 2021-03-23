@@ -68,6 +68,5 @@ bool FloorDimensions::checkCollision(FVector start, FVector v)
 	{
 		return true;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("haloo"));
 	return false;
 }
