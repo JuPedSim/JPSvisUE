@@ -12,14 +12,14 @@ AFloorStructure::~AFloorStructure()
 {
 }
 
-void AFloorStructure::Init(vector<Line>* wallLines, float height)
+void AFloorStructure::Init(vector<Line>* wallLines)
 {
 	//floors must be computed before Walls
 	floorSegments = SpawnItems<AFloor*>(1, floorClass);
-	PositionFloors(wallLines, height);
+	InitFloors(wallLines);
 	//walls must be computed after floors
 	wallSegments = SpawnItems<AWall*>(wallLines->size(), wallClass);
-	PositionWalls(wallLines, height);
+	InitWalls(wallLines);
 }
 
 void AFloorStructure::BeginPlay()
@@ -45,50 +45,25 @@ vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass
 	return vec;
 }
 
-void AFloorStructure::PositionWalls(vector<Line>* wallLines, float height)
+void AFloorStructure::InitWalls(vector<Line>* wallLines)
 {
 	for (int i = 0; i < wallLines->size(); i++)
 	{
 		wallSegments->at(i)->InitVariables(wallLines->at(i), floorSegments);
-
-		FVector p1 = wallLines->at(i).GetPoint1();
-		FVector p2 = wallLines->at(i).GetPoint2();
-		FVector vec = p2 - p1;
-		FVector mittle = p1 + (vec * 0.5f);
-
-		float length = sqrt((vec.X * vec.X) + (vec.Y * vec.Y));
-
-		float objSize = 100;
-		float sizeX = length * scalingFactor;
-		float sizeY = wallThigness * scalingFactor;
-		float sizeZ = wallHeight * scalingFactor;
-		float scaleX = sizeX / objSize;
-		float scaleY = sizeY / objSize;
-		float scaleZ = sizeZ / objSize;
-		float shiftX = mittle.X * scalingFactor;
-		float shiftY = mittle.Y * scalingFactor;
-		float shiftZ = (height * scalingFactor);
-		float rot = ((atan2(vec.X, vec.Y) * 180) / PI) + 90.f;
-
-		FRotator rotation = FRotator(0.f, rot, 0.f);
-		FVector translation = FVector(shiftX, shiftY, shiftZ);
-		FVector scaleing = FVector(scaleX, scaleY, scaleZ);
-		FTransform transform = FTransform(rotation, translation, scaleing);
-		wallSegments->at(i)->SetActorTransform(transform);
 	}
-
-	for (AActor* wall : *wallSegments)
+	for (AWall* wall : *wallSegments)
 	{
-		wall->SetActorHiddenInGame(false);
+		wall->SetVisible();
 	}
 }
 
-void AFloorStructure::PositionFloors(vector<Line>* wallLines, float height)
+void AFloorStructure::InitFloors(vector<Line>* wallLines)
 {
 	float minX = numeric_limits<float>::max();
 	float maxX = numeric_limits<float>::min();
 	float minY = numeric_limits<float>::max();
 	float maxY = numeric_limits<float>::min();
+	float height = wallLines->at(0).GetPoint1().Z;
 
 	for (Line line : *wallLines)
 	{
@@ -107,25 +82,16 @@ void AFloorStructure::PositionFloors(vector<Line>* wallLines, float height)
 		maxY = max(maxY, p1.Y);
 		maxY = max(maxY, p2.Y);
 	}
-	float objSize = 100;
-	float sizeX = (maxX - minX) * scalingFactor;
-	float sizeY = (maxY - minY) * scalingFactor;
-	float sizeZ = wallThigness * scalingFactor;
-	float scaleX = sizeX / objSize;
-	float scaleY = sizeY / objSize;
-	float scaleZ = sizeZ / objSize;
-	float shiftX = (minX * scalingFactor) + (0.5 * sizeX);
-	float shiftY = (minY * scalingFactor) + (0.5 * sizeY);
-	float shiftZ = (height * scalingFactor) - sizeZ;
 
-	FRotator rotation = FRotator(0.f);
-	FVector translation = FVector(shiftX, shiftY, shiftZ);
-	FVector scaleing = FVector(scaleX, scaleY, scaleZ);
-	FTransform transform = FTransform(rotation, translation, scaleing);
-	floorSegments->at(0)->SetActorTransform(transform);
-	vector<FloorDimensions>* vec = new vector<FloorDimensions>();
-	vec->resize(1);
-	vec->at(0) = FloorDimensions();
-	floorSegments->at(0)->InitVariables(vec);
-	floorSegments->at(0)->SetActorHiddenInGame(false);
+	for (AFloor* floor : *floorSegments)
+	{
+		vector<FloorDimensions>* vec = new vector<FloorDimensions>();
+		vec->resize(1);
+		vec->at(0) = FloorDimensions(FVector(minX,minY,height), FVector(minX, maxY, height), FVector(maxX, minY, height), FVector(maxX, maxY, height));
+		floor->InitVariables(vec);
+	}
+	for (AFloor* floor : *floorSegments)
+	{
+		floor->SetVisible();
+	}
 }

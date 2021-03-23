@@ -27,7 +27,7 @@ void ABuilding::BeginPlay()
 	floors = SpawnItems<AFloorStructure*>(1, floorStructureClass);
 	for (AFloorStructure* floor : *floors)
 	{
-		floor->Init(lines, 0);
+		floor->Init(lines);
 	}
 }
 

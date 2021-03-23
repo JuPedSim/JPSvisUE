@@ -28,12 +28,43 @@ void AFloor::Tick(float DeltaTime)
 void AFloor::InitVariables(vector<FloorDimensions>* dims)
 {
 	dimensions = dims;
+	this->SetPosition();
 	//last operation
 	variablesInitialized = true;
+}
+
+void AFloor::SetVisible()
+{
+	this->SetActorHiddenInGame(false);
 }
 
 vector<FloorDimensions>* AFloor::GetDimensions()
 {
 	return dimensions;
+}
+
+void AFloor::SetPosition()
+{
+	float minX = this->dimensions->at(0).GetMinXminY().X;
+	float maxX = this->dimensions->at(0).GetMaxXmaxY().X;
+	float minY = this->dimensions->at(0).GetMinXminY().Y;
+	float maxY = this->dimensions->at(0).GetMaxXmaxY().Y;
+	float height = this->dimensions->at(0).GetMinXminY().Z;
+	float objSize = 100;
+	float sizeX = (maxX - minX) * scalingFactor;
+	float sizeY = (maxY - minY) * scalingFactor;
+	float sizeZ = floorThigness * scalingFactor;
+	float scaleX = sizeX / objSize;
+	float scaleY = sizeY / objSize;
+	float scaleZ = sizeZ / objSize;
+	float shiftX = (minX * scalingFactor) + (0.5 * sizeX);
+	float shiftY = (minY * scalingFactor) + (0.5 * sizeY);
+	float shiftZ = (height * scalingFactor) - sizeZ;
+
+	FRotator rotation = FRotator(0.f);
+	FVector translation = FVector(shiftX, shiftY, shiftZ);
+	FVector scaleing = FVector(scaleX, scaleY, scaleZ);
+	FTransform transform = FTransform(rotation, translation, scaleing);
+	this->SetActorTransform(transform);
 }
 

@@ -7,6 +7,7 @@ using namespace std;
 #include "GameFramework/Actor.h"
 #include "BuildingActor.h"
 #include "FloorDimensions.h"
+#include "GlobalVariables.h"
 #include "Floor.generated.h"
 
 UCLASS()
@@ -26,6 +27,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void InitVariables(vector<FloorDimensions>* dims);
+	void SetVisible();
 
 	vector<FloorDimensions>* GetDimensions();
 private:
@@ -33,4 +35,6 @@ private:
 	UStaticMeshComponent* floorMesh;
 
 	vector<FloorDimensions>* dimensions;
+
+	void SetPosition();
 };
