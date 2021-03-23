@@ -39,10 +39,15 @@ private:
 	vector<AFloor*>* connectedFloors;
 	Line wallLine;
 	void SetPosition();
+	void SetCamCheckPoints();
 	void SetSmall();
 	void SetBig();
+	FVector ComputeViewObstructedVector(FVector dir);
+
+	bool isBig;
 
 	FVector scaleZsmallTransform;
 	FVector scaleZbigTransform;
 	
+	vector<FVector>* camCheckPoints;
 };
