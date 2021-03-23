@@ -6,7 +6,7 @@
 // Sets default values
 AWall::AWall()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	wallMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
@@ -26,6 +26,42 @@ void AWall::BeginPlay()
 void AWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
+	FVector camLocation = cam->GetCameraLocation();
+	
+
+	
+	bool collsion = false;
+	for (FVector v : *this->camCheckPoints)
+	{
+		FVector dir = v - camLocation;
+		dir.Normalize(); //todo could not normalize catch
+		FVector checkV = this->ComputeViewObstructedVector(dir);
+		for (AFloor* floor : *this->connectedFloors)
+		{
+			vector<FloorDimensions>* fD = floor->GetDimensions();
+			for (FloorDimensions &dim : *fD)
+			{
+				collsion = collsion || dim.checkCollision(v,checkV);
+			}
+		}
+	}
+
+	bool renderSmall = false;
+	if (collsion)
+	{
+		renderSmall = true;
+	}
+
+
+	if (renderSmall)
+	{
+		this->SetSmall();
+	}
+	else
+	{
+		this->SetBig();
+	}
 }
 
 void AWall::InitVariables(Line line, vector<AFloor*>* floors)
@@ -33,7 +69,10 @@ void AWall::InitVariables(Line line, vector<AFloor*>* floors)
 	wallLine = line;
 	connectedFloors = floors;
 
+	this->SetCamCheckPoints();
 	this->SetPosition();
+
+
 
 	//last operation
 	variablesInitialized = true;//todo maybe not used
@@ -73,15 +112,49 @@ void AWall::SetPosition()
 	this->scaleZsmallTransform = FVector(scaleX, scaleY, scaleZsmall);
 	FTransform transform = FTransform(rotation, translation, this->scaleZbigTransform);
 	this->SetActorTransform(transform);
+	this->isBig = true;
+}
+
+void AWall::SetCamCheckPoints()
+{
+	FVector p1 = this->wallLine.GetPoint1();
+	FVector p2 = this->wallLine.GetPoint2();
+	FVector p1u = FVector(p1.X, p1.Y, p1.Z + wallBigHeight);
+	FVector p2u = FVector(p2.X, p2.Y, p2.Z + wallBigHeight);
+	FVector pMu = p1u + 0.5 * (p2u - p1u);
+	this->camCheckPoints = new vector<FVector>();
+	this->camCheckPoints->resize(1);
+	this->camCheckPoints->at(0) = pMu;
 }
 
 void AWall::SetSmall()
 {
-	this->SetActorScale3D(this->scaleZsmallTransform);
+	if (this->isBig)
+	{
+		this->SetActorScale3D(this->scaleZsmallTransform);
+	}
+	this->isBig = false;
 }
 
 void AWall::SetBig()
 {
-	this->SetActorScale3D(this->scaleZbigTransform);
+	if (!this->isBig)
+	{
+		this->SetActorScale3D(this->scaleZbigTransform);
+	}
+	this->isBig = true;
+}
+
+FVector AWall::ComputeViewObstructedVector(FVector dir)
+{
+	float x = dir.X;
+	float y = dir.Y;
+	float lengthHor = sqrt(x*x+y*y);
+
+	float lenghtVer = lengthHor/tan((viewObstractedCheckerDegree/360)*2.f*PI);
+
+	FVector v = FVector(x, y, -lenghtVer);
+	v.Normalize();
+	return v;
 }
 

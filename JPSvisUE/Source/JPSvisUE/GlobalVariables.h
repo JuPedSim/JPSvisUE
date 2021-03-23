@@ -10,8 +10,9 @@
 static const float scalingFactor = 10.0;
 static const float floorThigness = 1.0;
 static const float wallBigHeight = 10.0;
-static const float wallSmallHeight = 5.0;
+static const float wallSmallHeight = 1.0;
 static const float zeroVal = 0.001f;
+static const float viewObstractedCheckerDegree = 10;
 class JPSVISUE_API GlobalVariables
 {
 public:

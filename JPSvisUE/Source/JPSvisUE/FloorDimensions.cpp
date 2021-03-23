@@ -2,6 +2,7 @@
 
 
 #include "FloorDimensions.h"
+#include <sstream>
 
 FloorDimensions::FloorDimensions()
 {
@@ -41,4 +42,32 @@ FVector FloorDimensions::GetMaxXminY()
 FVector FloorDimensions::GetMaxXmaxY()
 {
 	return this->maxXmaxY;
+}
+
+bool FloorDimensions::checkCollision(FVector start, FVector v)
+{
+	FPlane plane = FPlane(this->minXminY, this->maxXminY, this->minXmaxY);
+
+	if (abs(v.Z) < 0.00001f)
+	{
+		return false;
+	}
+	FVector intersection = FMath::LinePlaneIntersection(start, start + v, this->minXminY, FVector(0, 0, 1));
+	float minX = this->minXminY.X;
+	float maxX = this->maxXmaxY.X;
+	float minY = this->minXminY.Y;
+	float maxY = this->maxXmaxY.Y;
+	float x = intersection.X;
+	float y = intersection.Y;
+
+	if (
+		x >= minX &&
+		x <= maxX &&
+		y >= minY &&
+		y <= maxY)
+	{
+		return true;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("haloo"));
+	return false;
 }

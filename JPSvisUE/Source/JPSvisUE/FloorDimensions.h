@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+#include "GlobalVariables.h"
 /**
  * 
  */
@@ -17,6 +17,7 @@ public:
 	FVector GetMinXmaxY();
 	FVector GetMaxXminY();
 	FVector GetMaxXmaxY();
+	bool checkCollision(FVector start,FVector v);
 private:
 	FVector minXminY;
 	FVector minXmaxY;

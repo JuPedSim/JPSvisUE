@@ -2,6 +2,7 @@
 
 
 #include "FloorStructure.h"
+#include <sstream>
 
 AFloorStructure::AFloorStructure()
 {
@@ -59,10 +60,10 @@ void AFloorStructure::InitWalls(vector<Line>* wallLines)
 
 void AFloorStructure::InitFloors(vector<Line>* wallLines)
 {
-	float minX = numeric_limits<float>::max();
-	float maxX = numeric_limits<float>::min();
-	float minY = numeric_limits<float>::max();
-	float maxY = numeric_limits<float>::min();
+	float minX = wallLines->at(0).GetPoint1().X;
+	float maxX = wallLines->at(0).GetPoint1().X;
+	float minY = wallLines->at(0).GetPoint1().Y;
+	float maxY = wallLines->at(0).GetPoint1().Y;
 	float height = wallLines->at(0).GetPoint1().Z;
 
 	for (Line line : *wallLines)
