@@ -22,7 +22,7 @@ class JPSVISUE_API AFloorStructure : public AActor
 public:
 	AFloorStructure();
 	~AFloorStructure();
-	void Init(vector<Line>* wallLines, float height);
+	void Init(vector<Line>* wallLines);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -38,9 +38,9 @@ private:
 	template <class T>
 	vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
 
-	void PositionFloors(vector<Line>* wallLines, float height);
+	void InitFloors(vector<Line>* wallLines);
 
-	void PositionWalls(vector<Line>* wallLines, float height);
+	void InitWalls(vector<Line>* wallLines);
 
 	vector<AFloor*>* floorSegments;
 

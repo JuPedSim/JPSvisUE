@@ -17,5 +17,5 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	bool variablesInitialized = false;
+	bool variablesInitialized = false;//todo maybe not used
 };

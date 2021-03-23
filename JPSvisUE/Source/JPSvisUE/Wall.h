@@ -9,6 +9,7 @@ using namespace std;
 #include "BuildingActor.h"
 #include "Line.h"
 #include "Floor.h"
+#include "GlobalVariables.h"
 #include "Wall.generated.h"
 
 
@@ -29,6 +30,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void InitVariables(Line line,vector<AFloor*>* connectedFloors);
+	void SetVisible();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
@@ -36,4 +38,11 @@ private:
 
 	vector<AFloor*>* connectedFloors;
 	Line wallLine;
+	void SetPosition();
+	void SetSmall();
+	void SetBig();
+
+	FVector scaleZsmallTransform;
+	FVector scaleZbigTransform;
+	
 };
