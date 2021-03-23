@@ -16,13 +16,14 @@ void ABuilding::BeginPlay()
 	Super::BeginPlay();
 
 	vector<Line>* lines = new vector<Line>();
-	lines->resize(6);
+	lines->resize(7);
 	lines->at(0) = Line(FVector(-10, -10, 0.f), FVector(-10, 70, 0.f));
 	lines->at(1) = Line(FVector(-10, 70, 0.f), FVector(30, 70, 0.f));
 	lines->at(2) = Line(FVector(30, 70, 0.f), FVector(30, 50, 0.f));
 	lines->at(3) = Line(FVector(30, 50, 0.f), FVector(60, 50, 0.f));
 	lines->at(4) = Line(FVector(60, 50, 0.f), FVector(60, -10, 0.f));
 	lines->at(5) = Line(FVector(60, -10, 0.f), FVector(-10, -10, 0.f));
+	lines->at(6) = Line(FVector(30, -10, 0.f), FVector(30, 20, 0.f));
 
 	floors = SpawnItems<AFloorStructure*>(1, floorStructureClass);
 	for (AFloorStructure* floor : *floors)
