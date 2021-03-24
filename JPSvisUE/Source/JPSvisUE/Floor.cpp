@@ -45,21 +45,23 @@ vector<FloorDimensions>* AFloor::GetDimensions()
 
 void AFloor::SetPosition()
 {
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
 	float minX = this->dimensions->at(0).GetMinXminY().X;
 	float maxX = this->dimensions->at(0).GetMaxXmaxY().X;
 	float minY = this->dimensions->at(0).GetMinXminY().Y;
 	float maxY = this->dimensions->at(0).GetMaxXmaxY().Y;
 	float height = this->dimensions->at(0).GetMinXminY().Z;
 	float objSize = 100;
-	float sizeX = (maxX - minX) * scalingFactor;
-	float sizeY = (maxY - minY) * scalingFactor;
-	float sizeZ = floorThigness * scalingFactor;
+	float sizeX = (maxX - minX) * settings->GetScalingFactor();
+	float sizeY = (maxY - minY) * settings->GetScalingFactor();
+	float sizeZ = settings->GetFloorThigness() * settings->GetScalingFactor();
 	float scaleX = sizeX / objSize;
 	float scaleY = sizeY / objSize;
 	float scaleZ = sizeZ / objSize;
-	float shiftX = (minX * scalingFactor) + (0.5 * sizeX);
-	float shiftY = (minY * scalingFactor) + (0.5 * sizeY);
-	float shiftZ = (height * scalingFactor) - sizeZ;
+	float shiftX = (minX * settings->GetScalingFactor()) + (0.5 * sizeX);
+	float shiftY = (minY * settings->GetScalingFactor()) + (0.5 * sizeY);
+	float shiftZ = (height * settings->GetScalingFactor()) - sizeZ;
 
 	FRotator rotation = FRotator(0.f);
 	FVector translation = FVector(shiftX, shiftY, shiftZ);

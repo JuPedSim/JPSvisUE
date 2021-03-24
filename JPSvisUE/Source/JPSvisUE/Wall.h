@@ -9,7 +9,7 @@ using namespace std;
 #include "BuildingActor.h"
 #include "Line.h"
 #include "Floor.h"
-#include "GlobalVariables.h"
+#include "GlobalSettings.h"
 #include "DrawDebugHelpers.h"
 #include "Wall.generated.h"
 
@@ -53,4 +53,8 @@ private:
 	FVector scaleZbigTransform;
 	
 	vector<FVector>* camCheckPoints;
+
+	void TickViewTypeDynamic();
+	void TickViewTypeSmall();
+	void TickViewTypeBig();
 };

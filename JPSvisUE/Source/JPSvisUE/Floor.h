@@ -7,7 +7,7 @@ using namespace std;
 #include "GameFramework/Actor.h"
 #include "BuildingActor.h"
 #include "FloorDimensions.h"
-#include "GlobalVariables.h"
+#include "GlobalSettings.h"
 #include "Floor.generated.h"
 
 UCLASS()
