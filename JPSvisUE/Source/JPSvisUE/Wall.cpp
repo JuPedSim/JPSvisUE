@@ -57,11 +57,6 @@ void AWall::Tick(float DeltaTime)
 					float lengthHor = abs(b);
 					float lengthVer = abs(dir.Z);
 					float obstractionDegree = (atan(lengthHor/ lengthVer)/(2.f*PI))*360.f;
-					/*std::stringstream ss;
-					ss << obstractionDegree << "°";
-					std::string str = ss.str();
-					FString layerName(str.c_str());
-					DrawDebugString(this->GetWorld(),v* scalingFactor+FVector(0,0,10), layerName,(AActor*)0,FColor(0,0,255,0),1000.f,false,1.0f);*/
 					if (obstractionDegree> allowedObstractionDegree)
 					{
 						renderSmall = true;
