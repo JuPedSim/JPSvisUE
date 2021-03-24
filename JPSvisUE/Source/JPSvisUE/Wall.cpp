@@ -27,51 +27,20 @@ void AWall::BeginPlay()
 void AWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
-	FVector camLocation = cam->GetCameraLocation()/ scalingFactor;
-	
 
-	
-	bool renderSmall = false;
-	for (FVector v : *this->camCheckPoints)
+	switch (GlobalSettings::GetInstance()->GetViewType())
 	{
-		FVector dir = v - camLocation;
-		dir.Normalize(); //todo could not normalize catch
-		FVector checkV = this->ComputeViewObstructedVector(dir);
-		/*DrawDebugLine(this->GetWorld(),v* scalingFactor,(v+checkV*10)* scalingFactor,FColor(255,0,0,0),false,1.0f,(uint8)'\000',5);
-		DrawDebugLine(this->GetWorld(), v * scalingFactor, (v + FVector(dir.X,dir.Y,0) * 10) * scalingFactor, FColor(0, 255, 0, 0), false, 1.0f, (uint8)'\000', 5);
-		*/
-		
-		for (AFloor* floor : *this->connectedFloors)
-		{
-			vector<FloorDimensions>* fD = floor->GetDimensions();
-			for (FloorDimensions &dim : *fD)
-			{
-				if (dim.checkCollision(v, checkV))
-				{
-					//in 2 dimesions
-					//dir = a*direction + b*normal
-					//b = (dirX-dirY*directionX)/(normalX*directionY + normalY*directionX)
-					//b = dir part in normal direction
-					float b = (dir.X - dir.Y * this->direction.X) / (this->normal.X * this->direction.Y + this->normal.Y * this->direction.X);
-					float lengthHor = abs(b);
-					float lengthVer = abs(dir.Z);
-					float obstractionDegree = (atan(lengthHor/ lengthVer)/(2.f*PI))*360.f;
-					if (obstractionDegree> allowedObstractionDegree)
-					{
-						renderSmall = true;
-					}
-				}
-			}
-		}
-	}
-	if (renderSmall)
-	{
-		this->SetSmall();
-	}
-	else
-	{
-		this->SetBig();
+	case LARGE_VIEW:
+		this->TickViewTypeBig();
+		break;
+	case SMALL_VIEW:
+		this->TickViewTypeSmall();
+		break;
+	case DYNAMIC_VIEW:
+		this->TickViewTypeDynamic();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -106,20 +75,22 @@ void AWall::SetPosition()
 	FVector vec = p2 - p1;
 	FVector mittle = p1 + (vec * 0.5f);
 
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
 	float length = sqrt((vec.X * vec.X) + (vec.Y * vec.Y));
 
 	float objSize = 100;
-	float sizeX = length * scalingFactor;
-	float sizeY = zeroVal;
-	float sizeZbig = wallBigHeight * scalingFactor;
-	float sizeZsmall = wallSmallHeight * scalingFactor;
+	float sizeX = length * settings->GetScalingFactor();
+	float sizeY = 0.00001f;
+	float sizeZbig = settings->GetWallBigHeight() * settings->GetScalingFactor();
+	float sizeZsmall = settings->GetWallSmallHeight() * settings->GetScalingFactor();
 	float scaleX = sizeX / objSize;
 	float scaleY = sizeY / objSize;
 	float scaleZbig = sizeZbig / objSize;
 	float scaleZsmall = sizeZsmall / objSize;
-	float shiftX = mittle.X * scalingFactor;
-	float shiftY = mittle.Y * scalingFactor;
-	float shiftZ = p1.Z * scalingFactor;
+	float shiftX = mittle.X * settings->GetScalingFactor();
+	float shiftY = mittle.Y * settings->GetScalingFactor();
+	float shiftZ = p1.Z * settings->GetScalingFactor();
 	float rot = ((atan2(vec.X, vec.Y) * 180) / PI) + 90.f;
 
 	FRotator rotation = FRotator(0.f, rot, 0.f);
@@ -133,10 +104,12 @@ void AWall::SetPosition()
 
 void AWall::SetCamCheckPoints()
 {
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
 	FVector p1 = this->wallLine.GetPoint1();
 	FVector p2 = this->wallLine.GetPoint2();
-	FVector p1u = FVector(p1.X, p1.Y, p1.Z + wallBigHeight);
-	FVector p2u = FVector(p2.X, p2.Y, p2.Z + wallBigHeight);
+	FVector p1u = FVector(p1.X, p1.Y, p1.Z + settings->GetWallBigHeight());
+	FVector p2u = FVector(p2.X, p2.Y, p2.Z + settings->GetWallBigHeight());
 	FVector pMu = p1u + 0.5 * (p2u - p1u);
 	this->camCheckPoints = new vector<FVector>();
 	this->camCheckPoints->resize(1);
@@ -163,14 +136,75 @@ void AWall::SetBig()
 
 FVector AWall::ComputeViewObstructedVector(FVector dir)
 {
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
 	float x = dir.X;
 	float y = dir.Y;
 	float lengthHor = sqrt(x*x+y*y);
 
-	float lenghtVer = lengthHor/tan((viewObstractedCheckerDegree/360)*2.f*PI);
+	float lenghtVer = lengthHor/tan((settings->GetViewObstractedCheckerDegree()/360)*2.f*PI);
 
 	FVector v = FVector(x, y, -lenghtVer);
 	v.Normalize();
 	return v;
+}
+
+void AWall::TickViewTypeDynamic()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
+	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
+	FVector camLocation = cam->GetCameraLocation() / settings->GetScalingFactor();
+	bool renderSmall = false;
+	for (FVector v : *this->camCheckPoints)
+	{
+		FVector dir = v - camLocation;
+		dir.Normalize(); //todo could not normalize catch
+		FVector checkV = this->ComputeViewObstructedVector(dir);
+		/*DrawDebugLine(this->GetWorld(),v* scalingFactor,(v+checkV*10)* scalingFactor,FColor(255,0,0,0),false,1.0f,(uint8)'\000',5);
+		DrawDebugLine(this->GetWorld(), v * scalingFactor, (v + FVector(dir.X,dir.Y,0) * 10) * scalingFactor, FColor(0, 255, 0, 0), false, 1.0f, (uint8)'\000', 5);
+		*/
+
+		for (AFloor* floor : *this->connectedFloors)
+		{
+			vector<FloorDimensions>* fD = floor->GetDimensions();
+			for (FloorDimensions& dim : *fD)
+			{
+				if (dim.checkCollision(v, checkV))
+				{
+					//in 2 dimesions
+					//dir = a*direction + b*normal
+					//b = (dirX-dirY*directionX)/(normalX*directionY + normalY*directionX)
+					//b = dir part in normal direction
+					float b = (dir.X - dir.Y * this->direction.X) / (this->normal.X * this->direction.Y + this->normal.Y * this->direction.X);
+					float lengthHor = abs(b);
+					float lengthVer = abs(dir.Z);
+					float obstractionDegree = (atan(lengthHor / lengthVer) / (2.f * PI)) * 360.f;
+					if (obstractionDegree > settings->GetAllowedObstractionDegree())
+					{
+						renderSmall = true;
+					}
+				}
+			}
+		}
+	}
+	if (renderSmall)
+	{
+		this->SetSmall();
+	}
+	else
+	{
+		this->SetBig();
+	}
+}
+
+void AWall::TickViewTypeSmall()
+{
+	this->SetSmall();
+}
+
+void AWall::TickViewTypeBig()
+{
+	this->SetBig();
 }
 
