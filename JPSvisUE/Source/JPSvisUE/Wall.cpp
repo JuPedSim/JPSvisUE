@@ -2,6 +2,7 @@
 
 
 #include "Wall.h"
+#include <sstream>
 
 // Sets default values
 AWall::AWall()
@@ -27,7 +28,7 @@ void AWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
-	FVector camLocation = cam->GetCameraLocation();
+	FVector camLocation = cam->GetCameraLocation()/ scalingFactor;
 	
 
 	
@@ -37,6 +38,10 @@ void AWall::Tick(float DeltaTime)
 		FVector dir = v - camLocation;
 		dir.Normalize(); //todo could not normalize catch
 		FVector checkV = this->ComputeViewObstructedVector(dir);
+		/*DrawDebugLine(this->GetWorld(),v* scalingFactor,(v+checkV*10)* scalingFactor,FColor(255,0,0,0),false,1.0f,(uint8)'\000',5);
+		DrawDebugLine(this->GetWorld(), v * scalingFactor, (v + FVector(dir.X,dir.Y,0) * 10) * scalingFactor, FColor(0, 255, 0, 0), false, 1.0f, (uint8)'\000', 5);
+		*/
+		
 		for (AFloor* floor : *this->connectedFloors)
 		{
 			vector<FloorDimensions>* fD = floor->GetDimensions();
@@ -52,6 +57,11 @@ void AWall::Tick(float DeltaTime)
 					float lengthHor = abs(b);
 					float lengthVer = abs(dir.Z);
 					float obstractionDegree = (atan(lengthHor/ lengthVer)/(2.f*PI))*360.f;
+					/*std::stringstream ss;
+					ss << obstractionDegree << "°";
+					std::string str = ss.str();
+					FString layerName(str.c_str());
+					DrawDebugString(this->GetWorld(),v* scalingFactor+FVector(0,0,10), layerName,(AActor*)0,FColor(0,0,255,0),1000.f,false,1.0f);*/
 					if (obstractionDegree> allowedObstractionDegree)
 					{
 						renderSmall = true;
