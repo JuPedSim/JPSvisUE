@@ -10,6 +10,7 @@ using namespace std;
 #include "Line.h"
 #include "Floor.h"
 #include "GlobalVariables.h"
+#include "DrawDebugHelpers.h"
 #include "Wall.generated.h"
 
 
