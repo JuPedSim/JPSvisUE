@@ -13,6 +13,7 @@ GlobalSettings::GlobalSettings()
 	this->wallSmallHeight = 1.0;
 	this->viewObstractedCheckerDegree = 10;
 	this->allowedObstractionDegree = 20;
+	this->wallScaleChangeSpeed = 4;
 	this->viewType = DYNAMIC_VIEW;
 }
 
@@ -51,6 +52,10 @@ float GlobalSettings::GetAllowedObstractionDegree()
 ViewType GlobalSettings::GetViewType()
 {
 	return this->viewType;
+}
+float GlobalSettings::GetWallScaleChangeSpeed()
+{
+	return this->wallScaleChangeSpeed;
 }
 void GlobalSettings::SetViewType(ViewType vType)
 {

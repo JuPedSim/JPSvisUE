@@ -13,8 +13,10 @@ AWall::AWall()
 	wallMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	SetRootComponent(wallMesh);
 
-	this->scaleZsmallTransform = FVector(0.f);
-	this->scaleZbigTransform = FVector(0.f);
+	this->scaleX = 0;
+	this->scaleY = 0;
+	this->scaleZbig = 0;
+	this->scaleZsmall = 0;
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +39,7 @@ void AWall::Tick(float DeltaTime)
 		this->TickViewTypeSmall();
 		break;
 	case DYNAMIC_VIEW:
-		this->TickViewTypeDynamic();
+		this->TickViewTypeDynamic(DeltaTime);
 		break;
 	default:
 		break;
@@ -84,10 +86,10 @@ void AWall::SetPosition()
 	float sizeY = 0.00001f;
 	float sizeZbig = settings->GetWallBigHeight() * settings->GetScalingFactor();
 	float sizeZsmall = settings->GetWallSmallHeight() * settings->GetScalingFactor();
-	float scaleX = sizeX / objSize;
-	float scaleY = sizeY / objSize;
-	float scaleZbig = sizeZbig / objSize;
-	float scaleZsmall = sizeZsmall / objSize;
+	this->scaleX = sizeX / objSize;
+	this->scaleY = sizeY / objSize;
+	this->scaleZbig = sizeZbig / objSize;
+	this->scaleZsmall = sizeZsmall / objSize;
 	float shiftX = mittle.X * settings->GetScalingFactor();
 	float shiftY = mittle.Y * settings->GetScalingFactor();
 	float shiftZ = p1.Z * settings->GetScalingFactor();
@@ -95,11 +97,9 @@ void AWall::SetPosition()
 
 	FRotator rotation = FRotator(0.f, rot, 0.f);
 	FVector translation = FVector(shiftX, shiftY, shiftZ);
-	this->scaleZbigTransform = FVector(scaleX, scaleY, scaleZbig);
-	this->scaleZsmallTransform = FVector(scaleX, scaleY, scaleZsmall);
-	FTransform transform = FTransform(rotation, translation, this->scaleZbigTransform);
+	FTransform transform = FTransform(rotation, translation, FVector(this->scaleX,this->scaleY,this->scaleZbig));
 	this->SetActorTransform(transform);
-	this->isBig = true;
+	this->scaleFactor = 1;
 }
 
 void AWall::SetCamCheckPoints()
@@ -116,22 +116,50 @@ void AWall::SetCamCheckPoints()
 	this->camCheckPoints->at(0) = pMu;
 }
 
-void AWall::SetSmall()
+void AWall::SetSmall(float DeltaTime)
 {
-	if (this->isBig)
+	if (this->scaleFactor>0)
 	{
-		this->SetActorScale3D(this->scaleZsmallTransform);
+		GlobalSettings* settings = GlobalSettings::GetInstance();
+		
+		float sZ;
+		if (DeltaTime==-1) 
+		{
+			sZ = this->scaleZsmall;
+			this->scaleFactor = 0;
+		}
+		else
+		{
+			float change = -DeltaTime * settings->GetWallScaleChangeSpeed();
+			this->scaleFactor = max(change + this->scaleFactor,0.f);
+			float range = this->scaleZbig - this->scaleZsmall;
+			sZ= this->scaleZsmall + this->scaleFactor * range;
+		}
+		this->SetActorScale3D(FVector(this->scaleX,this->scaleY,sZ));
 	}
-	this->isBig = false;
 }
 
-void AWall::SetBig()
+void AWall::SetBig(float DeltaTime)
 {
-	if (!this->isBig)
+	if (this->scaleFactor<1)
 	{
-		this->SetActorScale3D(this->scaleZbigTransform);
+		GlobalSettings* settings = GlobalSettings::GetInstance();
+
+		float sZ;
+		if (DeltaTime == -1)
+		{
+			sZ = this->scaleZbig;
+			this->scaleFactor = 1;
+		}
+		else
+		{
+			float change = DeltaTime * settings->GetWallScaleChangeSpeed();
+			this->scaleFactor = min(change + this->scaleFactor, 1.f);
+			float range = this->scaleZbig - this->scaleZsmall;
+			sZ = this->scaleZsmall + this->scaleFactor * range;
+		}
+		this->SetActorScale3D(FVector(this->scaleX, this->scaleY, sZ));
 	}
-	this->isBig = true;
 }
 
 FVector AWall::ComputeViewObstructedVector(FVector dir)
@@ -149,7 +177,7 @@ FVector AWall::ComputeViewObstructedVector(FVector dir)
 	return v;
 }
 
-void AWall::TickViewTypeDynamic()
+void AWall::TickViewTypeDynamic(float DeltaTime)
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
@@ -190,21 +218,21 @@ void AWall::TickViewTypeDynamic()
 	}
 	if (renderSmall)
 	{
-		this->SetSmall();
+		this->SetSmall(DeltaTime);
 	}
 	else
 	{
-		this->SetBig();
+		this->SetBig(DeltaTime);
 	}
 }
 
 void AWall::TickViewTypeSmall()
 {
-	this->SetSmall();
+	this->SetSmall(-1);
 }
 
 void AWall::TickViewTypeBig()
 {
-	this->SetBig();
+	this->SetBig(-1);
 }
 

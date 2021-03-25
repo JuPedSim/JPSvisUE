@@ -41,20 +41,22 @@ private:
 	Line wallLine;
 	void SetPosition();
 	void SetCamCheckPoints();
-	void SetSmall();
-	void SetBig();
+	void SetSmall(float DeltaTime);
+	void SetBig(float DeltaTime);
 	FVector ComputeViewObstructedVector(FVector dir);
 	FVector2D normal;
 	FVector2D direction;
 
-	bool isBig;
+	float scaleFactor;
 
-	FVector scaleZsmallTransform;
-	FVector scaleZbigTransform;
+	float scaleX;
+	float scaleY;
+	float scaleZbig;
+	float scaleZsmall;
 	
 	vector<FVector>* camCheckPoints;
 
-	void TickViewTypeDynamic();
+	void TickViewTypeDynamic(float DeltaTime);
 	void TickViewTypeSmall();
 	void TickViewTypeBig();
 };
