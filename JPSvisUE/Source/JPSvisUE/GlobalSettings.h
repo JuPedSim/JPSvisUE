@@ -25,6 +25,8 @@ private:
 	float wallSmallHeight;
 	float viewObstractedCheckerDegree;
 	float allowedObstractionDegree;
+	//fraction per second
+	float wallScaleChangeSpeed; 
 	ViewType viewType;
 
 public:
@@ -35,7 +37,8 @@ public:
 	inline float GetWallSmallHeight();
 	inline float GetViewObstractedCheckerDegree();
 	inline float GetAllowedObstractionDegree();
-	ViewType GetViewType();
+	inline float GetWallScaleChangeSpeed();
+	inline ViewType GetViewType();
 	//Setter
 	void SetViewType(ViewType viewType);
 };
