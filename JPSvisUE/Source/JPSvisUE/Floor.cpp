@@ -9,8 +9,8 @@ AFloor::AFloor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	floorMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	SetRootComponent(floorMesh);
+	m_floorMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
+	SetRootComponent(m_floorMesh);
 }
 
 // Called when the game starts or when spawned
@@ -25,33 +25,33 @@ void AFloor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AFloor::InitVariables(vector<FloorDimensions>* dims)
+void AFloor::InitVariables(std::vector<FloorDimensions>* dims)
 {
-	dimensions = dims;
-	this->SetPosition();
+	m_dimensions = dims;
+	SetPosition();
 	//last operation
-	variablesInitialized = true;
+	m_variablesInitialized = true;
 }
 
 void AFloor::SetVisible()
 {
-	this->SetActorHiddenInGame(false);
+	SetActorHiddenInGame(false);
 }
 
-vector<FloorDimensions>* AFloor::GetDimensions()
+std::vector<FloorDimensions>* AFloor::GetDimensions()
 {
-	return dimensions;
+	return m_dimensions;
 }
 
 void AFloor::SetPosition()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
-	float minX = this->dimensions->at(0).GetMinXminY().X;
-	float maxX = this->dimensions->at(0).GetMaxXmaxY().X;
-	float minY = this->dimensions->at(0).GetMinXminY().Y;
-	float maxY = this->dimensions->at(0).GetMaxXmaxY().Y;
-	float height = this->dimensions->at(0).GetMinXminY().Z;
+	float minX = m_dimensions->at(0).GetMinXminY().X;
+	float maxX = m_dimensions->at(0).GetMaxXmaxY().X;
+	float minY = m_dimensions->at(0).GetMinXminY().Y;
+	float maxY = m_dimensions->at(0).GetMaxXmaxY().Y;
+	float height = m_dimensions->at(0).GetMinXminY().Z;
 	float objSize = 100;
 	float sizeX = (maxX - minX) * settings->GetScalingFactor();
 	float sizeY = (maxY - minY) * settings->GetScalingFactor();
@@ -67,6 +67,6 @@ void AFloor::SetPosition()
 	FVector translation = FVector(shiftX, shiftY, shiftZ);
 	FVector scaleing = FVector(scaleX, scaleY, scaleZ);
 	FTransform transform = FTransform(rotation, translation, scaleing);
-	this->SetActorTransform(transform);
+	SetActorTransform(transform);
 }
 

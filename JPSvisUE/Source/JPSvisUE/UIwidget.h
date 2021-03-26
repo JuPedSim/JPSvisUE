@@ -20,13 +20,13 @@ class JPSVISUE_API UUIwidget : public UUserWidget
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-		UComboBoxString* viewTypeComboBox;
+		UComboBoxString* m_viewTypeComboBox;
 	UPROPERTY(meta = (BindWidget))
-		UButton* viewTypeButtonLarge;
+		UButton* m_viewTypeButtonLarge;
 	UPROPERTY(meta = (BindWidget))
-		UButton* viewTypeButtonSmall;
+		UButton* m_viewTypeButtonSmall;
 	UPROPERTY(meta = (BindWidget))
-		UButton* viewTypeButtonDynamic;
+		UButton* m_viewTypeButtonDynamic;
 
 	UFUNCTION()
 	void SetViewType();

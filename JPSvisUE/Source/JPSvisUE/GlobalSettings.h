@@ -16,18 +16,18 @@ public:
 	static GlobalSettings* GetInstance();
 private:
 	GlobalSettings();
-	static GlobalSettings* instance;
+	static GlobalSettings* m_instance;
 	
 	//Settings
-	float scalingFactor;
-	float floorThigness;
-	float wallBigHeight;
-	float wallSmallHeight;
-	float viewObstractedCheckerDegree;
-	float allowedObstractionDegree;
+	float m_scalingFactor;
+	float m_floorThigness;
+	float m_wallBigHeight;
+	float m_wallSmallHeight;
+	float m_viewObstractedCheckerDegree;
+	float m_allowedObstractionDegree;
 	//fraction per second
-	float wallScaleChangeSpeed; 
-	ViewType viewType;
+	float m_wallScaleChangeSpeed;
+	ViewType m_viewType;
 
 public:
 	//Getter

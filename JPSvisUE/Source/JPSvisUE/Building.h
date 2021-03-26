@@ -1,7 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
-using namespace std;
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -32,11 +30,11 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> floorStructureClass;
+	TSubclassOf<AActor> m_floorStructureClass;
 
 	AActor* SpawnItem(UClass* item);
 	template <class T>
-	vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
+	std::vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
 
-	vector<AFloorStructure*>* floors;
+	std::vector<AFloorStructure*>* m_floors;
 };

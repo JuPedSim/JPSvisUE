@@ -10,53 +10,53 @@ FloorDimensions::FloorDimensions()
 
 FloorDimensions::FloorDimensions(FVector minXminY, FVector minXmaxY, FVector maxXminY, FVector maxXmaxY)
 {
-	this->minXminY = minXminY;
-	this->minXmaxY = minXmaxY;
-	this->maxXminY = maxXminY;
-	this->maxXmaxY = maxXmaxY;
+	m_minXminY = minXminY;
+	m_minXmaxY = minXmaxY;
+	m_maxXminY = maxXminY;
+	m_maxXmaxY = maxXmaxY;
 }
 
 FloorDimensions::~FloorDimensions()
 {
-	this->minXminY = FVector(0.f);
-	this->minXmaxY = FVector(0.f);
-	this->maxXminY = FVector(0.f);
-	this->maxXmaxY = FVector(0.f);
+	m_minXminY = FVector(0.f);
+	m_minXmaxY = FVector(0.f);
+	m_maxXminY = FVector(0.f);
+	m_maxXmaxY = FVector(0.f);
 }
 
 FVector FloorDimensions::GetMinXminY()
 {
-	return this->minXminY;
+	return m_minXminY;
 }
 
 FVector FloorDimensions::GetMinXmaxY()
 {
-	return this->minXmaxY;
+	return m_minXmaxY;
 }
 
 FVector FloorDimensions::GetMaxXminY()
 {
-	return this->maxXminY;
+	return m_maxXminY;
 }
 
 FVector FloorDimensions::GetMaxXmaxY()
 {
-	return this->maxXmaxY;
+	return m_maxXmaxY;
 }
 
 bool FloorDimensions::checkCollision(FVector start, FVector v)
 {
-	FPlane plane = FPlane(this->minXminY, this->maxXminY, this->minXmaxY);
+	FPlane plane = FPlane(m_minXminY, m_maxXminY, m_minXmaxY);
 
 	if (abs(v.Z) < 0.00001f)
 	{
 		return false;
 	}
-	FVector intersection = FMath::LinePlaneIntersection(start, start + v, this->minXminY, FVector(0, 0, 1));
-	float minX = this->minXminY.X;
-	float maxX = this->maxXmaxY.X;
-	float minY = this->minXminY.Y;
-	float maxY = this->maxXmaxY.Y;
+	FVector intersection = FMath::LinePlaneIntersection(start, start + v, m_minXminY, FVector(0, 0, 1));
+	float minX = m_minXminY.X;
+	float maxX = m_maxXmaxY.X;
+	float minY = m_minXminY.Y;
+	float maxY = m_maxXmaxY.Y;
 	float x = intersection.X;
 	float y = intersection.Y;
 

@@ -10,13 +10,13 @@ AWall::AWall()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	wallMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	SetRootComponent(wallMesh);
+	m_wallMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
+	SetRootComponent(m_wallMesh);
 
-	this->scaleX = 0;
-	this->scaleY = 0;
-	this->scaleZbig = 0;
-	this->scaleZsmall = 0;
+	m_scaleX = 0;
+	m_scaleY = 0;
+	m_scaleZbig = 0;
+	m_scaleZsmall = 0;
 }
 
 // Called when the game starts or when spawned
@@ -33,47 +33,47 @@ void AWall::Tick(float DeltaTime)
 	switch (GlobalSettings::GetInstance()->GetViewType())
 	{
 	case LARGE_VIEW:
-		this->TickViewTypeBig();
+		TickViewTypeBig();
 		break;
 	case SMALL_VIEW:
-		this->TickViewTypeSmall();
+		TickViewTypeSmall();
 		break;
 	case DYNAMIC_VIEW:
-		this->TickViewTypeDynamic(DeltaTime);
+		TickViewTypeDynamic(DeltaTime);
 		break;
 	default:
 		break;
 	}
 }
 
-void AWall::InitVariables(Line line, vector<AFloor*>* floors)
+void AWall::InitVariables(Line line, std::vector<AFloor*>* floors)
 {
 	FVector temp = line.GetPoint2() - line.GetPoint1();
-	this->direction = FVector2D(temp.X, temp.Y);
-	this->normal = FVector2D(temp.Y,-temp.X);
-	this->direction.Normalize();
-	this->normal.Normalize();
-	this->wallLine = line;
-	this->connectedFloors = floors;
+	m_direction = FVector2D(temp.X, temp.Y);
+	m_normal = FVector2D(temp.Y,-temp.X);
+	m_direction.Normalize();
+	m_normal.Normalize();
+	m_wallLine = line;
+	m_connectedFloors = floors;
 
-	this->SetCamCheckPoints();
-	this->SetPosition();
+	SetCamCheckPoints();
+	SetPosition();
 
 
 
 	//last operation
-	variablesInitialized = true;//todo maybe not used
+	m_variablesInitialized = true;//todo maybe not used
 }
 
 void AWall::SetVisible()
 {
-	this->SetActorHiddenInGame(false);
+	SetActorHiddenInGame(false);
 }
 
 void AWall::SetPosition()
 {
-	FVector p1 = this->wallLine.GetPoint1();
-	FVector p2 = this->wallLine.GetPoint2();
+	FVector p1 = m_wallLine.GetPoint1();
+	FVector p2 = m_wallLine.GetPoint2();
 	FVector vec = p2 - p1;
 	FVector mittle = p1 + (vec * 0.5f);
 
@@ -86,10 +86,10 @@ void AWall::SetPosition()
 	float sizeY = 0.00001f;
 	float sizeZbig = settings->GetWallBigHeight() * settings->GetScalingFactor();
 	float sizeZsmall = settings->GetWallSmallHeight() * settings->GetScalingFactor();
-	this->scaleX = sizeX / objSize;
-	this->scaleY = sizeY / objSize;
-	this->scaleZbig = sizeZbig / objSize;
-	this->scaleZsmall = sizeZsmall / objSize;
+	m_scaleX = sizeX / objSize;
+	m_scaleY = sizeY / objSize;
+	m_scaleZbig = sizeZbig / objSize;
+	m_scaleZsmall = sizeZsmall / objSize;
 	float shiftX = mittle.X * settings->GetScalingFactor();
 	float shiftY = mittle.Y * settings->GetScalingFactor();
 	float shiftZ = p1.Z * settings->GetScalingFactor();
@@ -97,68 +97,68 @@ void AWall::SetPosition()
 
 	FRotator rotation = FRotator(0.f, rot, 0.f);
 	FVector translation = FVector(shiftX, shiftY, shiftZ);
-	FTransform transform = FTransform(rotation, translation, FVector(this->scaleX,this->scaleY,this->scaleZbig));
-	this->SetActorTransform(transform);
-	this->scaleFactor = 1;
+	FTransform transform = FTransform(rotation, translation, FVector(m_scaleX, m_scaleY, m_scaleZbig));
+	SetActorTransform(transform);
+	m_scaleFactor = 1;
 }
 
 void AWall::SetCamCheckPoints()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
-	FVector p1 = this->wallLine.GetPoint1();
-	FVector p2 = this->wallLine.GetPoint2();
+	FVector p1 = m_wallLine.GetPoint1();
+	FVector p2 = m_wallLine.GetPoint2();
 	FVector p1u = FVector(p1.X, p1.Y, p1.Z + settings->GetWallBigHeight());
 	FVector p2u = FVector(p2.X, p2.Y, p2.Z + settings->GetWallBigHeight());
 	FVector pMu = p1u + 0.5 * (p2u - p1u);
-	this->camCheckPoints = new vector<FVector>();
-	this->camCheckPoints->resize(1);
-	this->camCheckPoints->at(0) = pMu;
+	m_camCheckPoints = new std::vector<FVector>();
+	m_camCheckPoints->resize(1);
+	m_camCheckPoints->at(0) = pMu;
 }
 
 void AWall::SetSmall(float DeltaTime)
 {
-	if (this->scaleFactor>0)
+	if (m_scaleFactor>0)
 	{
 		GlobalSettings* settings = GlobalSettings::GetInstance();
 		
 		float sZ;
 		if (DeltaTime==-1) 
 		{
-			sZ = this->scaleZsmall;
-			this->scaleFactor = 0;
+			sZ = m_scaleZsmall;
+			m_scaleFactor = 0;
 		}
 		else
 		{
 			float change = -DeltaTime * settings->GetWallScaleChangeSpeed();
-			this->scaleFactor = max(change + this->scaleFactor,0.f);
-			float range = this->scaleZbig - this->scaleZsmall;
-			sZ= this->scaleZsmall + this->scaleFactor * range;
+			m_scaleFactor = std::max(change + m_scaleFactor,0.f);
+			float range = m_scaleZbig - m_scaleZsmall;
+			sZ= m_scaleZsmall + m_scaleFactor * range;
 		}
-		this->SetActorScale3D(FVector(this->scaleX,this->scaleY,sZ));
+		SetActorScale3D(FVector(m_scaleX, m_scaleY,sZ));
 	}
 }
 
 void AWall::SetBig(float DeltaTime)
 {
-	if (this->scaleFactor<1)
+	if (m_scaleFactor<1)
 	{
 		GlobalSettings* settings = GlobalSettings::GetInstance();
 
 		float sZ;
 		if (DeltaTime == -1)
 		{
-			sZ = this->scaleZbig;
-			this->scaleFactor = 1;
+			sZ = m_scaleZbig;
+			m_scaleFactor = 1;
 		}
 		else
 		{
 			float change = DeltaTime * settings->GetWallScaleChangeSpeed();
-			this->scaleFactor = min(change + this->scaleFactor, 1.f);
-			float range = this->scaleZbig - this->scaleZsmall;
-			sZ = this->scaleZsmall + this->scaleFactor * range;
+			m_scaleFactor = std::min(change + m_scaleFactor, 1.f);
+			float range = m_scaleZbig - m_scaleZsmall;
+			sZ = m_scaleZsmall + m_scaleFactor * range;
 		}
-		this->SetActorScale3D(FVector(this->scaleX, this->scaleY, sZ));
+		this->SetActorScale3D(FVector(m_scaleX, m_scaleY, sZ));
 	}
 }
 
@@ -184,18 +184,18 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
 	FVector camLocation = cam->GetCameraLocation() / settings->GetScalingFactor();
 	bool renderSmall = false;
-	for (FVector v : *this->camCheckPoints)
+	for (FVector v : *m_camCheckPoints)
 	{
 		FVector dir = v - camLocation;
 		dir.Normalize(); //todo could not normalize catch
-		FVector checkV = this->ComputeViewObstructedVector(dir);
+		FVector checkV = ComputeViewObstructedVector(dir);
 		/*DrawDebugLine(this->GetWorld(),v* scalingFactor,(v+checkV*10)* scalingFactor,FColor(255,0,0,0),false,1.0f,(uint8)'\000',5);
 		DrawDebugLine(this->GetWorld(), v * scalingFactor, (v + FVector(dir.X,dir.Y,0) * 10) * scalingFactor, FColor(0, 255, 0, 0), false, 1.0f, (uint8)'\000', 5);
 		*/
 
-		for (AFloor* floor : *this->connectedFloors)
+		for (AFloor* floor : *m_connectedFloors)
 		{
-			vector<FloorDimensions>* fD = floor->GetDimensions();
+			std::vector<FloorDimensions>* fD = floor->GetDimensions();
 			for (FloorDimensions& dim : *fD)
 			{
 				if (dim.checkCollision(v, checkV))
@@ -204,7 +204,7 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 					//dir = a*direction + b*normal
 					//b = (dirX-dirY*directionX)/(normalX*directionY + normalY*directionX)
 					//b = dir part in normal direction
-					float b = (dir.X - dir.Y * this->direction.X) / (this->normal.X * this->direction.Y + this->normal.Y * this->direction.X);
+					float b = (dir.X - dir.Y * m_direction.X) / (m_normal.X * m_direction.Y + m_normal.Y * m_direction.X);
 					float lengthHor = abs(b);
 					float lengthVer = abs(dir.Z);
 					float obstractionDegree = (atan(lengthHor / lengthVer) / (2.f * PI)) * 360.f;
@@ -218,21 +218,21 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 	}
 	if (renderSmall)
 	{
-		this->SetSmall(DeltaTime);
+		SetSmall(DeltaTime);
 	}
 	else
 	{
-		this->SetBig(DeltaTime);
+		SetBig(DeltaTime);
 	}
 }
 
 void AWall::TickViewTypeSmall()
 {
-	this->SetSmall(-1);
+	SetSmall(-1);
 }
 
 void AWall::TickViewTypeBig()
 {
-	this->SetBig(-1);
+	SetBig(-1);
 }
 
