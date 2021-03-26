@@ -1,6 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-using namespace std;
-
 #pragma once
 
 #include <vector>
@@ -30,31 +28,31 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(Line line,vector<AFloor*>* connectedFloors);
+	void InitVariables(Line line, std::vector<AFloor*>* connectedFloors);
 	void SetVisible();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* wallMesh;
+	UStaticMeshComponent* m_wallMesh;
 
-	vector<AFloor*>* connectedFloors;
-	Line wallLine;
+	std::vector<AFloor*>* m_connectedFloors;
+	Line m_wallLine;
 	void SetPosition();
 	void SetCamCheckPoints();
 	void SetSmall(float DeltaTime);
 	void SetBig(float DeltaTime);
 	FVector ComputeViewObstructedVector(FVector dir);
-	FVector2D normal;
-	FVector2D direction;
+	FVector2D m_normal;
+	FVector2D m_direction;
 
-	float scaleFactor;
+	float m_scaleFactor;
 
-	float scaleX;
-	float scaleY;
-	float scaleZbig;
-	float scaleZsmall;
+	float m_scaleX;
+	float m_scaleY;
+	float m_scaleZbig;
+	float m_scaleZsmall;
 	
-	vector<FVector>* camCheckPoints;
+	std::vector<FVector>* m_camCheckPoints;
 
 	void TickViewTypeDynamic(float DeltaTime);
 	void TickViewTypeSmall();

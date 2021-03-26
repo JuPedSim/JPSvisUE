@@ -13,13 +13,13 @@ AFloorStructure::~AFloorStructure()
 {
 }
 
-void AFloorStructure::Init(vector<Line>* wallLines)
+void AFloorStructure::Init(std::vector<Line>* wallLines)
 {
 	//floors must be computed before Walls
-	floorSegments = SpawnItems<AFloor*>(1, floorClass);
+	m_floorSegments = SpawnItems<AFloor*>(1, m_floorClass);
 	InitFloors(wallLines);
 	//walls must be computed after floors
-	wallSegments = SpawnItems<AWall*>(wallLines->size(), wallClass);
+	m_wallSegments = SpawnItems<AWall*>(wallLines->size(), m_wallClass);
 	InitWalls(wallLines);
 }
 
@@ -35,9 +35,9 @@ AActor* AFloorStructure::SpawnItem(UClass* item)
 
 
 template <class T>
-vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass)
+std::vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass)
 {
-	vector<T>* vec = new vector<T>;
+	std::vector<T>* vec = new std::vector<T>;
 	vec->resize(count);
 	for (int i = 0; i < count; i++)
 	{
@@ -46,19 +46,19 @@ vector<T>* AFloorStructure::SpawnItems(int count, TSubclassOf<AActor> actorClass
 	return vec;
 }
 
-void AFloorStructure::InitWalls(vector<Line>* wallLines)
+void AFloorStructure::InitWalls(std::vector<Line>* wallLines)
 {
 	for (int i = 0; i < wallLines->size(); i++)
 	{
-		wallSegments->at(i)->InitVariables(wallLines->at(i), floorSegments);
+		m_wallSegments->at(i)->InitVariables(wallLines->at(i), m_floorSegments);
 	}
-	for (AWall* wall : *wallSegments)
+	for (AWall* wall : *m_wallSegments)
 	{
 		wall->SetVisible();
 	}
 }
 
-void AFloorStructure::InitFloors(vector<Line>* wallLines)
+void AFloorStructure::InitFloors(std::vector<Line>* wallLines)
 {
 	float minX = wallLines->at(0).GetPoint1().X;
 	float maxX = wallLines->at(0).GetPoint1().X;
@@ -71,27 +71,27 @@ void AFloorStructure::InitFloors(vector<Line>* wallLines)
 		FVector p1 = line.GetPoint1();
 		FVector p2 = line.GetPoint2();
 
-		minX = min(minX, p1.X);
-		minX = min(minX, p2.X);
+		minX = std::min(minX, p1.X);
+		minX = std::min(minX, p2.X);
 
-		minY = min(minY, p1.Y);
-		minY = min(minY, p2.Y);
+		minY = std::min(minY, p1.Y);
+		minY = std::min(minY, p2.Y);
 
-		maxX = max(maxX, p1.X);
-		maxX = max(maxX, p2.X);
+		maxX = std::max(maxX, p1.X);
+		maxX = std::max(maxX, p2.X);
 
-		maxY = max(maxY, p1.Y);
-		maxY = max(maxY, p2.Y);
+		maxY = std::max(maxY, p1.Y);
+		maxY = std::max(maxY, p2.Y);
 	}
 
-	for (AFloor* floor : *floorSegments)
+	for (AFloor* floor : *m_floorSegments)
 	{
-		vector<FloorDimensions>* vec = new vector<FloorDimensions>();
+		std::vector<FloorDimensions>* vec = new std::vector<FloorDimensions>();
 		vec->resize(1);
 		vec->at(0) = FloorDimensions(FVector(minX,minY,height), FVector(minX, maxY, height), FVector(maxX, minY, height), FVector(maxX, maxY, height));
 		floor->InitVariables(vec);
 	}
-	for (AFloor* floor : *floorSegments)
+	for (AFloor* floor : *m_floorSegments)
 	{
 		floor->SetVisible();
 	}

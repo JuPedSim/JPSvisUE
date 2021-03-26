@@ -3,61 +3,61 @@
 
 #include "GlobalSettings.h"
 
-GlobalSettings* GlobalSettings::instance = NULL;
+GlobalSettings* GlobalSettings::m_instance = NULL;
 
 GlobalSettings::GlobalSettings()
 {
-	this->scalingFactor = 10.0;
-	this->floorThigness = 1.0;
-	this->wallBigHeight = 10.0;
-	this->wallSmallHeight = 1.0;
-	this->viewObstractedCheckerDegree = 10;
-	this->allowedObstractionDegree = 20;
-	this->wallScaleChangeSpeed = 4;
-	this->viewType = DYNAMIC_VIEW;
+	m_scalingFactor = 10.0;
+	m_floorThigness = 1.0;
+	m_wallBigHeight = 10.0;
+	m_wallSmallHeight = 1.0;
+	m_viewObstractedCheckerDegree = 10;
+	m_allowedObstractionDegree = 20;
+	m_wallScaleChangeSpeed = 4;
+	m_viewType = DYNAMIC_VIEW;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
 {
-	if (instance == NULL) {
-		instance = new GlobalSettings();
+	if (m_instance == NULL) {
+		m_instance = new GlobalSettings();
 	}
-	return instance;
+	return m_instance;
 }
 
 float GlobalSettings::GetScalingFactor()
 {
-	return this->scalingFactor;
+	return m_scalingFactor;
 }
 float GlobalSettings::GetFloorThigness()
 {
-	return this->floorThigness;
+	return m_floorThigness;
 }
 float GlobalSettings::GetWallBigHeight()
 {
-	return this->wallBigHeight;
+	return m_wallBigHeight;
 }
 float GlobalSettings::GetWallSmallHeight()
 {
-	return this->wallSmallHeight;
+	return m_wallSmallHeight;
 }
 float GlobalSettings::GetViewObstractedCheckerDegree()
 {
-	return this->viewObstractedCheckerDegree;
+	return m_viewObstractedCheckerDegree;
 }
 float GlobalSettings::GetAllowedObstractionDegree()
 {
-	return this->allowedObstractionDegree;
+	return m_allowedObstractionDegree;
 }
 ViewType GlobalSettings::GetViewType()
 {
-	return this->viewType;
+	return m_viewType;
 }
 float GlobalSettings::GetWallScaleChangeSpeed()
 {
-	return this->wallScaleChangeSpeed;
+	return m_wallScaleChangeSpeed;
 }
 void GlobalSettings::SetViewType(ViewType vType)
 {
-	this->viewType = vType;
+	m_viewType = vType;
 }

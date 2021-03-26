@@ -19,8 +19,8 @@ public:
 	FVector GetMaxXmaxY();
 	bool checkCollision(FVector start,FVector v);
 private:
-	FVector minXminY;
-	FVector minXmaxY;
-	FVector maxXminY;
-	FVector maxXmaxY;
+	FVector m_minXminY;
+	FVector m_minXmaxY;
+	FVector m_maxXminY;
+	FVector m_maxXmaxY;
 };

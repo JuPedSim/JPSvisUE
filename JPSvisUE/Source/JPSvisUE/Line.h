@@ -14,8 +14,8 @@ public:
 	Line(FVector p1,FVector p2);
 	~Line();
 private:
-	FVector point1;
-	FVector point2;
+	FVector m_point1;
+	FVector m_point2;
 public:
 	FVector GetPoint1();
 	FVector GetPoint2();

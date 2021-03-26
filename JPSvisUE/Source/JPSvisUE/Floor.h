@@ -1,5 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-using namespace std;
 #pragma once
 
 #include <vector>
@@ -26,15 +25,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(vector<FloorDimensions>* dims);
+	void InitVariables(std::vector<FloorDimensions>* dims);
 	void SetVisible();
 
-	vector<FloorDimensions>* GetDimensions();
+	std::vector<FloorDimensions>* GetDimensions();
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* floorMesh;
+	UStaticMeshComponent* m_floorMesh;
 
-	vector<FloorDimensions>* dimensions;
+	std::vector<FloorDimensions>* m_dimensions;
 
 	void SetPosition();
 };

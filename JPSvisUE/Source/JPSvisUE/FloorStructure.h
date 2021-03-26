@@ -1,5 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-using namespace std;
 #pragma once
 
 #include "CoreMinimal.h"
@@ -22,28 +21,28 @@ class JPSVISUE_API AFloorStructure : public AActor
 public:
 	AFloorStructure();
 	~AFloorStructure();
-	void Init(vector<Line>* wallLines);
+	void Init(std::vector<Line>* wallLines);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> floorClass;
+	TSubclassOf<AActor> m_floorClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> wallClass;
+	TSubclassOf<AActor> m_wallClass;
 
 	AActor* SpawnItem(UClass* item);
 	template <class T>
-	vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
+	std::vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
 
-	void InitFloors(vector<Line>* wallLines);
+	void InitFloors(std::vector<Line>* wallLines);
 
-	void InitWalls(vector<Line>* wallLines);
+	void InitWalls(std::vector<Line>* wallLines);
 
-	vector<AFloor*>* floorSegments;
+	std::vector<AFloor*>* m_floorSegments;
 
-	vector<AWall*>* wallSegments;
+	std::vector<AWall*>* m_wallSegments;
 
 };
