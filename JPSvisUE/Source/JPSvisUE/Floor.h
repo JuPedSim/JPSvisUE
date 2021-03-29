@@ -25,15 +25,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(std::vector<FloorDimensions>* dims);
+	void InitVariables(std::vector<FloorDimensions>& dims);
 	void SetVisible();
 
-	std::vector<FloorDimensions>* GetDimensions();
+	std::vector<FloorDimensions>& GetDimensions();
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* m_floorMesh;
 
-	std::vector<FloorDimensions>* m_dimensions;
+	std::vector<FloorDimensions> m_dimensions;
 
 	void SetPosition();
 };

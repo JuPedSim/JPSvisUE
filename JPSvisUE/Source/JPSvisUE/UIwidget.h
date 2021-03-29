@@ -29,8 +29,6 @@ protected:
 		UButton* m_viewTypeButtonDynamic;
 
 	UFUNCTION()
-	void SetViewType();
-	UFUNCTION()
 	void SetViewTypeLarge();
 	UFUNCTION()
 	void SetViewTypeSmall();

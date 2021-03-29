@@ -46,7 +46,7 @@ void AWall::Tick(float DeltaTime)
 	}
 }
 
-void AWall::InitVariables(Line line, std::vector<AFloor*>* floors)
+void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors)
 {
 	FVector temp = line.GetPoint2() - line.GetPoint1();
 	m_direction = FVector2D(temp.X, temp.Y);
@@ -54,7 +54,7 @@ void AWall::InitVariables(Line line, std::vector<AFloor*>* floors)
 	m_direction.Normalize();
 	m_normal.Normalize();
 	m_wallLine = line;
-	m_connectedFloors = floors;
+	m_connectedFloors = connectedFloors;
 
 	SetCamCheckPoints();
 	SetPosition();
@@ -111,9 +111,9 @@ void AWall::SetCamCheckPoints()
 	FVector p1u = FVector(p1.X, p1.Y, p1.Z + settings->GetWallBigHeight());
 	FVector p2u = FVector(p2.X, p2.Y, p2.Z + settings->GetWallBigHeight());
 	FVector pMu = p1u + 0.5 * (p2u - p1u);
-	m_camCheckPoints = new std::vector<FVector>();
-	m_camCheckPoints->resize(1);
-	m_camCheckPoints->at(0) = pMu;
+	m_camCheckPoints = std::vector<FVector>();
+	m_camCheckPoints.resize(1);
+	m_camCheckPoints.at(0) = pMu;
 }
 
 void AWall::SetSmall(float DeltaTime)
@@ -143,7 +143,7 @@ void AWall::SetBig(float DeltaTime)
 {
 	if (m_scaleFactor<1)
 	{
-		GlobalSettings* settings = GlobalSettings::GetInstance();
+		GlobalSettings *settings = GlobalSettings::GetInstance();
 
 		float sZ;
 		if (DeltaTime == -1)
@@ -184,7 +184,7 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 	APlayerCameraManager* cam = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
 	FVector camLocation = cam->GetCameraLocation() / settings->GetScalingFactor();
 	bool renderSmall = false;
-	for (FVector v : *m_camCheckPoints)
+	for (FVector v : m_camCheckPoints)
 	{
 		FVector dir = v - camLocation;
 		dir.Normalize(); //todo could not normalize catch
@@ -193,10 +193,10 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 		DrawDebugLine(this->GetWorld(), v * scalingFactor, (v + FVector(dir.X,dir.Y,0) * 10) * scalingFactor, FColor(0, 255, 0, 0), false, 1.0f, (uint8)'\000', 5);
 		*/
 
-		for (AFloor* floor : *m_connectedFloors)
+		for (auto& floor : m_connectedFloors)
 		{
-			std::vector<FloorDimensions>* fD = floor->GetDimensions();
-			for (FloorDimensions& dim : *fD)
+			std::vector<FloorDimensions> fD = floor->GetDimensions();
+			for (FloorDimensions& dim : fD)
 			{
 				if (dim.checkCollision(v, checkV))
 				{

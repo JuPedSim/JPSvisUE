@@ -25,7 +25,7 @@ void AFloor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AFloor::InitVariables(std::vector<FloorDimensions>* dims)
+void AFloor::InitVariables(std::vector<FloorDimensions>& dims)
 {
 	m_dimensions = dims;
 	SetPosition();
@@ -38,7 +38,7 @@ void AFloor::SetVisible()
 	SetActorHiddenInGame(false);
 }
 
-std::vector<FloorDimensions>* AFloor::GetDimensions()
+std::vector<FloorDimensions>& AFloor::GetDimensions()
 {
 	return m_dimensions;
 }
@@ -47,11 +47,11 @@ void AFloor::SetPosition()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
-	float minX = m_dimensions->at(0).GetMinXminY().X;
-	float maxX = m_dimensions->at(0).GetMaxXmaxY().X;
-	float minY = m_dimensions->at(0).GetMinXminY().Y;
-	float maxY = m_dimensions->at(0).GetMaxXmaxY().Y;
-	float height = m_dimensions->at(0).GetMinXminY().Z;
+	float minX = m_dimensions.at(0).GetMinXminY().X;
+	float maxX = m_dimensions.at(0).GetMaxXmaxY().X;
+	float minY = m_dimensions.at(0).GetMinXminY().Y;
+	float maxY = m_dimensions.at(0).GetMaxXmaxY().Y;
+	float height = m_dimensions.at(0).GetMinXminY().Z;
 	float objSize = 100;
 	float sizeX = (maxX - minX) * settings->GetScalingFactor();
 	float sizeY = (maxY - minY) * settings->GetScalingFactor();
