@@ -10,17 +10,11 @@ void UUIwidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetViewType();
-
 	m_viewTypeButtonSmall->OnClicked.AddUniqueDynamic(this, &UUIwidget::SetViewTypeSmall);
 	m_viewTypeButtonLarge->OnClicked.AddUniqueDynamic(this, &UUIwidget::SetViewTypeLarge);
 	m_viewTypeButtonDynamic->OnClicked.AddUniqueDynamic(this, &UUIwidget::SetViewTypeDynamic);
 
 	//this->viewTypeComboBox->OnSelectionChanged.AddUniqueDynamic(this, &UUIwidget::SetViewType);
-}
-
-void UUIwidget::SetViewType()
-{
 }
 
 void UUIwidget::SetViewTypeLarge()

@@ -6,13 +6,16 @@
 #include <vector>
 #include "Floor.h"
 #include "Line.h"
+#include "BuildingActor.h"
+
 #include "FloorStructure.h"
 #include <stdlib.h>
+#include "GlobalSettings.h"
 
 #include "Building.generated.h"
 
 UCLASS()
-class JPSVISUE_API ABuilding : public AActor
+class JPSVISUE_API ABuilding : public ABuildingActor
 {
 	GENERATED_BODY()
 	
@@ -32,9 +35,10 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AActor> m_floorStructureClass;
 
-	AActor* SpawnItem(UClass* item);
-	template <class T>
-	std::vector<T>* SpawnItems(int count, TSubclassOf<AActor> actorClass);
+	std::vector<AFloorStructure*> m_floors;
 
-	std::vector<AFloorStructure*>* m_floors;
+	template <class T>
+	T* SpawnItem2(UClass* item);
+	template <class T>
+	std::vector<T*> SpawnItems2(int count, TSubclassOf<AActor> actorClass);
 };

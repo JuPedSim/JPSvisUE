@@ -28,14 +28,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(Line line, std::vector<AFloor*>* connectedFloors);
+	void InitVariables(Line line, std::vector<AFloor*>& connectedFloors);
 	void SetVisible();
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* m_wallMesh;
 
-	std::vector<AFloor*>* m_connectedFloors;
+	std::vector<AFloor*> m_connectedFloors;
 	Line m_wallLine;
 	void SetPosition();
 	void SetCamCheckPoints();
@@ -52,7 +52,7 @@ private:
 	float m_scaleZbig;
 	float m_scaleZsmall;
 	
-	std::vector<FVector>* m_camCheckPoints;
+	std::vector<FVector> m_camCheckPoints;
 
 	void TickViewTypeDynamic(float DeltaTime);
 	void TickViewTypeSmall();
