@@ -13,6 +13,9 @@ ABuilding::ABuilding()
 void ABuilding::BeginPlay()
 {
 	Super::BeginPlay();
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	m_cache = Cache(settings->GetCacheBitsAssociativeness(),settings->GetCacheBitsIndex(),settings->GetCacheBitsWordOffset(),settings->GetTrajectoryFilePath());
+
 
 	float h1 = 20;
 	float h2 = 40;
