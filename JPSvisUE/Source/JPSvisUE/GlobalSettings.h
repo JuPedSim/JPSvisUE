@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "CoreMinimal.h"
+#include <string>
 
 /**
  * 
@@ -26,6 +27,10 @@ private:
 	float m_wallSmallHeight;
 	float m_viewObstractedCheckerDegree;
 	float m_allowedObstractionDegree;
+	int m_cacheBitsAssociativeness;
+	int m_cacheBitsIndex;
+	int m_cacheBitsWordOffset;
+	std::string m_trajectoryFilePath;
 	//fraction per second
 	float m_wallScaleChangeSpeed;
 	ViewType m_viewType;
@@ -40,6 +45,10 @@ public:
 	inline float GetAllowedObstractionDegree();
 	inline float GetWallScaleChangeSpeed();
 	inline ViewType GetViewType();
+	inline std::string GetTrajectoryFilePath();
+	inline int GetCacheBitsAssociativeness();
+	inline int GetCacheBitsIndex();
+	inline int GetCacheBitsWordOffset();
 	//Setter
 	void SetViewType(ViewType viewType);
 };

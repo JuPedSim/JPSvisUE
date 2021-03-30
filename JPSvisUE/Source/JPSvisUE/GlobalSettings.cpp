@@ -15,6 +15,10 @@ GlobalSettings::GlobalSettings()
 	m_allowedObstractionDegree = 20;
 	m_wallScaleChangeSpeed = 4;
 	m_viewType = DYNAMIC_VIEW;
+	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/TestData1GB.bin";
+	m_cacheBitsAssociativeness = 0;
+	m_cacheBitsIndex = 0;
+	m_cacheBitsWordOffset = 0;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -52,6 +56,22 @@ float GlobalSettings::GetAllowedObstractionDegree()
 ViewType GlobalSettings::GetViewType()
 {
 	return m_viewType;
+}
+inline std::string GlobalSettings::GetTrajectoryFilePath()
+{
+	return m_trajectoryFilePath;
+}
+inline int GlobalSettings::GetCacheBitsAssociativeness()
+{
+	return m_cacheBitsAssociativeness;
+}
+inline int GlobalSettings::GetCacheBitsIndex()
+{
+	return m_cacheBitsIndex;
+}
+inline int GlobalSettings::GetCacheBitsWordOffset()
+{
+	return m_cacheBitsWordOffset;
 }
 float GlobalSettings::GetWallScaleChangeSpeed()
 {
