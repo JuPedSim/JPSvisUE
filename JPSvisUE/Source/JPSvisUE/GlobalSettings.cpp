@@ -17,14 +17,14 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianHeight = 8;
 	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
-	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/TestData1GB.bin";
+	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/TestData10GB.bin";
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
 	m_currentFrame = 0;
 	m_framesCount = 1;
 	m_isAutoPlay = false;
-	m_timePerFrame = 0.1f;
+	m_timePerFrame = 0.001f;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
