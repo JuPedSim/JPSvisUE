@@ -14,6 +14,8 @@ GlobalSettings::GlobalSettings()
 	m_viewObstractedCheckerDegree = 10;
 	m_allowedObstractionDegree = 20;
 	m_wallScaleChangeSpeed = 4;
+	m_pedestrianHeight = 8;
+	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
 	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/TestData1GB.bin";
 	m_cacheBitsAssociativeness = 0;
@@ -80,6 +82,14 @@ inline int GlobalSettings::GetFramesCount()
 float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
+}
+inline float GlobalSettings::GetPedestrianHeight()
+{
+	return m_pedestrianHeight;
+}
+inline float GlobalSettings::GetPedestrianWidth()
+{
+	return m_pedestrianWidth;
 }
 void GlobalSettings::SetViewType(ViewType vType)
 {

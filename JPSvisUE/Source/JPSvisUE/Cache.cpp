@@ -31,7 +31,7 @@ Cache::Cache()
 	
 }
 
-CacheEntry& Cache::GetCacheEntry(int address)
+CacheEntry Cache::GetCacheEntry(int address)
 {
 	if (address<0)
 	{
@@ -58,7 +58,8 @@ CacheEntry& Cache::GetCacheEntry(int address)
 	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag);//load it with loader give tag todo
 	//todo LRU
 	m_cacheLines.at(index).at(0) = newCacheLine;
-	return newCacheLine.GetEntry(wordOffset);
+	CacheEntry& temp = newCacheLine.GetEntry(wordOffset);
+	return temp;
 }
 
 Cache::~Cache()

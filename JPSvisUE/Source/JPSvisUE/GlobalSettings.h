@@ -27,6 +27,8 @@ private:
 	float m_wallSmallHeight;
 	float m_viewObstractedCheckerDegree;
 	float m_allowedObstractionDegree;
+	float m_pedestrianHeight;
+	float m_pedestrianWidth;
 	int m_cacheBitsAssociativeness;
 	int m_cacheBitsIndex;
 	int m_cacheBitsWordOffset;
@@ -45,6 +47,8 @@ public:
 	inline float GetViewObstractedCheckerDegree();
 	inline float GetAllowedObstractionDegree();
 	inline float GetWallScaleChangeSpeed();
+	inline float GetPedestrianHeight();
+	inline float GetPedestrianWidth();
 	inline ViewType GetViewType();
 	inline std::string GetTrajectoryFilePath();
 	inline int GetCacheBitsAssociativeness();

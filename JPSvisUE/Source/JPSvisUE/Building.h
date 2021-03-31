@@ -12,8 +12,9 @@
 #include <stdlib.h>
 #include "GlobalSettings.h"
 #include "Cache.h"
-
+#include "Pedestrian.h"
 #include "Building.generated.h"
+
 
 
 UCLASS()
@@ -37,7 +38,11 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AActor> m_floorStructureClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AActor> m_pedestrianClass;
+
 	std::vector<AFloorStructure*> m_floors;
 
+	std::vector<APedestrian*> m_pedestrians;
 	Cache m_cache;
 };
