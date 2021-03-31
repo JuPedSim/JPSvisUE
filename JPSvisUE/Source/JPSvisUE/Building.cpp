@@ -5,6 +5,8 @@
 // Sets default values
 ABuilding::ABuilding()
 {
+	m_currentFrame = 0;
+	m_deltaTimeFrame = 0;
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -70,4 +72,46 @@ void ABuilding::BeginPlay()
 void ABuilding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	SetAutoPlayFrame(DeltaTime);
+
+	MovePedestrians();
+}
+
+void ABuilding::SetAutoPlayFrame(float delta)
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	if (settings->GetIsAutoPlay()) 
+	{
+		float time = settings->GetTimePerFrame();
+		m_deltaTimeFrame = m_deltaTimeFrame + delta;
+		float steps = m_deltaTimeFrame / time;
+		if (steps>=1.f) 
+		{
+			int pos = settings->GetCurrentFrame();
+			int addOn = std::floor(steps);
+			pos += addOn;
+			if (pos>=settings->GetFramesCount()) 
+			{
+				pos = settings->GetFramesCount() - 1;
+			}
+			settings->SetCurrentFrame(pos);
+			m_deltaTimeFrame = m_deltaTimeFrame - (float)addOn * time;
+		}
+	}
+}
+
+void ABuilding::MovePedestrians()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	if (m_currentFrame != settings->GetCurrentFrame())
+	{
+		CacheEntry firstEntry = m_cache.GetCacheEntry(settings->GetCurrentFrame());
+		for (int i = 0; i < m_pedestrians.size(); i++)
+		{
+			Person person = firstEntry.GetPersons().at(i);
+			m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
+		}
+		m_currentFrame = settings->GetCurrentFrame();
+	}
 }
