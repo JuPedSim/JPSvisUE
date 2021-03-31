@@ -11,7 +11,7 @@
 #include "FloorStructure.h"
 #include <stdlib.h>
 #include "GlobalSettings.h"
-#include <JPSvisUE/Cache.h>
+#include "Cache.h"
 
 #include "Building.generated.h"
 

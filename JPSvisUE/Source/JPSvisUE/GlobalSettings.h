@@ -31,6 +31,7 @@ private:
 	int m_cacheBitsIndex;
 	int m_cacheBitsWordOffset;
 	std::string m_trajectoryFilePath;
+	int m_framesCount;
 	//fraction per second
 	float m_wallScaleChangeSpeed;
 	ViewType m_viewType;
@@ -49,6 +50,8 @@ public:
 	inline int GetCacheBitsAssociativeness();
 	inline int GetCacheBitsIndex();
 	inline int GetCacheBitsWordOffset();
+	inline int GetFramesCount();
 	//Setter
 	void SetViewType(ViewType viewType);
+	void SetFramesCount(int framesCount);
 };

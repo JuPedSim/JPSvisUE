@@ -15,7 +15,10 @@ void ABuilding::BeginPlay()
 	Super::BeginPlay();
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	m_cache = Cache(settings->GetCacheBitsAssociativeness(),settings->GetCacheBitsIndex(),settings->GetCacheBitsWordOffset(),settings->GetTrajectoryFilePath());
+	settings->SetFramesCount(m_cache.GetFramesCount());
+	CacheEntry& firstEntry = m_cache.GetCacheEntry(0);
 
+	
 
 	float h1 = 20;
 	float h2 = 40;

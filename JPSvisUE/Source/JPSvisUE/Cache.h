@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include <vector>
-#include <JPSvisUE/CacheLine.h>
+#include "TrajectoryFileReader.h"
+#include "CacheLine.h"
+#include "CacheEntry.h"
 #include <stdexcept>
 
 /**
@@ -17,6 +19,7 @@ public:
 	Cache();
 	CacheEntry& GetCacheEntry(int address);
 	~Cache();
+	int GetFramesCount();
 private:
 	int m_bitsAssociativeness;
 	int m_bitsIndex;

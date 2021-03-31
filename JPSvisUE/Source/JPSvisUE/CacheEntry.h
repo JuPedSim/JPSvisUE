@@ -17,6 +17,8 @@ class JPSVISUE_API CacheEntry
 {
 public:
 	CacheEntry();
+	CacheEntry(std::vector<Person> persons);
+	std::vector<Person>& GetPersons();
 	~CacheEntry();
 private:
 	std::vector<Person> m_persons;
