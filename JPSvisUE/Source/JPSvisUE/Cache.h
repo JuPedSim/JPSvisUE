@@ -17,7 +17,7 @@ class JPSVISUE_API Cache
 public:
 	Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset,std::string filePath);
 	Cache();
-	CacheEntry& GetCacheEntry(int address);
+	CacheEntry GetCacheEntry(int address);
 	~Cache();
 	int GetFramesCount();
 private:

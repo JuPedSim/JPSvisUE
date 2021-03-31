@@ -16,9 +16,16 @@ void ABuilding::BeginPlay()
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	m_cache = Cache(settings->GetCacheBitsAssociativeness(),settings->GetCacheBitsIndex(),settings->GetCacheBitsWordOffset(),settings->GetTrajectoryFilePath());
 	settings->SetFramesCount(m_cache.GetFramesCount());
-	CacheEntry& firstEntry = m_cache.GetCacheEntry(0);
+	CacheEntry firstEntry = m_cache.GetCacheEntry(0);
 
-	
+	m_pedestrians = SpawnItems<APedestrian>(firstEntry.GetPersons().size(), m_pedestrianClass);
+	for (int i = 0;i<m_pedestrians.size();i++)
+	{
+		Person person = firstEntry.GetPersons().at(i);
+		m_pedestrians.at(i)->InitVariables(person.id);
+		m_pedestrians.at(i)->SetPosition(FVector(person.x,person.y,person.z));
+		m_pedestrians.at(i)->SetVisible();
+	}
 
 	float h1 = 20;
 	float h2 = 40;
