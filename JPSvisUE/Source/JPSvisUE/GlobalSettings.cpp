@@ -73,6 +73,10 @@ inline int GlobalSettings::GetCacheBitsWordOffset()
 {
 	return m_cacheBitsWordOffset;
 }
+inline int GlobalSettings::GetFramesCount()
+{
+	return m_framesCount;
+}
 float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -80,4 +84,9 @@ float GlobalSettings::GetWallScaleChangeSpeed()
 void GlobalSettings::SetViewType(ViewType vType)
 {
 	m_viewType = vType;
+}
+
+void GlobalSettings::SetFramesCount(int framesCount)
+{
+	m_framesCount = framesCount;
 }

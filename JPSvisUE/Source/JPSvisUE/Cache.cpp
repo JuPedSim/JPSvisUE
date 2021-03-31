@@ -2,7 +2,7 @@
 
 
 #include "Cache.h"
-#include <JPSvisUE/TrajectoryFileReader.h>
+
 
 
 Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::string filePath)
@@ -28,6 +28,7 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 
 Cache::Cache()
 {
+	
 }
 
 CacheEntry& Cache::GetCacheEntry(int address)
@@ -54,7 +55,7 @@ CacheEntry& Cache::GetCacheEntry(int address)
 	}
 
 	int startAddress = (tag << (m_bitsIndex + m_bitsWordOffset)) | (index << m_bitsWordOffset);
-	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath);//load it with loader give tag todo
+	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag);//load it with loader give tag todo
 	//todo LRU
 	m_cacheLines.at(index).at(0) = newCacheLine;
 	return newCacheLine.GetEntry(wordOffset);
@@ -62,6 +63,11 @@ CacheEntry& Cache::GetCacheEntry(int address)
 
 Cache::~Cache()
 {
+}
+
+int Cache::GetFramesCount()
+{
+	return TrajectoryFileReader::GetFrames(m_filePath);
 }
 
 

@@ -7,6 +7,16 @@ CacheEntry::CacheEntry()
 {
 }
 
+CacheEntry::CacheEntry(std::vector<Person> persons)
+{
+	m_persons = persons;
+}
+
+std::vector<Person>& CacheEntry::GetPersons()
+{
+	return m_persons;
+}
+
 CacheEntry::~CacheEntry()
 {
 }

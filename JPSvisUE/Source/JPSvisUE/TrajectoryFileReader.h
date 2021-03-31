@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include <JPSvisUE/CacheLine.cpp>
+#include "CacheLine.h"
 #include <string>
+#include <fstream>
 
 /**
  * 
@@ -14,5 +15,6 @@ class JPSVISUE_API TrajectoryFileReader
 public:
 	TrajectoryFileReader();
 	~TrajectoryFileReader();
-	static CacheLine LoadCacheLine(int startAddress, int count, std::string filePath);
+	static CacheLine LoadCacheLine(int startAddress, int count, std::string filePath,int tag);
+	static int GetFrames(std::string filePath);
 };
