@@ -45,4 +45,10 @@ private:
 
 	std::vector<APedestrian*> m_pedestrians;
 	Cache m_cache;
+
+	void SetAutoPlayFrame(float delta);
+	void MovePedestrians();
+
+	int m_currentFrame;
+	float m_deltaTimeFrame;
 };

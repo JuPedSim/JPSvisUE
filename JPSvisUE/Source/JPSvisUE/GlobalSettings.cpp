@@ -21,6 +21,10 @@ GlobalSettings::GlobalSettings()
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
+	m_currentFrame = 0;
+	m_framesCount = 1;
+	m_isAutoPlay = false;
+	m_timePerFrame = 0.1f;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -79,6 +83,18 @@ inline int GlobalSettings::GetFramesCount()
 {
 	return m_framesCount;
 }
+inline int GlobalSettings::GetCurrentFrame()
+{
+	return m_currentFrame;
+}
+inline bool GlobalSettings::GetIsAutoPlay()
+{
+	return m_isAutoPlay;
+}
+inline float GlobalSettings::GetTimePerFrame()
+{
+	return m_timePerFrame;
+}
 float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -99,4 +115,14 @@ void GlobalSettings::SetViewType(ViewType vType)
 void GlobalSettings::SetFramesCount(int framesCount)
 {
 	m_framesCount = framesCount;
+}
+
+void GlobalSettings::SetCurrentFrame(int currentFrame)
+{
+	m_currentFrame = currentFrame;
+}
+
+void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
+{
+	m_isAutoPlay = isAutoPlay;
 }

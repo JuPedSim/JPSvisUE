@@ -7,7 +7,9 @@
 #include <Runtime/UMG/Public/Components/ComboBoxString.h>
 #include <Runtime/UMG/Public/Components/Button.h>
 #include <JPSvisUE/GlobalSettings.h>
+#include <Runtime/UMG/Public/Components/Slider.h>
 #include "UIwidget.generated.h"
+
 
 
 /**
@@ -27,6 +29,14 @@ protected:
 		UButton* m_viewTypeButtonSmall;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_viewTypeButtonDynamic;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_frameForwardButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_frameBackwardButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_framePlayButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_framePauseButton;
 
 	UFUNCTION()
 	void SetViewTypeLarge();
@@ -34,6 +44,14 @@ protected:
 	void SetViewTypeSmall();
 	UFUNCTION()
 	void SetViewTypeDynamic();
+	UFUNCTION()
+	void SetFramesForward();
+	UFUNCTION()
+	void SetFramesBackward();
+	UFUNCTION()
+	void PlayFrames();
+	UFUNCTION()
+	void PauseFrames();
 
 	void NativeConstruct() override;
 };
