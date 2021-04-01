@@ -17,8 +17,6 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianHeight = 8;
 	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
-	FString path = FPaths::ProjectDir();
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *path);
 	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
@@ -28,6 +26,7 @@ GlobalSettings::GlobalSettings()
 	m_isAutoPlay = false;
 	m_timePerFrame = 0.018f;
 	m_speedUpFactor = 1.0f;
+	m_speedUpFactorIncrementSize = 0.25f;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -102,6 +101,10 @@ const inline float GlobalSettings::GetSpeedUpFactor()
 {
 	return m_speedUpFactor;
 }
+inline const float GlobalSettings::GetSpeedUpFactorIncrementSize()
+{
+	return m_speedUpFactorIncrementSize;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -132,4 +135,9 @@ void GlobalSettings::SetCurrentFrame(int currentFrame)
 void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
 {
 	m_isAutoPlay = isAutoPlay;
+}
+
+void GlobalSettings::SetSpeedUpFactor(float speedUpFactor)
+{
+	m_speedUpFactor = speedUpFactor;
 }

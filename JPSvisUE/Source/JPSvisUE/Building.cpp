@@ -87,7 +87,7 @@ void ABuilding::SetAutoPlayFrame(float delta)
 		float time = settings->GetTimePerFrame();
 		m_deltaTimeFrame = m_deltaTimeFrame + delta;
 		float steps = m_deltaTimeFrame / time;
-		if (steps>=1.f) 
+		if (steps>=1.f||steps<=-1.f) 
 		{
 			int pos = settings->GetCurrentFrame();
 			int addOn = std::floor(steps);
@@ -95,6 +95,10 @@ void ABuilding::SetAutoPlayFrame(float delta)
 			if (pos>=settings->GetFramesCount()) 
 			{
 				pos = settings->GetFramesCount() - 1;
+			}
+			if (pos<0) 
+			{
+				pos = 0;
 			}
 			settings->SetCurrentFrame(pos);
 			m_deltaTimeFrame = m_deltaTimeFrame - (float)addOn * time;
