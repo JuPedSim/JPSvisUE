@@ -2,8 +2,6 @@
 
 
 #include "UIwidget.h"
-#include <sstream>
-
 
 
 void UUIwidget::NativeConstruct()

@@ -81,6 +81,7 @@ void ABuilding::Tick(float DeltaTime)
 void ABuilding::SetAutoPlayFrame(float delta)
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
+	delta = delta * settings->GetSpeedUpFactor();
 	if (settings->GetIsAutoPlay()) 
 	{
 		float time = settings->GetTimePerFrame();

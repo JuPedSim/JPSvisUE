@@ -6,7 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include <Runtime/UMG/Public/Components/ComboBoxString.h>
 #include <Runtime/UMG/Public/Components/Button.h>
-#include <JPSvisUE/GlobalSettings.h>
+#include "GlobalSettings.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
 #include "UIwidget.generated.h"
 

@@ -17,14 +17,17 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianHeight = 8;
 	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
-	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/TestData10GB.bin";
+	FString path = FPaths::ProjectDir();
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *path);
+	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
 	m_currentFrame = 0;
 	m_framesCount = 1;
 	m_isAutoPlay = false;
-	m_timePerFrame = 0.001f;
+	m_timePerFrame = 0.018f;
+	m_speedUpFactor = 1.0f;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -35,75 +38,79 @@ GlobalSettings* GlobalSettings::GetInstance()
 	return m_instance;
 }
 
-float GlobalSettings::GetScalingFactor()
+const float GlobalSettings::GetScalingFactor()
 {
 	return m_scalingFactor;
 }
-float GlobalSettings::GetFloorThigness()
+const float GlobalSettings::GetFloorThigness()
 {
 	return m_floorThigness;
 }
-float GlobalSettings::GetWallBigHeight()
+const float GlobalSettings::GetWallBigHeight()
 {
 	return m_wallBigHeight;
 }
-float GlobalSettings::GetWallSmallHeight()
+const float GlobalSettings::GetWallSmallHeight()
 {
 	return m_wallSmallHeight;
 }
-float GlobalSettings::GetViewObstractedCheckerDegree()
+const float GlobalSettings::GetViewObstractedCheckerDegree()
 {
 	return m_viewObstractedCheckerDegree;
 }
-float GlobalSettings::GetAllowedObstractionDegree()
+const float GlobalSettings::GetAllowedObstractionDegree()
 {
 	return m_allowedObstractionDegree;
 }
-ViewType GlobalSettings::GetViewType()
+const ViewType GlobalSettings::GetViewType()
 {
 	return m_viewType;
 }
-inline std::string GlobalSettings::GetTrajectoryFilePath()
+const inline std::string GlobalSettings::GetTrajectoryFilePath()
 {
 	return m_trajectoryFilePath;
 }
-inline int GlobalSettings::GetCacheBitsAssociativeness()
+const inline int GlobalSettings::GetCacheBitsAssociativeness()
 {
 	return m_cacheBitsAssociativeness;
 }
-inline int GlobalSettings::GetCacheBitsIndex()
+const inline int GlobalSettings::GetCacheBitsIndex()
 {
 	return m_cacheBitsIndex;
 }
-inline int GlobalSettings::GetCacheBitsWordOffset()
+const inline int GlobalSettings::GetCacheBitsWordOffset()
 {
 	return m_cacheBitsWordOffset;
 }
-inline int GlobalSettings::GetFramesCount()
+const inline int GlobalSettings::GetFramesCount()
 {
 	return m_framesCount;
 }
-inline int GlobalSettings::GetCurrentFrame()
+const inline int GlobalSettings::GetCurrentFrame()
 {
 	return m_currentFrame;
 }
-inline bool GlobalSettings::GetIsAutoPlay()
+const inline bool GlobalSettings::GetIsAutoPlay()
 {
 	return m_isAutoPlay;
 }
-inline float GlobalSettings::GetTimePerFrame()
+const inline float GlobalSettings::GetTimePerFrame()
 {
 	return m_timePerFrame;
 }
-float GlobalSettings::GetWallScaleChangeSpeed()
+const inline float GlobalSettings::GetSpeedUpFactor()
+{
+	return m_speedUpFactor;
+}
+const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
 }
-inline float GlobalSettings::GetPedestrianHeight()
+const inline float GlobalSettings::GetPedestrianHeight()
 {
 	return m_pedestrianHeight;
 }
-inline float GlobalSettings::GetPedestrianWidth()
+const inline float GlobalSettings::GetPedestrianWidth()
 {
 	return m_pedestrianWidth;
 }

@@ -3,16 +3,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include <vector>
+
 #include "Floor.h"
 #include "Line.h"
 #include "BuildingActor.h"
-
 #include "FloorStructure.h"
-#include <stdlib.h>
 #include "GlobalSettings.h"
 #include "Cache.h"
 #include "Pedestrian.h"
+
+#include <vector>
+#include <stdlib.h>
+
 #include "Building.generated.h"
 
 
@@ -42,8 +44,8 @@ private:
 	TSubclassOf<AActor> m_pedestrianClass;
 
 	std::vector<AFloorStructure*> m_floors;
-
 	std::vector<APedestrian*> m_pedestrians;
+
 	Cache m_cache;
 
 	void SetAutoPlayFrame(float delta);

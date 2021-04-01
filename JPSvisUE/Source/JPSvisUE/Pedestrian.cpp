@@ -46,9 +46,6 @@ void APedestrian::BeginPlay()
 	FVector scaling = FVector(width,width,height);
 	FTransform transform = FTransform(rotation, translation, scaling * settings->GetScalingFactor());
 	SetActorTransform(transform);
-
-
-	//todo general size
 }
 
 // Called every frame

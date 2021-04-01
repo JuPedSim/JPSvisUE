@@ -2,7 +2,6 @@
 
 
 #include "Wall.h"
-#include <sstream>
 
 // Sets default values
 AWall::AWall()
@@ -83,7 +82,7 @@ void AWall::SetPosition()
 
 	float objSize = 100;
 	float sizeX = length * settings->GetScalingFactor();
-	float sizeY = 0.00001f;
+	float sizeY = 0.001f;
 	float sizeZbig = settings->GetWallBigHeight() * settings->GetScalingFactor();
 	float sizeZsmall = settings->GetWallSmallHeight() * settings->GetScalingFactor();
 	m_scaleX = sizeX / objSize;
