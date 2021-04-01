@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include <string>
 
+
 /**
  * 
  */
@@ -37,30 +38,31 @@ private:
 	int m_currentFrame;
 	bool m_isAutoPlay;
 	float m_timePerFrame;
-	//fraction per second
-	float m_wallScaleChangeSpeed;
+	float m_wallScaleChangeSpeed;//fraction per second
+	float m_speedUpFactor;
 	ViewType m_viewType;
 
 public:
 	//Getter
-	inline float GetScalingFactor();
-	inline float GetFloorThigness();
-	inline float GetWallBigHeight();
-	inline float GetWallSmallHeight();
-	inline float GetViewObstractedCheckerDegree();
-	inline float GetAllowedObstractionDegree();
-	inline float GetWallScaleChangeSpeed();
-	inline float GetPedestrianHeight();
-	inline float GetPedestrianWidth();
-	inline ViewType GetViewType();
-	inline std::string GetTrajectoryFilePath();
-	inline int GetCacheBitsAssociativeness();
-	inline int GetCacheBitsIndex();
-	inline int GetCacheBitsWordOffset();
-	inline int GetFramesCount();
-	inline int GetCurrentFrame();
-	inline bool GetIsAutoPlay();
-	inline float GetTimePerFrame();
+	inline const float GetScalingFactor();
+	inline const float GetFloorThigness();
+	inline const float GetWallBigHeight();
+	inline const float GetWallSmallHeight();
+	inline const float GetViewObstractedCheckerDegree();
+	inline const float GetAllowedObstractionDegree();
+	inline const float GetWallScaleChangeSpeed();
+	inline const float GetPedestrianHeight();
+	inline const float GetPedestrianWidth();
+	inline const ViewType GetViewType();
+	inline const std::string GetTrajectoryFilePath();
+	inline const int GetCacheBitsAssociativeness();
+	inline const int GetCacheBitsIndex();
+	inline const int GetCacheBitsWordOffset();
+	inline const int GetFramesCount();
+	inline const int GetCurrentFrame();
+	inline const bool GetIsAutoPlay();
+	inline const float GetTimePerFrame();
+	inline const float GetSpeedUpFactor();
 	//Setter
 	void SetViewType(ViewType viewType);
 	void SetFramesCount(int framesCount);

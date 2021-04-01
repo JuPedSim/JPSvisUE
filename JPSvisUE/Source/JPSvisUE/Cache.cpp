@@ -42,7 +42,6 @@ CacheEntry Cache::GetCacheEntry(int address)
 	int index = (address & m_bitMaskIndex) >> m_bitsWordOffset;
 	int tag = (address & m_bitMaskTag) >> (m_bitsWordOffset+m_bitsIndex);
 
-	//std::vector<CacheLine&> lines = m_cacheLines.at(index);
 
 	for(auto &line: m_cacheLines.at(index))
 	{
@@ -58,7 +57,7 @@ CacheEntry Cache::GetCacheEntry(int address)
 	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag);//load it with loader give tag todo
 	//todo LRU
 	m_cacheLines.at(index).at(0) = newCacheLine;
-	CacheEntry& temp = newCacheLine.GetEntry(wordOffset);
+	CacheEntry temp = newCacheLine.GetEntry(wordOffset);
 	return temp;
 }
 

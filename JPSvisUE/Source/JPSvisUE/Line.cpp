@@ -19,12 +19,12 @@ Line::~Line()
 {
 }
 
-FVector Line::GetPoint1()
+const FVector Line::GetPoint1()
 {
 	return m_point1;
 }
 
-FVector Line::GetPoint2()
+const FVector Line::GetPoint2()
 {
 	return m_point2;
 }

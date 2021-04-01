@@ -6,6 +6,7 @@
 #include "CacheLine.h"
 #include <string>
 #include <fstream>
+#include <stdexcept>
 
 /**
  * 

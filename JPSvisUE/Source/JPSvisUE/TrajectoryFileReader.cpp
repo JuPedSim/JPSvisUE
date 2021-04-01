@@ -15,6 +15,11 @@ CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::s
 {
 	std::ifstream is;
 	is.open(filePath,std::ios::binary);
+	if (is.fail()) 
+	{
+		throw std::invalid_argument("File not found");
+	}
+
 
 	int32 framesCount;
 	is.read(reinterpret_cast<char*>(&framesCount), sizeof(framesCount));
