@@ -15,6 +15,8 @@ void UUIwidget::NativeConstruct()
 	m_frameBackwardButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::SetFramesBackward);
 	m_framePlayButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::PlayFrames);
 	m_framePauseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::PauseFrames);
+	m_speedIncreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseSpeed);
+	m_speedDecreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseSpeed);
 }
 
 void UUIwidget::SetViewTypeLarge()
@@ -67,4 +69,30 @@ void UUIwidget::PauseFrames()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	settings->SetIsAutoPlay(false);
+}
+
+void UUIwidget::IncreaseSpeed()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	float speed = settings->GetSpeedUpFactor() + settings->GetSpeedUpFactorIncrementSize();
+	settings->SetSpeedUpFactor(speed);
+	ShowSpeedInUI();
+}
+
+void UUIwidget::DecreaseSpeed()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	float speed = settings->GetSpeedUpFactor() - settings->GetSpeedUpFactorIncrementSize();
+	settings->SetSpeedUpFactor(speed);
+	ShowSpeedInUI();
+}
+
+void UUIwidget::ShowSpeedInUI()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	std::stringstream ss;
+	ss << "speed Factor: " << settings->GetSpeedUpFactor();
+	std::string str = ss.str();
+	FString layerName(str.c_str());
+	m_speedTextBlock->SetText(FText::FromString(layerName));
 }

@@ -40,6 +40,7 @@ private:
 	float m_timePerFrame;
 	float m_wallScaleChangeSpeed;//fraction per second
 	float m_speedUpFactor;
+	float m_speedUpFactorIncrementSize;
 	ViewType m_viewType;
 
 public:
@@ -63,9 +64,11 @@ public:
 	inline const bool GetIsAutoPlay();
 	inline const float GetTimePerFrame();
 	inline const float GetSpeedUpFactor();
+	inline const float GetSpeedUpFactorIncrementSize();
 	//Setter
 	void SetViewType(ViewType viewType);
 	void SetFramesCount(int framesCount);
 	void SetCurrentFrame(int currentFrame);
 	void SetIsAutoPlay(bool isAutoPlay);
+	void SetSpeedUpFactor(float speedUpFactor);
 };

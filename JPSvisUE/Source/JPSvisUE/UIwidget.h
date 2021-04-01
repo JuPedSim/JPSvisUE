@@ -8,7 +8,10 @@
 #include <Runtime/UMG/Public/Components/Button.h>
 #include "GlobalSettings.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
+#include <Runtime/UMG/Public/Components/TextBlock.h>
+#include <sstream>
 #include "UIwidget.generated.h"
+
 
 
 
@@ -37,6 +40,12 @@ protected:
 		UButton* m_framePlayButton;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_framePauseButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_speedIncreaseButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_speedDecreaseButton;
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* m_speedTextBlock;
 
 	UFUNCTION()
 	void SetViewTypeLarge();
@@ -52,6 +61,11 @@ protected:
 	void PlayFrames();
 	UFUNCTION()
 	void PauseFrames();
+	UFUNCTION()
+	void IncreaseSpeed();
+	UFUNCTION()
+	void DecreaseSpeed();
+	void ShowSpeedInUI();
 
 	void NativeConstruct() override;
 };
