@@ -12,6 +12,7 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 	m_bitsWordOffset = bitsWordOffset;
 	m_filePath = filePath;
 	m_nextLRUid = 0;
+	m_frameCount = TrajectoryFileReader::GetFrames(m_filePath);
 
 	SetMasks();
 
@@ -57,13 +58,21 @@ CacheEntry Cache::GetCacheEntry(int address)
 	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag, m_nextLRUid++);
 	int pos = 0;
 	unsigned int min = MAX_uint32;
-	for (int i = 0;i<m_cacheLines.size();i++) 
+	for (int i = 0;i<m_cacheLines.at(index).size();i++)
 	{
-		unsigned int lruID = m_cacheLines.at(index).at(i).GetLruID();
-		if (lruID < min)
+		if (m_cacheLines.at(index).at(i).GetIsValid())
 		{
-			min = lruID;
+			unsigned int lruID = m_cacheLines.at(index).at(i).GetLruID();
+			if (lruID < min)
+			{
+				min = lruID;
+				pos = i;
+			}
+		}
+		else
+		{
 			pos = i;
+			break;
 		}
 	}
 	m_cacheLines.at(index).at(pos) = newCacheLine;
@@ -77,7 +86,7 @@ Cache::~Cache()
 
 int Cache::GetFramesCount()
 {
-	return TrajectoryFileReader::GetFrames(m_filePath);
+	return m_frameCount;
 }
 
 
