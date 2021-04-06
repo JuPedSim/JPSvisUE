@@ -5,6 +5,7 @@
 #include <vector>
 #include "CoreMinimal.h"
 #include <string>
+#include "FramePosition.h"
 
 
 /**
@@ -34,14 +35,13 @@ private:
 	int m_cacheBitsIndex;
 	int m_cacheBitsWordOffset;
 	std::string m_trajectoryFilePath;
-	int m_framesCount;
-	int m_currentFrame;
 	bool m_isAutoPlay;
 	float m_timePerFrame;
 	float m_wallScaleChangeSpeed;//fraction per second
 	float m_speedUpFactor;
 	float m_speedUpFactorIncrementSize;
 	ViewType m_viewType;
+	FramePosition m_framePosition;
 
 public:
 	//Getter
@@ -59,16 +59,14 @@ public:
 	inline const int GetCacheBitsAssociativeness();
 	inline const int GetCacheBitsIndex();
 	inline const int GetCacheBitsWordOffset();
-	inline const int GetFramesCount();
-	inline const int GetCurrentFrame();
 	inline const bool GetIsAutoPlay();
 	inline const float GetTimePerFrame();
 	inline const float GetSpeedUpFactor();
 	inline const float GetSpeedUpFactorIncrementSize();
+	inline FramePosition& GetFramePosition();
 	//Setter
 	void SetViewType(ViewType viewType);
-	void SetFramesCount(int framesCount);
-	void SetCurrentFrame(int currentFrame);
 	void SetIsAutoPlay(bool isAutoPlay);
 	void SetSpeedUpFactor(float speedUpFactor);
+	void SetFramePosition(FramePosition framePosition);
 };

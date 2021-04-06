@@ -84,7 +84,7 @@ Cache::~Cache()
 {
 }
 
-int Cache::GetFramesCount()
+const int Cache::GetFramesCount()
 {
 	return m_frameCount;
 }

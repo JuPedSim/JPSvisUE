@@ -40,23 +40,13 @@ void UUIwidget::SetViewTypeDynamic()
 void UUIwidget::SetFramesForward()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	int pos = settings->GetCurrentFrame() + 1;
-	if (pos >= settings->GetFramesCount())
-	{
-		pos = settings->GetFramesCount()-1;
-	}
-	settings->SetCurrentFrame(pos);
+	settings->GetFramePosition().Increase();
 }
 
 void UUIwidget::SetFramesBackward()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	int pos = settings->GetCurrentFrame() - 1;
-	if (pos<0) 
-	{
-		pos = 0;
-	}
-	settings->SetCurrentFrame(pos);
+	settings->GetFramePosition().Decrease();
 }
 
 void UUIwidget::PlayFrames()
