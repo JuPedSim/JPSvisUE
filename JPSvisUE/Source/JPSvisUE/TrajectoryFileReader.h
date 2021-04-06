@@ -16,6 +16,6 @@ class JPSVISUE_API TrajectoryFileReader
 public:
 	TrajectoryFileReader();
 	~TrajectoryFileReader();
-	static CacheLine LoadCacheLine(int startAddress, int count, std::string filePath,int tag);
+	static CacheLine LoadCacheLine(int startAddress, int count, std::string filePath,int tag, unsigned int lruID);
 	static int GetFrames(std::string filePath);
 };

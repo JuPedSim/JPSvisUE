@@ -11,6 +11,7 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 	m_bitsIndex = bitsIndex;
 	m_bitsWordOffset = bitsWordOffset;
 	m_filePath = filePath;
+	m_nextLRUid = 0;
 
 	SetMasks();
 
@@ -47,16 +48,25 @@ CacheEntry Cache::GetCacheEntry(int address)
 	{
 		if (line.GetIsValid() && line.GetTag()==tag)
 		{
-			//LRU update todo
-
+			line.SetLruID(m_nextLRUid++);
 			return line.GetEntry(wordOffset);
 		}
 	}
 
 	int startAddress = (tag << (m_bitsIndex + m_bitsWordOffset)) | (index << m_bitsWordOffset);
-	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag);//load it with loader give tag todo
-	//todo LRU
-	m_cacheLines.at(index).at(0) = newCacheLine;
+	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag, m_nextLRUid++);
+	int pos = 0;
+	unsigned int min = MAX_uint32;
+	for (int i = 0;i<m_cacheLines.size();i++) 
+	{
+		unsigned int lruID = m_cacheLines.at(index).at(i).GetLruID();
+		if (lruID < min)
+		{
+			min = lruID;
+			pos = i;
+		}
+	}
+	m_cacheLines.at(index).at(pos) = newCacheLine;
 	CacheEntry temp = newCacheLine.GetEntry(wordOffset);
 	return temp;
 }

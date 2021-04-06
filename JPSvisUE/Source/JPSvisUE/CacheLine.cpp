@@ -8,11 +8,12 @@ CacheLine::CacheLine()
 	m_isValid = false;
 }
 
-CacheLine::CacheLine(int tag, std::vector<CacheEntry>& entries)
+CacheLine::CacheLine(int tag, std::vector<CacheEntry>& entries, int lruID)
 {
 	m_isValid = true;
 	m_entries = entries;
 	m_tag = tag;
+	m_lruID = lruID;
 }
 
 CacheLine::~CacheLine()
@@ -32,4 +33,14 @@ bool CacheLine::GetIsValid()
 CacheEntry& CacheLine::GetEntry(int wordOffset)
 {
 	return m_entries.at(wordOffset);
+}
+
+inline unsigned int CacheLine::GetLruID()
+{
+	return m_lruID;
+}
+
+void CacheLine::SetLruID(unsigned int lruID)
+{
+	m_lruID = lruID;
 }
