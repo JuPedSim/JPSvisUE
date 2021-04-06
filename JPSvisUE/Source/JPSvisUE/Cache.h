@@ -27,8 +27,9 @@ private:
 	int m_bitMaskIndex;
 	int m_bitMaskWordOffset;
 	int m_bitMaskTag;
+	int m_frameCount;
 	unsigned int m_nextLRUid;
 	std::string m_filePath;
 	void SetMasks();
-	std::vector<std::vector<CacheLine>> m_cacheLines;//index  -> associativeness
+	std::vector<std::vector<CacheLine>> m_cacheLines;
 };

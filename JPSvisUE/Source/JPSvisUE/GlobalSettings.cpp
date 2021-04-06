@@ -18,7 +18,7 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
 	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
-	m_cacheBitsAssociativeness = 0;
+	m_cacheBitsAssociativeness = 4;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
 	m_currentFrame = 0;
