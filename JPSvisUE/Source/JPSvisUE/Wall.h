@@ -55,6 +55,6 @@ private:
 	std::vector<FVector> m_camCheckPoints;
 
 	void TickViewTypeDynamic(float DeltaTime);
-	void TickViewTypeSmall();
-	void TickViewTypeBig();
+	void TickViewTypeSmall(float DeltaTime);
+	void TickViewTypeBig(float DeltaTime);
 };

@@ -32,10 +32,10 @@ void AWall::Tick(float DeltaTime)
 	switch (GlobalSettings::GetInstance()->GetViewType())
 	{
 	case LARGE_VIEW:
-		TickViewTypeBig();
+		TickViewTypeBig(DeltaTime);
 		break;
 	case SMALL_VIEW:
-		TickViewTypeSmall();
+		TickViewTypeSmall(DeltaTime);
 		break;
 	case DYNAMIC_VIEW:
 		TickViewTypeDynamic(DeltaTime);
@@ -225,13 +225,13 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 	}
 }
 
-void AWall::TickViewTypeSmall()
+void AWall::TickViewTypeSmall(float DeltaTime)
 {
-	SetSmall(-1);
+	SetSmall(DeltaTime);
 }
 
-void AWall::TickViewTypeBig()
+void AWall::TickViewTypeBig(float DeltaTime)
 {
-	SetBig(-1);
+	SetBig(DeltaTime);
 }
 
