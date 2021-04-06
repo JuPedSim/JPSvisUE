@@ -6,7 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include <Runtime/UMG/Public/Components/ComboBoxString.h>
 #include <Runtime/UMG/Public/Components/Button.h>
-#include "GlobalSettings.h"
+#include "../Settings/GlobalSettings.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
 #include <Runtime/UMG/Public/Components/TextBlock.h>
 #include <sstream>

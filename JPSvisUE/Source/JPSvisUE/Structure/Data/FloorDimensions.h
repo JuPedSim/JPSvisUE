@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GlobalSettings.h"
+#include "../../Settings/GlobalSettings.h"
 /**
  * 
  */

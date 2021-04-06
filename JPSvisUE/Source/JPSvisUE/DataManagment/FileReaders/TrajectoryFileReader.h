@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CacheLine.h"
+#include "../Cache/CacheLine.h"
 #include <string>
 #include <fstream>
 #include <stdexcept>
