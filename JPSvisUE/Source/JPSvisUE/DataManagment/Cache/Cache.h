@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include <vector>
-#include "TrajectoryFileReader.h"
+#include "../FileReaders/TrajectoryFileReader.h"
 #include "CacheLine.h"
 #include "CacheEntry.h"
 #include <stdexcept>

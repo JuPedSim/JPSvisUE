@@ -1,35 +1,39 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
+#include <vector>
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BuildingActor.h"
-#include "GlobalSettings.h"
-#include "Pedestrian.generated.h"
+#include "../BuildingActor.h"
+#include "../Data/FloorDimensions.h"
+#include "../../Settings/GlobalSettings.h"
+#include "Floor.generated.h"
 
 UCLASS()
-class JPSVISUE_API APedestrian : public ABuildingActor
+class JPSVISUE_API AFloor : public ABuildingActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APedestrian();
-	void InitVariables(int id);
-	void SetVisible();
-	void SetPosition(FVector position);
+	AFloor();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void InitVariables(std::vector<FloorDimensions>& dims);
+	void SetVisible();
 
+	std::vector<FloorDimensions>& GetDimensions();
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* m_pedestrian;
+	UStaticMeshComponent* m_floorMesh;
 
-	int m_id;
+	std::vector<FloorDimensions> m_dimensions;
+
+	void SetPosition();
 };

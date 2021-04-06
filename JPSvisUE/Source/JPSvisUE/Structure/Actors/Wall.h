@@ -4,10 +4,10 @@
 #include <vector>
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BuildingActor.h"
-#include "Line.h"
+#include "../BuildingActor.h"
+#include "../Data/Line.h"
 #include "Floor.h"
-#include "GlobalSettings.h"
+#include "../../Settings/GlobalSettings.h"
 #include "DrawDebugHelpers.h"
 #include "Wall.generated.h"
 

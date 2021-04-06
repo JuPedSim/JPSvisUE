@@ -5,11 +5,11 @@
 #include "GameFramework/Actor.h"
 
 #include "Floor.h"
-#include "Line.h"
-#include "BuildingActor.h"
+#include "../Data/Line.h"
+#include "../BuildingActor.h"
 #include "FloorStructure.h"
-#include "GlobalSettings.h"
-#include "Cache.h"
+#include "../../Settings/GlobalSettings.h"
+#include "../../DataManagment/Cache/Cache.h"
 #include "Pedestrian.h"
 
 #include <vector>

@@ -7,9 +7,9 @@
 #include <memory>
 #include "Floor.h"
 #include "Wall.h"
-#include "Line.h"
-#include "GlobalSettings.h"
-#include "FloorDimensions.h"
+#include "../Data/Line.h"
+#include "../../Settings/GlobalSettings.h"
+#include "../Data/FloorDimensions.h"
 #include "FloorStructure.generated.h"
 
 
