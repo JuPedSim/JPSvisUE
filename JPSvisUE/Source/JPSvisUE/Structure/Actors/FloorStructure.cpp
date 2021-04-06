@@ -2,7 +2,6 @@
 
 
 #include "FloorStructure.h"
-#include <sstream>
 
 AFloorStructure::AFloorStructure()
 {
@@ -14,8 +13,9 @@ AFloorStructure::~AFloorStructure()
 
 }
 
-void AFloorStructure::Init(std::vector<Line>& wallLines)
+void AFloorStructure::Init(std::vector<Line>& wallLines, int position)
 {
+	m_position = position;
 	//floors must be computed before Walls
 	m_floorSegments = SpawnItems<AFloor>(1, m_floorClass);
 	InitFloors(wallLines);
@@ -33,7 +33,7 @@ void AFloorStructure::InitWalls(std::vector<Line>& wallLines)
 {
 	for (int i = 0; i < wallLines.size(); i++)
 	{
-		m_wallSegments.at(i)->InitVariables(wallLines.at(i), m_floorSegments);
+		m_wallSegments.at(i)->InitVariables(wallLines.at(i), m_floorSegments, m_position);
 	}
 	for (auto& wall : m_wallSegments)
 	{
@@ -72,7 +72,7 @@ void AFloorStructure::InitFloors(std::vector<Line>& wallLines)
 		std::vector<FloorDimensions> vec = std::vector<FloorDimensions>();
 		vec.resize(1);
 		vec.at(0) = FloorDimensions(FVector(minX,minY,height), FVector(minX, maxY, height), FVector(maxX, minY, height), FVector(maxX, maxY, height));
-		floor->InitVariables(vec);
+		floor->InitVariables(vec, m_position);
 	}
 	for (auto floor : m_floorSegments)
 	{

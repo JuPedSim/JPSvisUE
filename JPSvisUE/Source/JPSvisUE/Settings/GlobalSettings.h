@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include <string>
 #include "../RuntimeControl/FramePosition.h"
+#include "../RuntimeControl/FloorPosition.h"
 
 
 /**
@@ -42,6 +43,7 @@ private:
 	float m_speedUpFactorIncrementSize;
 	ViewType m_viewType;
 	FramePosition m_framePosition;
+	FloorPosition m_floorPosition;
 
 public:
 	//Getter
@@ -64,9 +66,11 @@ public:
 	inline const float GetSpeedUpFactor();
 	inline const float GetSpeedUpFactorIncrementSize();
 	inline FramePosition& GetFramePosition();
+	inline FloorPosition& GetFloorPosition();
 	//Setter
 	void SetViewType(ViewType viewType);
 	void SetIsAutoPlay(bool isAutoPlay);
 	void SetSpeedUpFactor(float speedUpFactor);
 	void SetFramePosition(FramePosition framePosition);
+	void SetFloorPosition(FloorPosition floorPosition);
 };

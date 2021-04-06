@@ -25,7 +25,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(std::vector<FloorDimensions>& dims);
+	void InitVariables(std::vector<FloorDimensions>& dims,int position);
 	void SetVisible();
 
 	std::vector<FloorDimensions>& GetDimensions();
@@ -34,6 +34,8 @@ private:
 	UStaticMeshComponent* m_floorMesh;
 
 	std::vector<FloorDimensions> m_dimensions;
+
+	int m_position;
 
 	void SetPosition();
 };

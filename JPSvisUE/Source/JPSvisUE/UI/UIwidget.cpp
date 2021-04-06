@@ -17,6 +17,8 @@ void UUIwidget::NativeConstruct()
 	m_framePauseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::PauseFrames);
 	m_speedIncreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseSpeed);
 	m_speedDecreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseSpeed);
+	m_floorUpButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseFloorPosition);
+	m_floorDownButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseFloorPosition);
 }
 
 void UUIwidget::SetViewTypeLarge()
@@ -85,4 +87,16 @@ void UUIwidget::ShowSpeedInUI()
 	std::string str = ss.str();
 	FString layerName(str.c_str());
 	m_speedTextBlock->SetText(FText::FromString(layerName));
+}
+
+void UUIwidget::IncreaseFloorPosition()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	settings->GetFloorPosition().Increase();
+}
+
+void UUIwidget::DecreaseFloorPosition()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	settings->GetFloorPosition().Decrease();
 }
