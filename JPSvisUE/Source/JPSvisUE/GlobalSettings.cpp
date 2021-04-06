@@ -18,15 +18,14 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianWidth = 2;
 	m_viewType = DYNAMIC_VIEW;
 	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
-	m_cacheBitsAssociativeness = 4;
+	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
-	m_currentFrame = 0;
-	m_framesCount = 1;
 	m_isAutoPlay = false;
 	m_timePerFrame = 0.018f;
 	m_speedUpFactor = 1.0f;
 	m_speedUpFactorIncrementSize = 0.25f;
+	m_framePosition = FramePosition();
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -81,14 +80,6 @@ const inline int GlobalSettings::GetCacheBitsWordOffset()
 {
 	return m_cacheBitsWordOffset;
 }
-const inline int GlobalSettings::GetFramesCount()
-{
-	return m_framesCount;
-}
-const inline int GlobalSettings::GetCurrentFrame()
-{
-	return m_currentFrame;
-}
 const inline bool GlobalSettings::GetIsAutoPlay()
 {
 	return m_isAutoPlay;
@@ -104,6 +95,10 @@ const inline float GlobalSettings::GetSpeedUpFactor()
 inline const float GlobalSettings::GetSpeedUpFactorIncrementSize()
 {
 	return m_speedUpFactorIncrementSize;
+}
+inline FramePosition& GlobalSettings::GetFramePosition()
+{
+	return m_framePosition;
 }
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
@@ -122,16 +117,6 @@ void GlobalSettings::SetViewType(ViewType vType)
 	m_viewType = vType;
 }
 
-void GlobalSettings::SetFramesCount(int framesCount)
-{
-	m_framesCount = framesCount;
-}
-
-void GlobalSettings::SetCurrentFrame(int currentFrame)
-{
-	m_currentFrame = currentFrame;
-}
-
 void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
 {
 	m_isAutoPlay = isAutoPlay;
@@ -140,4 +125,9 @@ void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
 void GlobalSettings::SetSpeedUpFactor(float speedUpFactor)
 {
 	m_speedUpFactor = speedUpFactor;
+}
+
+void GlobalSettings::SetFramePosition(FramePosition framePosition)
+{
+	m_framePosition = framePosition;
 }

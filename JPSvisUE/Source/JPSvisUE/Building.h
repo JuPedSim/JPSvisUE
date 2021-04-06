@@ -51,6 +51,4 @@ private:
 	void SetAutoPlayFrame(float delta);
 	void MovePedestrians();
 
-	int m_currentFrame;
-	float m_deltaTimeFrame;
 };
