@@ -23,7 +23,7 @@ class JPSVISUE_API AFloorStructure : public ABuildingActor
 public:
 	AFloorStructure();
 	~AFloorStructure();
-	void Init(std::vector<Line>& wallLines);
+	void Init(std::vector<Line>& wallLines,int position);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -42,4 +42,6 @@ private:
 	std::vector<AFloor*> m_floorSegments;
 
 	std::vector<AWall*> m_wallSegments;
+
+	int m_position;
 };

@@ -46,6 +46,10 @@ protected:
 		UButton* m_speedDecreaseButton;
 	UPROPERTY(meta = (BindWidget))
 		UTextBlock* m_speedTextBlock;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_floorUpButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_floorDownButton;
 
 	UFUNCTION()
 	void SetViewTypeLarge();
@@ -66,6 +70,10 @@ protected:
 	UFUNCTION()
 	void DecreaseSpeed();
 	void ShowSpeedInUI();
+	UFUNCTION()
+	void IncreaseFloorPosition();
+	UFUNCTION()
+	void DecreaseFloorPosition();
 
 	void NativeConstruct() override;
 };

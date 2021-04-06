@@ -29,6 +29,19 @@ void AWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
+	//todo only change when change is needed
+	if (m_position<=settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
+	
+
 	switch (GlobalSettings::GetInstance()->GetViewType())
 	{
 	case LARGE_VIEW:
@@ -45,8 +58,10 @@ void AWall::Tick(float DeltaTime)
 	}
 }
 
-void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors)
+void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int position)
 {
+	m_position = position;
+
 	FVector temp = line.GetPoint2() - line.GetPoint1();
 	m_direction = FVector2D(temp.X, temp.Y);
 	m_normal = FVector2D(temp.Y,-temp.X);

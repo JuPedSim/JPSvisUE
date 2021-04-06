@@ -26,6 +26,7 @@ GlobalSettings::GlobalSettings()
 	m_speedUpFactor = 1.0f;
 	m_speedUpFactorIncrementSize = 0.25f;
 	m_framePosition = FramePosition();
+	m_floorPosition = FloorPosition();
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -100,6 +101,10 @@ inline FramePosition& GlobalSettings::GetFramePosition()
 {
 	return m_framePosition;
 }
+inline FloorPosition& GlobalSettings::GetFloorPosition()
+{
+	return m_floorPosition;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -130,4 +135,9 @@ void GlobalSettings::SetSpeedUpFactor(float speedUpFactor)
 void GlobalSettings::SetFramePosition(FramePosition framePosition)
 {
 	m_framePosition = framePosition;
+}
+
+void GlobalSettings::SetFloorPosition(FloorPosition floorPosition)
+{
+	m_floorPosition = floorPosition;
 }

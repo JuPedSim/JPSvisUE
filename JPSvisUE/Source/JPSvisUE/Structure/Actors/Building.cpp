@@ -61,9 +61,11 @@ void ABuilding::BeginPlay()
 	lines3.at(6) = Line(FVector(30, -10, h2), FVector(30, 20, h2));
 
 	m_floors = SpawnItems<AFloorStructure>(3, m_floorStructureClass);
-	m_floors.at(0)->Init(lines1);
-	m_floors.at(1)->Init(lines2);
-	m_floors.at(2)->Init(lines3);
+	m_floors.at(0)->Init(lines1,0);
+	m_floors.at(1)->Init(lines2,1);
+	m_floors.at(2)->Init(lines3,2);
+
+	settings->SetFloorPosition(FloorPosition(3));
 }
 
 // Called every frame

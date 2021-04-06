@@ -23,10 +23,22 @@ void AFloor::BeginPlay()
 void AFloor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	//todo only change when change is needed
+	if (m_position <= settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
 }
 
-void AFloor::InitVariables(std::vector<FloorDimensions>& dims)
+void AFloor::InitVariables(std::vector<FloorDimensions>& dims, int position)
 {
+	m_position = position;
 	m_dimensions = dims;
 	SetPosition();
 	//last operation
