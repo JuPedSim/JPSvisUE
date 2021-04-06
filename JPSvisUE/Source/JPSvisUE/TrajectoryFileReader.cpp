@@ -11,7 +11,7 @@ TrajectoryFileReader::~TrajectoryFileReader()
 {
 }
 
-CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::string filePath, int tag)
+CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::string filePath, int tag,unsigned int lruID)
 {
 	std::ifstream is;
 	is.open(filePath,std::ios::binary);
@@ -58,7 +58,7 @@ CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::s
 	}
 
 
-	CacheLine line = CacheLine(tag,entries);
+	CacheLine line = CacheLine(tag,entries, lruID);
 	return line;
 }
 
