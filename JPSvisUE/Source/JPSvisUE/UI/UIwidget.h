@@ -27,11 +27,11 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 		UComboBoxString* m_viewTypeComboBox;
 	UPROPERTY(meta = (BindWidget))
-		UButton* m_viewTypeButtonLarge;
+		UButton* m_wallViewTypeButtonLarge;
 	UPROPERTY(meta = (BindWidget))
-		UButton* m_viewTypeButtonSmall;
+		UButton* m_wallViewTypeButtonSmall;
 	UPROPERTY(meta = (BindWidget))
-		UButton* m_viewTypeButtonDynamic;
+		UButton* m_wallViewTypeButtonDynamic;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_frameForwardButton;
 	UPROPERTY(meta = (BindWidget))
@@ -50,13 +50,29 @@ protected:
 		UButton* m_floorUpButton;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorDownButton;
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* m_floorTextBlock;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_floorViewTypeButtonAll;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_floorViewTypeButtonAllBelow;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_floorViewTypeButtonOnly;
+
+
 
 	UFUNCTION()
-	void SetViewTypeLarge();
+	void SetWallViewTypeLarge();
 	UFUNCTION()
-	void SetViewTypeSmall();
+	void SetWallViewTypeSmall();
 	UFUNCTION()
-	void SetViewTypeDynamic();
+	void SetWallViewTypeDynamic();
+	UFUNCTION()
+	void SetFloorViewTypeOnly();
+	UFUNCTION()
+	void SetFloorViewTypeAll();
+	UFUNCTION()
+	void SetFloorViewTypeAllBelow();
 	UFUNCTION()
 	void SetFramesForward();
 	UFUNCTION()
@@ -74,6 +90,7 @@ protected:
 	void IncreaseFloorPosition();
 	UFUNCTION()
 	void DecreaseFloorPosition();
+	void ShowFloorInUI();
 
 	void NativeConstruct() override;
 };

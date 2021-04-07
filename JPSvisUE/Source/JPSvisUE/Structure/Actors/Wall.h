@@ -28,7 +28,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int position);
+	void InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int floorPosition);
 	void SetVisible();
 
 private:
@@ -52,11 +52,14 @@ private:
 	float m_scaleZbig;
 	float m_scaleZsmall;
 	
-	int m_position;
+	int m_floorPosition;
 
 	std::vector<FVector> m_camCheckPoints;
 
-	void TickViewTypeDynamic(float DeltaTime);
-	void TickViewTypeSmall(float DeltaTime);
-	void TickViewTypeBig(float DeltaTime);
+	void TickWallViewTypeDynamic(float DeltaTime);
+	void TickWallViewTypeSmall(float DeltaTime);
+	void TickWallViewTypeBig(float DeltaTime);
+	void TickFloorViewTypeAll();
+	void TickFloorViewTypeOnly();
+	void TickFloorViewTypeAllBelow();
 };

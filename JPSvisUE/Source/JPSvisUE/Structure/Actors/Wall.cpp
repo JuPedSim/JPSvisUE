@@ -29,38 +29,40 @@ void AWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	GlobalSettings* settings = GlobalSettings::GetInstance();
-
-	//todo only change when change is needed
-	if (m_position<=settings->GetFloorPosition().GetPosition())
+	switch (GlobalSettings::GetInstance()->GetFloorViewType())
 	{
-		SetActorHiddenInGame(false);
-	}
-	else
-	{
-		SetActorHiddenInGame(true);
-	}
-	
-
-	switch (GlobalSettings::GetInstance()->GetViewType())
-	{
-	case LARGE_VIEW:
-		TickViewTypeBig(DeltaTime);
+	case FloorViewType::ALL_BELOW_VIEW:
+		TickFloorViewTypeAllBelow();
 		break;
-	case SMALL_VIEW:
-		TickViewTypeSmall(DeltaTime);
+	case FloorViewType::ALL_VIEW:
+		TickFloorViewTypeAll();
 		break;
-	case DYNAMIC_VIEW:
-		TickViewTypeDynamic(DeltaTime);
+	case FloorViewType::ONLY_VIEW:
+		TickFloorViewTypeOnly();
+		break;
+	default:
+		break;
+	}
+
+	switch (GlobalSettings::GetInstance()->GetWallViewType())
+	{
+	case WallViewType::LARGE_VIEW:
+		TickWallViewTypeBig(DeltaTime);
+		break;
+	case WallViewType::SMALL_VIEW:
+		TickWallViewTypeSmall(DeltaTime);
+		break;
+	case WallViewType::DYNAMIC_VIEW:
+		TickWallViewTypeDynamic(DeltaTime);
 		break;
 	default:
 		break;
 	}
 }
 
-void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int position)
+void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int floorPosition)
 {
-	m_position = position;
+	m_floorPosition = floorPosition;
 
 	FVector temp = line.GetPoint2() - line.GetPoint1();
 	m_direction = FVector2D(temp.X, temp.Y);
@@ -191,7 +193,7 @@ FVector AWall::ComputeViewObstructedVector(FVector dir)
 	return v;
 }
 
-void AWall::TickViewTypeDynamic(float DeltaTime)
+void AWall::TickWallViewTypeDynamic(float DeltaTime)
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
@@ -240,13 +242,46 @@ void AWall::TickViewTypeDynamic(float DeltaTime)
 	}
 }
 
-void AWall::TickViewTypeSmall(float DeltaTime)
+void AWall::TickWallViewTypeSmall(float DeltaTime)
 {
 	SetSmall(DeltaTime);
 }
 
-void AWall::TickViewTypeBig(float DeltaTime)
+void AWall::TickWallViewTypeBig(float DeltaTime)
 {
 	SetBig(DeltaTime);
+}
+
+void AWall::TickFloorViewTypeAll()
+{
+	SetActorHiddenInGame(false);
+}
+
+void AWall::TickFloorViewTypeOnly()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	//todo only change when change is needed
+	if (m_floorPosition == settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
+}
+
+void AWall::TickFloorViewTypeAllBelow()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	//todo only change when change is needed
+	if (m_floorPosition <= settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
 }
 

@@ -25,7 +25,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(std::vector<FloorDimensions>& dims,int position);
+	void InitVariables(std::vector<FloorDimensions>& dims,int floorPosition);
 	void SetVisible();
 
 	std::vector<FloorDimensions>& GetDimensions();
@@ -35,7 +35,11 @@ private:
 
 	std::vector<FloorDimensions> m_dimensions;
 
-	int m_position;
+	int m_floorPosition;
 
 	void SetPosition();
+
+	void TickFloorViewTypeAll();
+	void TickFloorViewTypeOnly();
+	void TickFloorViewTypeAllBelow();
 };

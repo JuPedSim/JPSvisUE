@@ -16,7 +16,8 @@ GlobalSettings::GlobalSettings()
 	m_wallScaleChangeSpeed = 4;
 	m_pedestrianHeight = 8;
 	m_pedestrianWidth = 2;
-	m_viewType = DYNAMIC_VIEW;
+	m_wallViewType = WallViewType::DYNAMIC_VIEW;
+	m_floorViewType = FloorViewType::ALL_BELOW_VIEW;
 	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
@@ -61,9 +62,13 @@ const float GlobalSettings::GetAllowedObstractionDegree()
 {
 	return m_allowedObstractionDegree;
 }
-const ViewType GlobalSettings::GetViewType()
+const WallViewType GlobalSettings::GetWallViewType()
 {
-	return m_viewType;
+	return m_wallViewType;
+}
+inline const FloorViewType GlobalSettings::GetFloorViewType()
+{
+	return m_floorViewType;
 }
 const inline std::string GlobalSettings::GetTrajectoryFilePath()
 {
@@ -117,9 +122,14 @@ const inline float GlobalSettings::GetPedestrianWidth()
 {
 	return m_pedestrianWidth;
 }
-void GlobalSettings::SetViewType(ViewType vType)
+void GlobalSettings::SetWallViewType(WallViewType wallViewType)
 {
-	m_viewType = vType;
+	m_wallViewType = wallViewType;
+}
+
+void GlobalSettings::SetFloorViewType(FloorViewType floorViewType)
+{
+	m_floorViewType = floorViewType;
 }
 
 void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
