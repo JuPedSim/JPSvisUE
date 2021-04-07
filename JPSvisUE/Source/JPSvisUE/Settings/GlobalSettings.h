@@ -46,6 +46,14 @@ private:
 	FloorViewType m_floorViewType;
 	FramePosition m_framePosition;
 	FloorPosition m_floorPosition;
+	float m_cameraSpringArmLengthMax;
+	float m_cameraSpringArmLengthMin;
+	float m_zoomSpeed;
+	float m_movementSpeed;
+	float m_yawSpeed;
+	float m_pitchSpeed;
+	std::vector<float> m_camHeights;
+	float m_camOffsetFromFloor;
 
 public:
 	//Getter
@@ -70,6 +78,14 @@ public:
 	inline const float GetSpeedUpFactorIncrementSize();
 	inline FramePosition& GetFramePosition();
 	inline FloorPosition& GetFloorPosition();
+	inline const float GetCameraSpringArmLengthMax();
+	inline const float GetCameraSpringArmLengthMin();
+	inline const float GetZoomSpeed();
+	inline const float GetMovementSpeed();
+	inline const float GetYawSpeed();
+	inline const float GetPitchSpeed();
+	inline const std::vector<float>& GetCamHeights();
+	inline const float GetCamOffsetFromFloor();
 	//Setter
 	void SetWallViewType(WallViewType wallViewType);
 	void SetFloorViewType(FloorViewType floorViewType);
@@ -77,4 +93,5 @@ public:
 	void SetSpeedUpFactor(float speedUpFactor);
 	void SetFramePosition(FramePosition framePosition);
 	void SetFloorPosition(FloorPosition floorPosition);
+	void SetCamHeights(std::vector<float>& camHeights);
 };

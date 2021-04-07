@@ -21,6 +21,9 @@ void UUIwidget::NativeConstruct()
 	m_speedDecreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseSpeed);
 	m_floorUpButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseFloorPosition);
 	m_floorDownButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseFloorPosition);
+
+	ShowSpeedInUI();
+	ShowFloorInUI();
 }
 
 void UUIwidget::SetWallViewTypeLarge()

@@ -28,6 +28,16 @@ GlobalSettings::GlobalSettings()
 	m_speedUpFactorIncrementSize = 0.25f;
 	m_framePosition = FramePosition();
 	m_floorPosition = FloorPosition();
+	m_cameraSpringArmLengthMax = 1000.f;
+	m_cameraSpringArmLengthMin = 0.f;
+	m_zoomSpeed = 3.f;
+	m_movementSpeed = 4.f;
+	m_yawSpeed = 1.f;
+	m_pitchSpeed = 1.f;
+	m_camHeights = std::vector<float>();
+	m_camHeights.resize(1);
+	m_camHeights.at(0) = 0;
+	m_camOffsetFromFloor = 2;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -110,6 +120,38 @@ inline FloorPosition& GlobalSettings::GetFloorPosition()
 {
 	return m_floorPosition;
 }
+inline const float GlobalSettings::GetCameraSpringArmLengthMax()
+{
+	return m_cameraSpringArmLengthMax;
+}
+inline const float GlobalSettings::GetCameraSpringArmLengthMin()
+{
+	return m_cameraSpringArmLengthMin;
+}
+inline const float GlobalSettings::GetZoomSpeed()
+{
+	return m_zoomSpeed;
+}
+inline const float GlobalSettings::GetMovementSpeed()
+{
+	return m_movementSpeed;
+}
+inline const float GlobalSettings::GetYawSpeed()
+{
+	return m_yawSpeed;
+}
+inline const float GlobalSettings::GetPitchSpeed()
+{
+	return m_pitchSpeed;
+}
+inline const std::vector<float>& GlobalSettings::GetCamHeights()
+{
+	return m_camHeights;
+}
+inline const float GlobalSettings::GetCamOffsetFromFloor()
+{
+	return m_camOffsetFromFloor;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -150,4 +192,9 @@ void GlobalSettings::SetFramePosition(FramePosition framePosition)
 void GlobalSettings::SetFloorPosition(FloorPosition floorPosition)
 {
 	m_floorPosition = floorPosition;
+}
+
+void GlobalSettings::SetCamHeights(std::vector<float>& camHeights)
+{
+	m_camHeights = camHeights;
 }

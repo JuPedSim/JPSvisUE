@@ -30,6 +30,14 @@ void ABuilding::BeginPlay()
 	float h1 = 20;
 	float h2 = 40;
 
+	std::vector<float> camHeights = std::vector<float>();
+	camHeights.resize(3);
+	camHeights.at(0) = settings->GetCamOffsetFromFloor();
+	camHeights.at(1) = h1+ settings->GetCamOffsetFromFloor();
+	camHeights.at(2) = h2+ settings->GetCamOffsetFromFloor();
+
+	settings->SetCamHeights(camHeights);
+
 	std::vector<Line> lines1 = std::vector<Line>();
 	lines1.resize(7);
 	lines1.at(0) = Line(FVector(-10, -10, 0.f), FVector(-10, 70, 0.f));
