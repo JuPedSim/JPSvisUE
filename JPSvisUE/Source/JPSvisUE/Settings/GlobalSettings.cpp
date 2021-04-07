@@ -34,9 +34,9 @@ GlobalSettings::GlobalSettings()
 	m_movementSpeed = 4.f;
 	m_yawSpeed = 1.f;
 	m_pitchSpeed = 1.f;
-	m_camHeights = std::vector<float>();
-	m_camHeights.resize(1);
-	m_camHeights.at(0) = 0;
+	m_floorHeights = std::vector<float>();
+	m_floorHeights.resize(1);
+	m_floorHeights.at(0) = 0;
 	m_camOffsetFromFloor = 2;
 }
 
@@ -144,9 +144,9 @@ inline const float GlobalSettings::GetPitchSpeed()
 {
 	return m_pitchSpeed;
 }
-inline const std::vector<float>& GlobalSettings::GetCamHeights()
+inline const std::vector<float>& GlobalSettings::GetFloorHeights()
 {
-	return m_camHeights;
+	return m_floorHeights;
 }
 inline const float GlobalSettings::GetCamOffsetFromFloor()
 {
@@ -194,7 +194,7 @@ void GlobalSettings::SetFloorPosition(FloorPosition floorPosition)
 	m_floorPosition = floorPosition;
 }
 
-void GlobalSettings::SetCamHeights(std::vector<float>& camHeights)
+void GlobalSettings::SetFloorHeights(std::vector<float>& floorHeights)
 {
-	m_camHeights = camHeights;
+	m_floorHeights = floorHeights;
 }

@@ -52,7 +52,7 @@ private:
 	float m_movementSpeed;
 	float m_yawSpeed;
 	float m_pitchSpeed;
-	std::vector<float> m_camHeights;
+	std::vector<float> m_floorHeights;
 	float m_camOffsetFromFloor;
 
 public:
@@ -84,7 +84,7 @@ public:
 	inline const float GetMovementSpeed();
 	inline const float GetYawSpeed();
 	inline const float GetPitchSpeed();
-	inline const std::vector<float>& GetCamHeights();
+	inline const std::vector<float>& GetFloorHeights();
 	inline const float GetCamOffsetFromFloor();
 	//Setter
 	void SetWallViewType(WallViewType wallViewType);
@@ -93,5 +93,5 @@ public:
 	void SetSpeedUpFactor(float speedUpFactor);
 	void SetFramePosition(FramePosition framePosition);
 	void SetFloorPosition(FloorPosition floorPosition);
-	void SetCamHeights(std::vector<float>& camHeights);
+	void SetFloorHeights(std::vector<float>& floorHeights);
 };
