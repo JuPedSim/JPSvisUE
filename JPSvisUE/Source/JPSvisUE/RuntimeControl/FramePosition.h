@@ -18,8 +18,8 @@ public:
 	void TimeSensitiveChange(float delta);
 	void Increase();
 	void Decrease();
-	inline const int GetPosition();
-	inline bool GetPositionWasChanged();
+	const int GetPosition();
+	bool GetPositionWasChanged();
 private:
 	int m_position;
 	int m_length;

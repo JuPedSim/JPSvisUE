@@ -20,7 +20,7 @@ public:
 	bool GetIsValid();
 	CacheEntry& GetEntry(int wordOffset);
 
-	inline unsigned int GetLruID();
+	unsigned int GetLruID();
 	void SetLruID(unsigned int lruID);
 private:
 	unsigned int m_lruID;

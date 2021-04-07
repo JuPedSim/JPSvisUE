@@ -35,7 +35,7 @@ CacheEntry& CacheLine::GetEntry(int wordOffset)
 	return m_entries.at(wordOffset);
 }
 
-inline unsigned int CacheLine::GetLruID()
+unsigned int CacheLine::GetLruID()
 {
 	return m_lruID;
 }

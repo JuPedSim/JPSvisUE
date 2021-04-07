@@ -15,7 +15,7 @@ public:
 	~FloorPosition();
 	void Increase();
 	void Decrease();
-	inline const int GetPosition();
+	const int GetPosition();
 
 private:
 	int m_position;

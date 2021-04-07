@@ -76,12 +76,12 @@ void FramePosition::Decrease()
 	positionMutex.unlock();
 }
 
-inline const int FramePosition::GetPosition()
+const int FramePosition::GetPosition()
 {
 	return m_position;
 }
 
-inline bool FramePosition::GetPositionWasChanged()
+bool FramePosition::GetPositionWasChanged()
 {
 	bool change = m_positionWasChanged;
 	m_positionWasChanged = false;
