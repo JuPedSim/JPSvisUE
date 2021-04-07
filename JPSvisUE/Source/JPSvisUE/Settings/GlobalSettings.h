@@ -13,7 +13,8 @@
  * 
  */
 
-enum ViewType { LARGE_VIEW, SMALL_VIEW, DYNAMIC_VIEW };
+enum WallViewType { LARGE_VIEW, SMALL_VIEW, DYNAMIC_VIEW };
+enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW};
 
 class JPSVISUE_API GlobalSettings
 {
@@ -41,7 +42,8 @@ private:
 	float m_wallScaleChangeSpeed;//fraction per second
 	float m_speedUpFactor;
 	float m_speedUpFactorIncrementSize;
-	ViewType m_viewType;
+	WallViewType m_wallViewType;
+	FloorViewType m_floorViewType;
 	FramePosition m_framePosition;
 	FloorPosition m_floorPosition;
 
@@ -56,7 +58,8 @@ public:
 	inline const float GetWallScaleChangeSpeed();
 	inline const float GetPedestrianHeight();
 	inline const float GetPedestrianWidth();
-	inline const ViewType GetViewType();
+	inline const WallViewType GetWallViewType();
+	inline const FloorViewType GetFloorViewType();
 	inline const std::string GetTrajectoryFilePath();
 	inline const int GetCacheBitsAssociativeness();
 	inline const int GetCacheBitsIndex();
@@ -68,7 +71,8 @@ public:
 	inline FramePosition& GetFramePosition();
 	inline FloorPosition& GetFloorPosition();
 	//Setter
-	void SetViewType(ViewType viewType);
+	void SetWallViewType(WallViewType wallViewType);
+	void SetFloorViewType(FloorViewType floorViewType);
 	void SetIsAutoPlay(bool isAutoPlay);
 	void SetSpeedUpFactor(float speedUpFactor);
 	void SetFramePosition(FramePosition framePosition);

@@ -24,21 +24,25 @@ void AFloor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	GlobalSettings* settings = GlobalSettings::GetInstance();
-	//todo only change when change is needed
-	if (m_position <= settings->GetFloorPosition().GetPosition())
+	switch (GlobalSettings::GetInstance()->GetFloorViewType())
 	{
-		SetActorHiddenInGame(false);
-	}
-	else
-	{
-		SetActorHiddenInGame(true);
+	case FloorViewType::ALL_BELOW_VIEW:
+		TickFloorViewTypeAllBelow();
+		break;
+	case FloorViewType::ALL_VIEW:
+		TickFloorViewTypeAll();
+		break;
+	case FloorViewType::ONLY_VIEW:
+		TickFloorViewTypeOnly();
+		break;
+	default:
+		break;
 	}
 }
 
-void AFloor::InitVariables(std::vector<FloorDimensions>& dims, int position)
+void AFloor::InitVariables(std::vector<FloorDimensions>& dims, int floorPosition)
 {
-	m_position = position;
+	m_floorPosition = floorPosition;
 	m_dimensions = dims;
 	SetPosition();
 	//last operation
@@ -82,3 +86,35 @@ void AFloor::SetPosition()
 	SetActorTransform(transform);
 }
 
+void AFloor::TickFloorViewTypeAll()
+{
+	SetActorHiddenInGame(false);
+}
+
+void AFloor::TickFloorViewTypeOnly()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	//todo only change when change is needed
+	if (m_floorPosition == settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
+}
+
+void AFloor::TickFloorViewTypeAllBelow()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	//todo only change when change is needed
+	if (m_floorPosition <= settings->GetFloorPosition().GetPosition())
+	{
+		SetActorHiddenInGame(false);
+	}
+	else
+	{
+		SetActorHiddenInGame(true);
+	}
+}
