@@ -25,8 +25,6 @@ class JPSVISUE_API UUIwidget : public UUserWidget
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-		UComboBoxString* m_viewTypeComboBox;
-	UPROPERTY(meta = (BindWidget))
 		UButton* m_wallViewTypeButtonLarge;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_wallViewTypeButtonSmall;
