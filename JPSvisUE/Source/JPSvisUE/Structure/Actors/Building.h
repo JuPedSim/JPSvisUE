@@ -51,4 +51,5 @@ private:
 	void SetAutoPlayFrame(float delta);
 	void MovePedestrians();
 
+	bool GetShouldBeHidden(float height);
 };

@@ -30,13 +30,13 @@ void ABuilding::BeginPlay()
 	float h1 = 20;
 	float h2 = 40;
 
-	std::vector<float> camHeights = std::vector<float>();
-	camHeights.resize(3);
-	camHeights.at(0) = settings->GetCamOffsetFromFloor();
-	camHeights.at(1) = h1+ settings->GetCamOffsetFromFloor();
-	camHeights.at(2) = h2+ settings->GetCamOffsetFromFloor();
+	std::vector<float> floorHeights = std::vector<float>();
+	floorHeights.resize(3);
+	floorHeights.at(0) = 0;
+	floorHeights.at(1) = h1;
+	floorHeights.at(2) = h2;
 
-	settings->SetCamHeights(camHeights);
+	settings->SetFloorHeights(floorHeights);
 
 	std::vector<Line> lines1 = std::vector<Line>();
 	lines1.resize(7);
@@ -99,13 +99,60 @@ void ABuilding::SetAutoPlayFrame(float delta)
 void ABuilding::MovePedestrians()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	if (settings->GetFramePosition().GetPositionWasChanged())
-	{
+	/*if (settings->GetFramePosition().GetPositionWasChanged())
+	{*/
 		CacheEntry firstEntry = m_cache.GetCacheEntry(settings->GetFramePosition().GetPosition());
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
 			Person person = firstEntry.GetPersons().at(i);
+			if (GetShouldBeHidden(person.z))
+			{
+				m_pedestrians.at(i)->SetActorHiddenInGame(true);
+			}
+			else
+			{
+				m_pedestrians.at(i)->SetActorHiddenInGame(false);
+			}
 			m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
 		}
+	//}
+}
+
+bool ABuilding::GetShouldBeHidden(float height)
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	float minDis = FLT_MAX;
+	int pos = 0;
+	for (int i = 0;i<settings->GetFloorHeights().size();i++) 
+	{
+		float distance = std::abs(settings->GetFloorHeights().at(i) - height);
+		if (distance<minDis) 
+		{
+			minDis = distance;
+			pos = i;
+		}
 	}
+
+	int currentFloor = settings->GetFloorPosition().GetPosition();
+	switch (GlobalSettings::GetInstance()->GetFloorViewType())
+	{
+	case FloorViewType::ALL_BELOW_VIEW:
+		if (pos<=currentFloor) 
+		{
+			return false;
+		}
+		break;
+	case FloorViewType::ALL_VIEW:
+		return false;
+		break;
+	case FloorViewType::ONLY_VIEW:
+		if (pos == currentFloor)
+		{
+			return false;
+		}
+		break;
+	default:
+		break;
+	}
+	return true;
 }

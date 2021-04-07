@@ -59,10 +59,10 @@ void ACameraCenterPawn::Tick(float DeltaTime)
 
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
-	float height = settings->GetCamHeights().at(0);
-	if (settings->GetCamHeights().size()>settings->GetFloorPosition().GetPosition())
+	float height = settings->GetFloorHeights().at(0)+settings->GetCamOffsetFromFloor();
+	if (settings->GetFloorHeights().size()>settings->GetFloorPosition().GetPosition())
 	{
-		height = settings->GetCamHeights().at(settings->GetFloorPosition().GetPosition());
+		height = settings->GetFloorHeights().at(settings->GetFloorPosition().GetPosition())+ settings->GetCamOffsetFromFloor();
 	}
 	height = height * settings->GetScalingFactor();
 
