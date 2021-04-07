@@ -35,7 +35,7 @@ void FloorPosition::Decrease()
 	}
 }
 
-inline const int FloorPosition::GetPosition()
+const int FloorPosition::GetPosition()
 {
 	return m_position;
 }

@@ -76,79 +76,79 @@ const WallViewType GlobalSettings::GetWallViewType()
 {
 	return m_wallViewType;
 }
-inline const FloorViewType GlobalSettings::GetFloorViewType()
+const FloorViewType GlobalSettings::GetFloorViewType()
 {
 	return m_floorViewType;
 }
-const inline std::string GlobalSettings::GetTrajectoryFilePath()
+const std::string GlobalSettings::GetTrajectoryFilePath()
 {
 	return m_trajectoryFilePath;
 }
-const inline int GlobalSettings::GetCacheBitsAssociativeness()
+const int GlobalSettings::GetCacheBitsAssociativeness()
 {
 	return m_cacheBitsAssociativeness;
 }
-const inline int GlobalSettings::GetCacheBitsIndex()
+const int GlobalSettings::GetCacheBitsIndex()
 {
 	return m_cacheBitsIndex;
 }
-const inline int GlobalSettings::GetCacheBitsWordOffset()
+const int GlobalSettings::GetCacheBitsWordOffset()
 {
 	return m_cacheBitsWordOffset;
 }
-const inline bool GlobalSettings::GetIsAutoPlay()
+const bool GlobalSettings::GetIsAutoPlay()
 {
 	return m_isAutoPlay;
 }
-const inline float GlobalSettings::GetTimePerFrame()
+const float GlobalSettings::GetTimePerFrame()
 {
 	return m_timePerFrame;
 }
-const inline float GlobalSettings::GetSpeedUpFactor()
+const float GlobalSettings::GetSpeedUpFactor()
 {
 	return m_speedUpFactor;
 }
-inline const float GlobalSettings::GetSpeedUpFactorIncrementSize()
+const float GlobalSettings::GetSpeedUpFactorIncrementSize()
 {
 	return m_speedUpFactorIncrementSize;
 }
-inline FramePosition& GlobalSettings::GetFramePosition()
+FramePosition& GlobalSettings::GetFramePosition()
 {
 	return m_framePosition;
 }
-inline FloorPosition& GlobalSettings::GetFloorPosition()
+FloorPosition& GlobalSettings::GetFloorPosition()
 {
 	return m_floorPosition;
 }
-inline const float GlobalSettings::GetCameraSpringArmLengthMax()
+const float GlobalSettings::GetCameraSpringArmLengthMax()
 {
 	return m_cameraSpringArmLengthMax;
 }
-inline const float GlobalSettings::GetCameraSpringArmLengthMin()
+const float GlobalSettings::GetCameraSpringArmLengthMin()
 {
 	return m_cameraSpringArmLengthMin;
 }
-inline const float GlobalSettings::GetZoomSpeed()
+const float GlobalSettings::GetZoomSpeed()
 {
 	return m_zoomSpeed;
 }
-inline const float GlobalSettings::GetMovementSpeed()
+const float GlobalSettings::GetMovementSpeed()
 {
 	return m_movementSpeed;
 }
-inline const float GlobalSettings::GetYawSpeed()
+const float GlobalSettings::GetYawSpeed()
 {
 	return m_yawSpeed;
 }
-inline const float GlobalSettings::GetPitchSpeed()
+const float GlobalSettings::GetPitchSpeed()
 {
 	return m_pitchSpeed;
 }
-inline const std::vector<float>& GlobalSettings::GetFloorHeights()
+const std::vector<float>& GlobalSettings::GetFloorHeights()
 {
 	return m_floorHeights;
 }
-inline const float GlobalSettings::GetCamOffsetFromFloor()
+const float GlobalSettings::GetCamOffsetFromFloor()
 {
 	return m_camOffsetFromFloor;
 }
@@ -156,11 +156,11 @@ const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
 }
-const inline float GlobalSettings::GetPedestrianHeight()
+const float GlobalSettings::GetPedestrianHeight()
 {
 	return m_pedestrianHeight;
 }
-const inline float GlobalSettings::GetPedestrianWidth()
+const float GlobalSettings::GetPedestrianWidth()
 {
 	return m_pedestrianWidth;
 }

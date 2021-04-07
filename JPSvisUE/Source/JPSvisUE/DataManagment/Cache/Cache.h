@@ -19,7 +19,7 @@ public:
 	Cache();
 	CacheEntry GetCacheEntry(int address);
 	~Cache();
-	inline const int GetFramesCount();
+	const int GetFramesCount();
 private:
 	int m_bitsAssociativeness;
 	int m_bitsIndex;
