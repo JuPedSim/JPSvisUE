@@ -58,7 +58,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorViewTypeButtonOnly;
 	UPROPERTY(meta = (BindWidget))
-		UButton* m_openTrajectoryFilesButton;
+		UButton* m_openTrajectoryFileButton;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_openStructureFileButton;
 
 	
 	UFUNCTION()
@@ -92,7 +94,9 @@ protected:
 	void DecreaseFloorPosition();
 	void ShowFloorInUI();
 	UFUNCTION()
-	void OpenTrajectoryFiles();
+	void OpenTrajectoryFile();
+	UFUNCTION()
+	void OpenStructureFile();
 
 	void NativeConstruct() override;
 };

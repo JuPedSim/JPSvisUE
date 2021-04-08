@@ -20,6 +20,7 @@ class JPSVISUE_API AWall : public ABuildingActor
 public:	
 	// Sets default values for this actor's properties
 	AWall();
+	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 
 protected:
 	// Called when the game starts or when spawned

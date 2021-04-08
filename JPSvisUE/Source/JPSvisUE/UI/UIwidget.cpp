@@ -22,7 +22,8 @@ void UUIwidget::NativeConstruct()
 	m_speedDecreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseSpeed);
 	m_floorUpButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseFloorPosition);
 	m_floorDownButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseFloorPosition);
-	m_openTrajectoryFilesButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenTrajectoryFiles);
+	m_openTrajectoryFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenTrajectoryFile);
+	m_openStructureFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenStructureFile);
 
 	ShowSpeedInUI();
 	ShowFloorInUI();
@@ -138,13 +139,21 @@ void UUIwidget::ShowFloorInUI()
 	m_floorTextBlock->SetText(FText::FromString(name));
 }
 
-void UUIwidget::OpenTrajectoryFiles()
+void UUIwidget::OpenTrajectoryFile()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	FString fileName = FileOpener::OpenFileDialogSingleSelect("Trajectory Files", "", "Trajectory Files|*.bin");
+	FString fileName = FileOpener::OpenFileDialogSingleSelect("Trajectory Files", "", "Trajectory File|*.bin");
 	if (!fileName.IsEmpty()) 
 	{
 		settings->SetTrajectoryFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
-		settings->SetTrajectoryFileWasChanged();
+	}
+}
+void UUIwidget::OpenStructureFile()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	FString fileName = FileOpener::OpenFileDialogSingleSelect("Structure Files", "", "Structure File|*.dxf");
+	if (!fileName.IsEmpty())
+	{
+		settings->SetStructureFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
 	}
 }

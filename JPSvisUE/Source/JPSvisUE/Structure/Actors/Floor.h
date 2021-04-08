@@ -17,7 +17,7 @@ class JPSVISUE_API AFloor : public ABuildingActor
 public:	
 	// Sets default values for this actor's properties
 	AFloor();
-
+	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

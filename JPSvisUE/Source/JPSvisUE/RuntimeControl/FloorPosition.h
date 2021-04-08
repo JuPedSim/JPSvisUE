@@ -15,6 +15,7 @@ public:
 	~FloorPosition();
 	void Increase();
 	void Decrease();
+	void SetPositionWithClamp(int pos);
 	const int GetPosition();
 
 private:
