@@ -7,6 +7,7 @@ ABuilding::ABuilding()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	m_cacheIsSet = false;
 }
 
 // Called when the game starts or when spawned
@@ -14,18 +15,7 @@ void ABuilding::BeginPlay()
 {
 	Super::BeginPlay();
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	m_cache = Cache(settings->GetCacheBitsAssociativeness(),settings->GetCacheBitsIndex(),settings->GetCacheBitsWordOffset(),settings->GetTrajectoryFilePath());
-	settings->SetFramePosition(FramePosition(m_cache.GetFramesCount(),settings->GetTimePerFrame()));
-	CacheEntry firstEntry = m_cache.GetCacheEntry(0);
-
-	m_pedestrians = SpawnItems<APedestrian>(firstEntry.GetPersons().size(), m_pedestrianClass);
-	for (int i = 0;i<m_pedestrians.size();i++)
-	{
-		Person person = firstEntry.GetPersons().at(i);
-		m_pedestrians.at(i)->InitVariables(person.id);
-		m_pedestrians.at(i)->SetPosition(FVector(person.x,person.y,person.z));
-		m_pedestrians.at(i)->SetVisible();
-	}
+	
 
 	float h1 = 20;
 	float h2 = 40;
@@ -80,9 +70,13 @@ void ABuilding::BeginPlay()
 void ABuilding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	SetAutoPlayFrame(DeltaTime);
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	if (settings->GetTrajectoryFileChanged())
+	{
+		LoadPedestrians();
+	}
 
+	SetAutoPlayFrame(DeltaTime);
 	MovePedestrians();
 }
 
@@ -96,15 +90,43 @@ void ABuilding::SetAutoPlayFrame(float delta)
 	}
 }
 
-void ABuilding::MovePedestrians()
+void ABuilding::LoadPedestrians()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	/*if (settings->GetFramePosition().GetPositionWasChanged())
-	{*/
-		CacheEntry firstEntry = m_cache.GetCacheEntry(settings->GetFramePosition().GetPosition());
+	m_cache = Cache(settings->GetCacheBitsAssociativeness(), settings->GetCacheBitsIndex(), settings->GetCacheBitsWordOffset(), settings->GetTrajectoryFilePath());
+	int lastPos = settings->GetFramePosition().GetPosition();
+	FramePosition framePosition = FramePosition(m_cache.GetFramesCount(), settings->GetTimePerFrame());
+	framePosition.SetPositionWithClamp(lastPos);
+	settings->SetFramePosition(framePosition);
+	CacheEntry firstEntry = m_cache.GetCacheEntry(0);
+
+	for (int i = 0; i < m_pedestrians.size(); i++)
+	{
+		m_pedestrians.at(i)->Destroy();
+	}
+
+	m_pedestrians = SpawnItems<APedestrian>(firstEntry.GetPersons().size(), m_pedestrianClass);
+	for (int i = 0; i < m_pedestrians.size(); i++)
+	{
+		Person person = firstEntry.GetPersons().at(i);
+		m_pedestrians.at(i)->InitVariables(person.id);
+		m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
+		m_pedestrians.at(i)->SetVisible();
+	}
+	m_cacheIsSet = true;
+}
+
+void ABuilding::MovePedestrians()
+{
+	if (m_cacheIsSet) 
+	{
+		GlobalSettings* settings = GlobalSettings::GetInstance();
+		/*if (settings->GetFramePosition().GetPositionWasChanged())
+		{*/
+		CacheEntry entry = m_cache.GetCacheEntry(settings->GetFramePosition().GetPosition());
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
-			Person person = firstEntry.GetPersons().at(i);
+			Person person = entry.GetPersons().at(i);
 			if (GetShouldBeHidden(person.z))
 			{
 				m_pedestrians.at(i)->SetActorHiddenInGame(true);
@@ -115,7 +137,8 @@ void ABuilding::MovePedestrians()
 			}
 			m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
 		}
-	//}
+		//}
+	}
 }
 
 bool ABuilding::GetShouldBeHidden(float height)

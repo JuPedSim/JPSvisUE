@@ -76,6 +76,13 @@ void FramePosition::Decrease()
 	positionMutex.unlock();
 }
 
+void FramePosition::SetPositionWithClamp(int pos)
+{
+	positionMutex.lock();
+	m_position = FMath::Clamp(pos,0,m_length-1);
+	positionMutex.unlock();
+}
+
 const int FramePosition::GetPosition()
 {
 	return m_position;

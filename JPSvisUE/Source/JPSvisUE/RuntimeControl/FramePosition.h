@@ -18,6 +18,7 @@ public:
 	void TimeSensitiveChange(float delta);
 	void Increase();
 	void Decrease();
+	void SetPositionWithClamp(int pos);
 	const int GetPosition();
 	bool GetPositionWasChanged();
 private:

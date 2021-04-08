@@ -47,9 +47,12 @@ private:
 	std::vector<APedestrian*> m_pedestrians;
 
 	Cache m_cache;
+	bool m_cacheIsSet;
 
 	void SetAutoPlayFrame(float delta);
+	void LoadPedestrians();
 	void MovePedestrians();
+	
 
 	bool GetShouldBeHidden(float height);
 };

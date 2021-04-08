@@ -3,6 +3,7 @@
 
 #include "UIwidget.h"
 
+
 void UUIwidget::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -21,6 +22,7 @@ void UUIwidget::NativeConstruct()
 	m_speedDecreaseButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseSpeed);
 	m_floorUpButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::IncreaseFloorPosition);
 	m_floorDownButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseFloorPosition);
+	m_openTrajectoryFilesButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenTrajectoryFiles);
 
 	ShowSpeedInUI();
 	ShowFloorInUI();
@@ -134,4 +136,15 @@ void UUIwidget::ShowFloorInUI()
 	std::string str = ss.str();
 	FString name(str.c_str());
 	m_floorTextBlock->SetText(FText::FromString(name));
+}
+
+void UUIwidget::OpenTrajectoryFiles()
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	FString fileName = FileOpener::OpenFileDialogSingleSelect("Trajectory Files", "", "Trajectory Files|*.bin");
+	if (!fileName.IsEmpty()) 
+	{
+		settings->SetTrajectoryFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
+		settings->SetTrajectoryFileWasChanged();
+	}
 }
