@@ -18,7 +18,8 @@ GlobalSettings::GlobalSettings()
 	m_pedestrianWidth = 2;
 	m_wallViewType = WallViewType::DYNAMIC_VIEW;
 	m_floorViewType = FloorViewType::ALL_BELOW_VIEW;
-	m_trajectoryFilePath = "E:/Arbeit_Forschungszentrum/Repo/JPSvisUE/TestData/TestData.bin";
+	m_trajectoryFilePath = "";
+	m_trajectoryFileChanged = false;
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
@@ -152,6 +153,15 @@ const float GlobalSettings::GetCamOffsetFromFloor()
 {
 	return m_camOffsetFromFloor;
 }
+const bool GlobalSettings::GetTrajectoryFileChanged()
+{
+	bool value = m_trajectoryFileChanged;
+	if (m_trajectoryFileChanged)
+	{
+		m_trajectoryFileChanged = false;
+	}
+	return value;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -197,4 +207,14 @@ void GlobalSettings::SetFloorPosition(FloorPosition floorPosition)
 void GlobalSettings::SetFloorHeights(std::vector<float>& floorHeights)
 {
 	m_floorHeights = floorHeights;
+}
+
+void GlobalSettings::SetTrajectoryFilePath(std::string path)
+{
+	m_trajectoryFilePath = path;
+}
+
+void GlobalSettings::SetTrajectoryFileWasChanged()
+{
+	m_trajectoryFileChanged = true;
 }

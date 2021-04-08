@@ -7,6 +7,7 @@
 #include <Runtime/UMG/Public/Components/ComboBoxString.h>
 #include <Runtime/UMG/Public/Components/Button.h>
 #include "../Settings/GlobalSettings.h"
+#include "../DataManagment/FileOpener/FileOpener.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
 #include <Runtime/UMG/Public/Components/TextBlock.h>
 #include <sstream>
@@ -56,9 +57,10 @@ protected:
 		UButton* m_floorViewTypeButtonAllBelow;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorViewTypeButtonOnly;
+	UPROPERTY(meta = (BindWidget))
+		UButton* m_openTrajectoryFilesButton;
 
-
-
+	
 	UFUNCTION()
 	void SetWallViewTypeLarge();
 	UFUNCTION()
@@ -89,6 +91,8 @@ protected:
 	UFUNCTION()
 	void DecreaseFloorPosition();
 	void ShowFloorInUI();
+	UFUNCTION()
+	void OpenTrajectoryFiles();
 
 	void NativeConstruct() override;
 };
