@@ -61,8 +61,13 @@ protected:
 		UButton* m_openTrajectoryFileButton;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_openStructureFileButton;
+public:
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* m_frameTextBox;
+	UPROPERTY(meta = (BindWidget))
+		USlider* m_framePosSlider;
+protected:
 
-	
 	UFUNCTION()
 	void SetWallViewTypeLarge();
 	UFUNCTION()

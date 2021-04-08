@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include "CoreMinimal.h"
+//#include "../Settings/GlobalSettings.h" todo
 #include <mutex>
 
 /**
@@ -21,10 +22,12 @@ public:
 	void SetPositionWithClamp(int pos);
 	const int GetPosition();
 	bool GetPositionWasChanged();
+	int GetLength();
 private:
 	int m_position;
 	int m_length;
 	float m_frameTime;
 	float m_currentTime;
 	bool m_positionWasChanged;
+	void SetUIinfo();
 };

@@ -41,6 +41,7 @@ GlobalSettings::GlobalSettings()
 	m_floorHeights.resize(1);
 	m_floorHeights.at(0) = 0;
 	m_camOffsetFromFloor = 2;
+	m_ui = nullptr;
 }
 
 GlobalSettings* GlobalSettings::GetInstance()
@@ -173,6 +174,10 @@ const bool GlobalSettings::GetStructureFileChanged()
 	}
 	return value;
 }
+UUserWidget* GlobalSettings::GetUI()
+{
+	return m_ui;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -229,4 +234,9 @@ void GlobalSettings::SetStructureFilePath(std::string path)
 {
 	m_structureFilePath = path;
 	m_structureFileChanged = true;
+}
+
+void GlobalSettings::SetUI(UUserWidget* ui)
+{
+	m_ui = ui;
 }
