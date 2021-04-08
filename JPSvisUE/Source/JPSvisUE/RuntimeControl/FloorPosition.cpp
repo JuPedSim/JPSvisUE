@@ -35,6 +35,11 @@ void FloorPosition::Decrease()
 	}
 }
 
+void FloorPosition::SetPositionWithClamp(int pos)
+{
+	m_position = FMath::Clamp(pos, 0, m_floorCount - 1);
+}
+
 const int FloorPosition::GetPosition()
 {
 	return m_position;

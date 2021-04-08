@@ -35,6 +35,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
@@ -51,6 +52,7 @@ private:
 
 	void SetAutoPlayFrame(float delta);
 	void LoadPedestrians();
+	void LoadStructure();
 	void MovePedestrians();
 	
 

@@ -20,6 +20,8 @@ GlobalSettings::GlobalSettings()
 	m_floorViewType = FloorViewType::ALL_BELOW_VIEW;
 	m_trajectoryFilePath = "";
 	m_trajectoryFileChanged = false;
+	m_structureFilePath = "";
+	m_structureFileChanged = false;
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
 	m_cacheBitsWordOffset = 0;
@@ -162,6 +164,15 @@ const bool GlobalSettings::GetTrajectoryFileChanged()
 	}
 	return value;
 }
+const bool GlobalSettings::GetStructureFileChanged()
+{
+	bool value = m_structureFileChanged;
+	if (m_structureFileChanged)
+	{
+		m_structureFileChanged = false;
+	}
+	return value;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -212,9 +223,10 @@ void GlobalSettings::SetFloorHeights(std::vector<float>& floorHeights)
 void GlobalSettings::SetTrajectoryFilePath(std::string path)
 {
 	m_trajectoryFilePath = path;
-}
-
-void GlobalSettings::SetTrajectoryFileWasChanged()
-{
 	m_trajectoryFileChanged = true;
+}
+void GlobalSettings::SetStructureFilePath(std::string path)
+{
+	m_structureFilePath = path;
+	m_structureFileChanged = true;
 }

@@ -24,6 +24,19 @@ void AFloorStructure::Init(std::vector<Line>& wallLines, int floorPosition)
 	InitWalls(wallLines);
 }
 
+void AFloorStructure::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
+{
+	for (int i = 0; i < m_wallSegments.size(); i++)
+	{
+		m_wallSegments.at(i)->DestroyAll(bNetForce, bShouldModifyLevel);
+	}
+	for (int i = 0; i < m_floorSegments.size(); i++)
+	{
+		m_floorSegments.at(i)->DestroyAll(bNetForce, bShouldModifyLevel);
+	}
+	Destroy(bNetForce, bShouldModifyLevel);
+}
+
 void AFloorStructure::BeginPlay()
 {
 	Super::BeginPlay();

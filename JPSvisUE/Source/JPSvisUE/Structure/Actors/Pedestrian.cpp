@@ -29,6 +29,11 @@ void APedestrian::SetPosition(FVector position)
 	SetActorLocation(position* GlobalSettings::GetInstance()->GetScalingFactor());
 }
 
+void APedestrian::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
+{
+	Destroy(bNetForce, bShouldModifyLevel);
+}
+
 // Called when the game starts or when spawned
 void APedestrian::BeginPlay()
 {

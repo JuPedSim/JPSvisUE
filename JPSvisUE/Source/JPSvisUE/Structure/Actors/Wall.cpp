@@ -18,6 +18,11 @@ AWall::AWall()
 	m_scaleZsmall = 0;
 }
 
+void AWall::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
+{
+	Destroy(bNetForce, bShouldModifyLevel);
+}
+
 // Called when the game starts or when spawned
 void AWall::BeginPlay()
 {

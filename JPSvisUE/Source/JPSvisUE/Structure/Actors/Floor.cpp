@@ -13,6 +13,11 @@ AFloor::AFloor()
 	SetRootComponent(m_floorMesh);
 }
 
+void AFloor::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
+{
+	Destroy(bNetForce, bShouldModifyLevel);
+}
+
 // Called when the game starts or when spawned
 void AFloor::BeginPlay()
 {

@@ -24,6 +24,7 @@ public:
 	AFloorStructure();
 	~AFloorStructure();
 	void Init(std::vector<Line>& wallLines,int floorPosition);
+	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

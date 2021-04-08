@@ -18,6 +18,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 	bool m_variablesInitialized = false;//todo maybe not used
 
 	template <class T>

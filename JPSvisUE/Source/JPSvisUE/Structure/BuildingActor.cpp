@@ -16,3 +16,8 @@ void ABuildingActor::BeginPlay()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 }
+
+void ABuildingActor::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
+{
+	Destroy(bNetForce, bShouldModifyLevel);
+}

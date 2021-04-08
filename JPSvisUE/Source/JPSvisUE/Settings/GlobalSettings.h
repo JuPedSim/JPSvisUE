@@ -38,6 +38,8 @@ private:
 	int m_cacheBitsWordOffset;
 	std::string m_trajectoryFilePath;
 	bool m_trajectoryFileChanged;
+	std::string m_structureFilePath;
+	bool m_structureFileChanged;
 	bool m_isAutoPlay;
 	float m_timePerFrame;
 	float m_wallScaleChangeSpeed;//fraction per second
@@ -88,6 +90,7 @@ public:
 	const std::vector<float>& GetFloorHeights();
 	const float GetCamOffsetFromFloor();
 	const bool GetTrajectoryFileChanged();
+	const bool GetStructureFileChanged();
 	//Setter
 	void SetWallViewType(WallViewType wallViewType);
 	void SetFloorViewType(FloorViewType floorViewType);
@@ -97,5 +100,5 @@ public:
 	void SetFloorPosition(FloorPosition floorPosition);
 	void SetFloorHeights(std::vector<float>& floorHeights);
 	void SetTrajectoryFilePath(std::string path);
-	void SetTrajectoryFileWasChanged();
+	void SetStructureFilePath(std::string path);
 };
