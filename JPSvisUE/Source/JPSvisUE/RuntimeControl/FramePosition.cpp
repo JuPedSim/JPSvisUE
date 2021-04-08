@@ -12,6 +12,7 @@ FramePosition::FramePosition()
 	m_position = 0;
 	m_currentTime = 0;
 	m_positionWasChanged = true;
+	SetUIinfo();
 }
 
 FramePosition::FramePosition(int length, float frameTime)
@@ -21,6 +22,7 @@ FramePosition::FramePosition(int length, float frameTime)
 	m_position = 0;
 	m_currentTime = 0;
 	m_positionWasChanged = true;
+	SetUIinfo();
 }
 
 FramePosition::~FramePosition()
@@ -52,6 +54,7 @@ void FramePosition::TimeSensitiveChange(float delta)
 		m_position = newPos;
 	}
 	positionMutex.unlock();
+	SetUIinfo();
 }
 
 void FramePosition::Increase()
@@ -63,6 +66,7 @@ void FramePosition::Increase()
 		m_positionWasChanged = true;
 	}
 	positionMutex.unlock();
+	SetUIinfo();
 }
 
 void FramePosition::Decrease()
@@ -74,6 +78,7 @@ void FramePosition::Decrease()
 		m_positionWasChanged = true;
 	}
 	positionMutex.unlock();
+	SetUIinfo();
 }
 
 void FramePosition::SetPositionWithClamp(int pos)
@@ -81,6 +86,7 @@ void FramePosition::SetPositionWithClamp(int pos)
 	positionMutex.lock();
 	m_position = FMath::Clamp(pos,0,m_length-1);
 	positionMutex.unlock();
+	SetUIinfo();
 }
 
 const int FramePosition::GetPosition()
@@ -93,4 +99,20 @@ bool FramePosition::GetPositionWasChanged()
 	bool change = m_positionWasChanged;
 	m_positionWasChanged = false;
 	return change;
+}
+
+int FramePosition::GetLength()
+{
+	return m_length;
+}
+
+void FramePosition::SetUIinfo()
+{
+	/*GlobalSettings* settings = GlobalSettings::GetInstance();
+	std::stringstream ss;
+	ss << (settings->GetFramePosition().GetPosition() + 1) << ":" << settings->GetFramePosition().GetLength();
+	std::string str = ss.str();
+	FString name(str.c_str());
+	UUIwidget* ui = (UUIwidget*)settings->GetUI();*/
+	//settings->->SetText(FText::FromString(name));
 }

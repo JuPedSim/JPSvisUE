@@ -25,6 +25,9 @@ void UUIwidget::NativeConstruct()
 	m_openTrajectoryFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenTrajectoryFile);
 	m_openStructureFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenStructureFile);
 
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	settings->SetUI(this);
+
 	ShowSpeedInUI();
 	ShowFloorInUI();
 }
@@ -157,3 +160,4 @@ void UUIwidget::OpenStructureFile()
 		settings->SetStructureFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
 	}
 }
+
