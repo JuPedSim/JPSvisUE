@@ -27,9 +27,6 @@ void UUIwidget::NativeConstruct()
 
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	settings->SetUI(this);
-
-	ShowSpeedInUI();
-	ShowFloorInUI();
 }
 
 void UUIwidget::SetWallViewTypeLarge()
@@ -71,13 +68,13 @@ void UUIwidget::SetFloorViewTypeAllBelow()
 void UUIwidget::SetFramesForward()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	settings->GetFramePosition().Increase();
+	settings->GetFramePosition().get()->Increase();
 }
 
 void UUIwidget::SetFramesBackward()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	settings->GetFramePosition().Decrease();
+	settings->GetFramePosition().get()->Decrease();
 }
 
 void UUIwidget::PlayFrames()
@@ -95,51 +92,25 @@ void UUIwidget::PauseFrames()
 void UUIwidget::IncreaseSpeed()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	float speed = settings->GetSpeedUpFactor() + settings->GetSpeedUpFactorIncrementSize();
-	settings->SetSpeedUpFactor(speed);
-	ShowSpeedInUI();
+	settings->GetAutoPlaySpeed().get()->Increase();
 }
 
 void UUIwidget::DecreaseSpeed()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	float speed = settings->GetSpeedUpFactor() - settings->GetSpeedUpFactorIncrementSize();
-	settings->SetSpeedUpFactor(speed);
-	ShowSpeedInUI();
-}
-
-void UUIwidget::ShowSpeedInUI()
-{
-	GlobalSettings* settings = GlobalSettings::GetInstance();
-	std::stringstream ss;
-	ss << "speed Factor: " << settings->GetSpeedUpFactor();
-	std::string str = ss.str();
-	FString name(str.c_str());
-	m_speedTextBlock->SetText(FText::FromString(name));
+	settings->GetAutoPlaySpeed().get()->Decrease();
 }
 
 void UUIwidget::IncreaseFloorPosition()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	settings->GetFloorPosition().Increase();
-	ShowFloorInUI();
+	settings->GetFloorPosition().get()->Increase();
 }
 
 void UUIwidget::DecreaseFloorPosition()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	settings->GetFloorPosition().Decrease();
-	ShowFloorInUI();
-}
-
-void UUIwidget::ShowFloorInUI()
-{
-	GlobalSettings* settings = GlobalSettings::GetInstance();
-	std::stringstream ss;
-	ss << (settings->GetFloorPosition().GetPosition()+1) <<". Floor";
-	std::string str = ss.str();
-	FString name(str.c_str());
-	m_floorTextBlock->SetText(FText::FromString(name));
+	settings->GetFloorPosition().get()->Decrease();
 }
 
 void UUIwidget::OpenTrajectoryFile()

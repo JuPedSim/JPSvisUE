@@ -53,8 +53,8 @@ void ABuilding::SetAutoPlayFrame(float delta)
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	if (settings->GetIsAutoPlay()) 
 	{
-		delta = delta * settings->GetSpeedUpFactor();
-		settings->GetFramePosition().TimeSensitiveChange(delta);
+		delta = delta * settings->GetAutoPlaySpeed().get()->GetSpeedUpFactor();
+		settings->GetFramePosition().get()->TimeSensitiveChange(delta);
 	}
 }
 
@@ -62,9 +62,9 @@ void ABuilding::LoadPedestrians()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	m_cache = Cache(settings->GetCacheBitsAssociativeness(), settings->GetCacheBitsIndex(), settings->GetCacheBitsWordOffset(), settings->GetTrajectoryFilePath());
-	int lastPos = settings->GetFramePosition().GetPosition();
-	FramePosition framePosition = FramePosition(m_cache.GetFramesCount(), settings->GetTimePerFrame());
-	framePosition.SetPositionWithClamp(lastPos);
+	int lastPos = settings->GetFramePosition().get()->GetPosition();
+	std::shared_ptr<FramePosition> framePosition = std::make_shared<FramePosition>(m_cache.GetFramesCount(), settings->GetTimePerFrame());
+	framePosition.get()->SetPositionWithClamp(lastPos);
 	settings->SetFramePosition(framePosition);
 	CacheEntry firstEntry = m_cache.GetCacheEntry(0);
 
@@ -140,9 +140,9 @@ void ABuilding::LoadStructure()
 	m_floors.at(1)->Init(lines2, 1);
 	m_floors.at(2)->Init(lines3, 2);
 
-	int lastFloorPosition = settings->GetFloorPosition().GetPosition();
-	FloorPosition floorPosition = FloorPosition(3);
-	floorPosition.SetPositionWithClamp(lastFloorPosition);
+	int lastFloorPosition = settings->GetFloorPosition().get()->GetPosition();
+	std::shared_ptr<FloorPosition> floorPosition = std::make_shared<FloorPosition>(3);
+	floorPosition.get()->SetPositionWithClamp(lastFloorPosition);
 	settings->SetFloorPosition(floorPosition);
 }
 
@@ -153,7 +153,7 @@ void ABuilding::MovePedestrians()
 		GlobalSettings* settings = GlobalSettings::GetInstance();
 		/*if (settings->GetFramePosition().GetPositionWasChanged())
 		{*/
-		CacheEntry entry = m_cache.GetCacheEntry(settings->GetFramePosition().GetPosition());
+		CacheEntry entry = m_cache.GetCacheEntry(settings->GetFramePosition().get()->GetPosition());
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
 			Person person = entry.GetPersons().at(i);
@@ -186,7 +186,7 @@ bool ABuilding::GetShouldBeHidden(float height)
 		}
 	}
 
-	int currentFloor = settings->GetFloorPosition().GetPosition();
+	int currentFloor = settings->GetFloorPosition().get()->GetPosition();
 	switch (GlobalSettings::GetInstance()->GetFloorViewType())
 	{
 	case FloorViewType::ALL_BELOW_VIEW:

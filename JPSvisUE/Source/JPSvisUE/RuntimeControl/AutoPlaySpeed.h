@@ -4,23 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "../Settings/GlobalSettings.h"
-
 /**
  * 
  */
-class JPSVISUE_API FloorPosition
+class JPSVISUE_API AutoPlaySpeed
 {
 public:
-	FloorPosition();
-	FloorPosition(int floorCount);
-	~FloorPosition();
+	AutoPlaySpeed();
+	~AutoPlaySpeed();
 	void Increase();
 	void Decrease();
-	void SetPositionWithClamp(int pos);
-	const int GetPosition();
-
+	float GetSpeedUpFactor();
 private:
-	int m_position;
-	int m_floorCount;
+	float m_speedUpFactor;
 	void SetUIinfo();
 };

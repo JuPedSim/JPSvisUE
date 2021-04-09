@@ -5,8 +5,9 @@
 #include <vector>
 #include "CoreMinimal.h"
 #include <string>
-#include "../RuntimeControl/FramePosition.h"
-#include "../RuntimeControl/FloorPosition.h"
+#include <mutex>
+#include <thread>
+
 #include "../UI/UIwidget.h"
 /**
  * 
@@ -15,6 +16,10 @@
 enum WallViewType { LARGE_VIEW, SMALL_VIEW, DYNAMIC_VIEW };
 enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW};
 
+class FramePosition;
+class FloorPosition;
+class AutoPlaySpeed;
+
 class JPSVISUE_API GlobalSettings
 {
 public:
@@ -22,7 +27,9 @@ public:
 private:
 	GlobalSettings();
 	static GlobalSettings* m_instance;
-	
+	static void InitSingleton();
+	static std::once_flag initInstanceFlag;
+
 	//Settings
 	float m_scalingFactor;
 	float m_floorThigness;
@@ -42,12 +49,12 @@ private:
 	bool m_isAutoPlay;
 	float m_timePerFrame;
 	float m_wallScaleChangeSpeed;//fraction per second
-	float m_speedUpFactor;
 	float m_speedUpFactorIncrementSize;
 	WallViewType m_wallViewType;
 	FloorViewType m_floorViewType;
-	FramePosition m_framePosition;
-	FloorPosition m_floorPosition;
+	std::shared_ptr<FramePosition> m_framePosition;
+	std::shared_ptr<FloorPosition> m_floorPosition;
+	std::shared_ptr<AutoPlaySpeed> m_autoPlaySpeed;
 	float m_cameraSpringArmLengthMax;
 	float m_cameraSpringArmLengthMin;
 	float m_zoomSpeed;
@@ -76,10 +83,10 @@ public:
 	const int GetCacheBitsWordOffset();
 	const bool GetIsAutoPlay();
 	const float GetTimePerFrame();
-	const float GetSpeedUpFactor();
 	const float GetSpeedUpFactorIncrementSize();
-	FramePosition& GetFramePosition();
-	FloorPosition& GetFloorPosition();
+	std::shared_ptr<FramePosition> GetFramePosition();
+	std::shared_ptr<FloorPosition> GetFloorPosition();
+	std::shared_ptr<AutoPlaySpeed> GetAutoPlaySpeed();
 	const float GetCameraSpringArmLengthMax();
 	const float GetCameraSpringArmLengthMin();
 	const float GetZoomSpeed();
@@ -96,9 +103,8 @@ public:
 	void SetWallViewType(WallViewType wallViewType);
 	void SetFloorViewType(FloorViewType floorViewType);
 	void SetIsAutoPlay(bool isAutoPlay);
-	void SetSpeedUpFactor(float speedUpFactor);
-	void SetFramePosition(FramePosition framePosition);
-	void SetFloorPosition(FloorPosition floorPosition);
+	void SetFramePosition(std::shared_ptr<FramePosition> framePosition);
+	void SetFloorPosition(std::shared_ptr<FloorPosition> floorPosition);
 	void SetFloorHeights(std::vector<float>& floorHeights);
 	void SetTrajectoryFilePath(std::string path);
 	void SetStructureFilePath(std::string path);

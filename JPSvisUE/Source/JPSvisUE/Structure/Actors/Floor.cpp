@@ -100,7 +100,7 @@ void AFloor::TickFloorViewTypeOnly()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	//todo only change when change is needed
-	if (m_floorPosition == settings->GetFloorPosition().GetPosition())
+	if (m_floorPosition == settings->GetFloorPosition().get()->GetPosition())
 	{
 		SetActorHiddenInGame(false);
 	}
@@ -114,7 +114,7 @@ void AFloor::TickFloorViewTypeAllBelow()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	//todo only change when change is needed
-	if (m_floorPosition <= settings->GetFloorPosition().GetPosition())
+	if (m_floorPosition <= settings->GetFloorPosition().get()->GetPosition())
 	{
 		SetActorHiddenInGame(false);
 	}

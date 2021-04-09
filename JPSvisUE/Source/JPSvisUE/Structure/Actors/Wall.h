@@ -9,6 +9,7 @@
 #include "Floor.h"
 #include "../../Settings/GlobalSettings.h"
 #include "DrawDebugHelpers.h"
+#include "../../RuntimeControl/FloorPosition.h"
 #include "Wall.generated.h"
 
 
