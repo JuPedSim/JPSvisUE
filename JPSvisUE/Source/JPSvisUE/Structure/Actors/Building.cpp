@@ -2,6 +2,17 @@
 
 
 #include "Building.h"
+#include "Floor.h"
+#include "../Data/Line.h"
+#include "FloorStructure.h"
+#include "../../Settings/GlobalSettings.h"
+
+#include "../../DataManagment/Cache/CacheEntry.h"
+#include "Pedestrian.h"
+#include "../../RuntimeControl/FloorPosition.h"
+#include "../../RuntimeControl/FramePosition.h"
+#include "../../RuntimeControl/AutoPlaySpeed.h"
+
 // Sets default values
 ABuilding::ABuilding()
 {

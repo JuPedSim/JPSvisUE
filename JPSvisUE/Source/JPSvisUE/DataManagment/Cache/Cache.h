@@ -4,10 +4,9 @@
 
 #include "CoreMinimal.h"
 #include <vector>
-#include "../FileReaders/TrajectoryFileReader.h"
+#include <stdexcept>
 #include "CacheLine.h"
 #include "CacheEntry.h"
-#include <stdexcept>
 
 /**
  * 

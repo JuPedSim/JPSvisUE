@@ -2,6 +2,8 @@
 
 
 #include "AutoPlaySpeed.h"
+#include "../Settings/GlobalSettings.h"
+#include "../UI/UIwidget.h"
 
 AutoPlaySpeed::AutoPlaySpeed()
 {

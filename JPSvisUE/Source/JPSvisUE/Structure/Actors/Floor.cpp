@@ -2,6 +2,8 @@
 
 
 #include "Floor.h"
+#include "../../Settings/GlobalSettings.h"
+#include "../../RuntimeControl/FloorPosition.h"
 
 // Sets default values
 AFloor::AFloor()

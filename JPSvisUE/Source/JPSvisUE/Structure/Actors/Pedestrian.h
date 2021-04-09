@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "../BuildingActor.h"
-#include "../../Settings/GlobalSettings.h"
 #include "Pedestrian.generated.h"
 
 UCLASS()

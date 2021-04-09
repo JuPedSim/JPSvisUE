@@ -2,23 +2,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-
-#include "Floor.h"
-#include "../Data/Line.h"
 #include "../BuildingActor.h"
-#include "FloorStructure.h"
-#include "../../Settings/GlobalSettings.h"
-#include "../../DataManagment/Cache/Cache.h"
-#include "Pedestrian.h"
-#include "../../RuntimeControl/FloorPosition.h"
-#include "../../RuntimeControl/FramePosition.h"
 #include <vector>
 #include <stdlib.h>
-
+#include "../../DataManagment/Cache/Cache.h"
 #include "Building.generated.h"
 
-
+class AFloorStructure;
+class APedestrian;
 
 UCLASS()
 class JPSVISUE_API ABuilding : public ABuildingActor

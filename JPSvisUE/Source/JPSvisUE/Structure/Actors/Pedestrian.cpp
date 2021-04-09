@@ -3,6 +3,7 @@
 
 #include "Pedestrian.h"
 
+#include "../../Settings/GlobalSettings.h"
 
 // Sets default values
 APedestrian::APedestrian()

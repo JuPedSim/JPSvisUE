@@ -4,9 +4,8 @@
 
 #include <cmath>
 #include "CoreMinimal.h"
-#include "../Settings/GlobalSettings.h"
-#include <mutex>
 
+#include <mutex>
 /**
  * 
  */

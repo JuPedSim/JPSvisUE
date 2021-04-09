@@ -2,7 +2,8 @@
 
 
 #include "CameraCenterPawn.h"
-
+#include "../Settings/GlobalSettings.h"
+#include "../RuntimeControl/FloorPosition.h"
 
 // Sets default values
 ACameraCenterPawn::ACameraCenterPawn()
@@ -16,11 +17,11 @@ ACameraCenterPawn::ACameraCenterPawn()
 
 	RootComponent = m_mesh;
 
-	m_springArm->AttachTo(RootComponent);
+	m_springArm->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepRelativeTransform);
 	m_springArm->TargetArmLength = 350.f;
 	m_springArm->SetWorldRotation(FRotator(-60.f,0,0));
 
-	m_camera->AttachTo(m_springArm,USpringArmComponent::SocketName);
+	m_camera->AttachToComponent(m_springArm, FAttachmentTransformRules::KeepRelativeTransform,USpringArmComponent::SocketName);
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 

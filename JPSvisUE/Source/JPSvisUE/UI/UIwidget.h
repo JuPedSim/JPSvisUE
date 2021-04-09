@@ -6,18 +6,10 @@
 #include "Blueprint/UserWidget.h"
 #include <Runtime/UMG/Public/Components/ComboBoxString.h>
 #include <Runtime/UMG/Public/Components/Button.h>
-#include "../Settings/GlobalSettings.h"
-#include "../DataManagment/FileOpener/FileOpener.h"
-#include "../RuntimeControl/FloorPosition.h"
-#include "../RuntimeControl/FramePosition.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
 #include <Runtime/UMG/Public/Components/TextBlock.h>
 #include <sstream>
-#include "../RuntimeControl/AutoPlaySpeed.h"
 #include "UIwidget.generated.h"
-
-
-
 
 /**
  * 

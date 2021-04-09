@@ -5,6 +5,7 @@
 #include "../RuntimeControl/FramePosition.h"
 #include "../RuntimeControl/FloorPosition.h"
 #include "../RuntimeControl/AutoPlaySpeed.h"
+#include "../UI/UIwidget.h"
 
 GlobalSettings* GlobalSettings::m_instance = nullptr;
 std::once_flag GlobalSettings::initInstanceFlag;

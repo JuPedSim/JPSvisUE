@@ -2,6 +2,8 @@
 
 
 #include "FloorPosition.h"
+#include "../Settings/GlobalSettings.h"
+#include "../UI/UIwidget.h"
 
 FloorPosition::FloorPosition()
 {

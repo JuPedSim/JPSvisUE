@@ -2,7 +2,11 @@
 
 
 #include "UIwidget.h"
-
+#include "../Settings/GlobalSettings.h"
+#include "../DataManagment/FileOpener/FileOpener.h"
+#include "../RuntimeControl/FloorPosition.h"
+#include "../RuntimeControl/FramePosition.h"
+#include "../RuntimeControl/AutoPlaySpeed.h"
 
 void UUIwidget::NativeConstruct()
 {
