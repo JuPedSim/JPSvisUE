@@ -2,16 +2,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include <vector>
 #include <memory>
-#include "Floor.h"
-#include "Wall.h"
-#include "../Data/Line.h"
-#include "../../Settings/GlobalSettings.h"
-#include "../Data/FloorDimensions.h"
+#include "../BuildingActor.h"
 #include "FloorStructure.generated.h"
 
+
+class AFloor;
+class AWall;
+class Line;
 
 /**
  * 

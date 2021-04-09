@@ -3,6 +3,12 @@
 
 #include "Wall.h"
 
+
+#include "Floor.h"
+#include "../../Settings/GlobalSettings.h"
+#include "../../RuntimeControl/FloorPosition.h"
+#include "../Data/FloorDimensions.h"
+
 // Sets default values
 AWall::AWall()
 {

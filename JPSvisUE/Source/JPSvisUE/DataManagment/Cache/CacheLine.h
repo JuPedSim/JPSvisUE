@@ -4,12 +4,11 @@
 
 #include "CoreMinimal.h"
 #include <vector>
-#include "CacheEntry.h"
 
+class CacheEntry;
 /**
  * 
  */
-
 class JPSVISUE_API CacheLine
 {
 public:

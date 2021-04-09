@@ -2,6 +2,11 @@
 
 
 #include "FloorStructure.h"
+#include "Floor.h"
+#include "Wall.h"
+#include "../Data/Line.h"
+#include "../../Settings/GlobalSettings.h"
+#include "../Data/FloorDimensions.h"
 
 AFloorStructure::AFloorStructure()
 {

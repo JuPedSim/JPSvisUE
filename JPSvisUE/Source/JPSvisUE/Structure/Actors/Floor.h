@@ -3,10 +3,8 @@
 
 #include <vector>
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "../BuildingActor.h"
 #include "../Data/FloorDimensions.h"
-#include "../../Settings/GlobalSettings.h"
 #include "Floor.generated.h"
 
 UCLASS()

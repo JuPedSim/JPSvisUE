@@ -2,6 +2,7 @@
 
 
 #include "CacheLine.h"
+#include "CacheEntry.h"
 
 CacheLine::CacheLine()
 {

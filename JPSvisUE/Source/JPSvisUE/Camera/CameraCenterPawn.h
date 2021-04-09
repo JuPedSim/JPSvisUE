@@ -6,8 +6,6 @@
 #include "GameFramework/Pawn.h"
 #include <Runtime/Engine/Classes/GameFramework/SpringArmComponent.h>
 #include <Runtime/Engine/Classes/Camera/CameraComponent.h>
-#include "../Settings/GlobalSettings.h"
-#include "../RuntimeControl/FloorPosition.h"
 #include "CameraCenterPawn.generated.h"
 
 

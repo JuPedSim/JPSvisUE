@@ -3,15 +3,11 @@
 
 #include <vector>
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "../BuildingActor.h"
 #include "../Data/Line.h"
-#include "Floor.h"
-#include "../../Settings/GlobalSettings.h"
-#include "DrawDebugHelpers.h"
-#include "../../RuntimeControl/FloorPosition.h"
 #include "Wall.generated.h"
 
+class AFloor;
 
 UCLASS()
 class JPSVISUE_API AWall : public ABuildingActor

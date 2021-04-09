@@ -2,6 +2,8 @@
 
 
 #include "FramePosition.h"
+#include "../Settings/GlobalSettings.h"
+#include "../UI/UIwidget.h"
 
 std::mutex positionMutex;
 

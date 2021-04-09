@@ -2,6 +2,7 @@
 
 
 #include "FloorDimensions.h"
+#include "../../Settings/GlobalSettings.h"
 #include <sstream>
 
 FloorDimensions::FloorDimensions()

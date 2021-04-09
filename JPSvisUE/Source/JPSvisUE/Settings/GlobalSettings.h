@@ -8,10 +8,8 @@
 #include <mutex>
 #include <thread>
 
-#include "../UI/UIwidget.h"
-/**
- * 
- */
+
+
 
 enum WallViewType { LARGE_VIEW, SMALL_VIEW, DYNAMIC_VIEW };
 enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW};
@@ -19,7 +17,11 @@ enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW};
 class FramePosition;
 class FloorPosition;
 class AutoPlaySpeed;
+class UUIwidget;
 
+/**
+ *
+ */
 class JPSVISUE_API GlobalSettings
 {
 public:

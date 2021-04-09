@@ -2,6 +2,7 @@
 
 
 #include "Cache.h"
+#include "../FileReaders/TrajectoryFileReader.h"
 
 
 

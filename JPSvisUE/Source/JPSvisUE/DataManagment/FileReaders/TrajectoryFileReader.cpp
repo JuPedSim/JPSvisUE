@@ -2,6 +2,8 @@
 
 
 #include "TrajectoryFileReader.h"
+#include "../Cache/CacheLine.h"
+#include "../Cache/CacheEntry.h"
 
 TrajectoryFileReader::TrajectoryFileReader()
 {

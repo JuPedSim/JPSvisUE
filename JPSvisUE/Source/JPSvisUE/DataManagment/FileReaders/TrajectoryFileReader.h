@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../Cache/CacheLine.h"
+
 #include <string>
 #include <fstream>
 #include <stdexcept>
 
+class CacheLine;
 /**
  * 
  */
