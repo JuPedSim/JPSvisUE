@@ -11,7 +11,8 @@
 #include "../../Settings/GlobalSettings.h"
 #include "../../DataManagment/Cache/Cache.h"
 #include "Pedestrian.h"
-
+#include "../../RuntimeControl/FloorPosition.h"
+#include "../../RuntimeControl/FramePosition.h"
 #include <vector>
 #include <stdlib.h>
 

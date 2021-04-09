@@ -12,7 +12,6 @@ FramePosition::FramePosition()
 	m_position = 0;
 	m_currentTime = 0;
 	m_positionWasChanged = true;
-	SetUIinfo();
 }
 
 FramePosition::FramePosition(int length, float frameTime)
@@ -22,7 +21,6 @@ FramePosition::FramePosition(int length, float frameTime)
 	m_position = 0;
 	m_currentTime = 0;
 	m_positionWasChanged = true;
-	SetUIinfo();
 }
 
 FramePosition::~FramePosition()
@@ -64,9 +62,10 @@ void FramePosition::Increase()
 	{
 		m_position++;
 		m_positionWasChanged = true;
+		SetUIinfo();
 	}
 	positionMutex.unlock();
-	SetUIinfo();
+	
 }
 
 void FramePosition::Decrease()
@@ -76,17 +75,17 @@ void FramePosition::Decrease()
 	{
 		m_position--;
 		m_positionWasChanged = true;
+		SetUIinfo();
 	}
 	positionMutex.unlock();
-	SetUIinfo();
 }
 
 void FramePosition::SetPositionWithClamp(int pos)
 {
 	positionMutex.lock();
 	m_position = FMath::Clamp(pos,0,m_length-1);
-	positionMutex.unlock();
 	SetUIinfo();
+	positionMutex.unlock();
 }
 
 const int FramePosition::GetPosition()
@@ -108,11 +107,14 @@ int FramePosition::GetLength()
 
 void FramePosition::SetUIinfo()
 {
-	/*GlobalSettings* settings = GlobalSettings::GetInstance();
+	GlobalSettings* settings = GlobalSettings::GetInstance();
 	std::stringstream ss;
-	ss << (settings->GetFramePosition().GetPosition() + 1) << ":" << settings->GetFramePosition().GetLength();
+	ss << (m_position + 1) << ":" << m_length;
 	std::string str = ss.str();
-	FString name(str.c_str());
-	UUIwidget* ui = (UUIwidget*)settings->GetUI();*/
-	//settings->->SetText(FText::FromString(name));
+	FString text(str.c_str());
+	UUIwidget* ui = (UUIwidget*)settings->GetUI();
+	if (ui!=nullptr) 
+	{
+		ui->m_frameTextBox->SetText(FText::FromString(text));
+	}
 }

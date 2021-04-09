@@ -8,9 +8,12 @@
 #include <Runtime/UMG/Public/Components/Button.h>
 #include "../Settings/GlobalSettings.h"
 #include "../DataManagment/FileOpener/FileOpener.h"
+#include "../RuntimeControl/FloorPosition.h"
+#include "../RuntimeControl/FramePosition.h"
 #include <Runtime/UMG/Public/Components/Slider.h>
 #include <Runtime/UMG/Public/Components/TextBlock.h>
 #include <sstream>
+#include "../RuntimeControl/AutoPlaySpeed.h"
 #include "UIwidget.generated.h"
 
 
@@ -44,13 +47,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_speedDecreaseButton;
 	UPROPERTY(meta = (BindWidget))
-		UTextBlock* m_speedTextBlock;
-	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorUpButton;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorDownButton;
-	UPROPERTY(meta = (BindWidget))
-		UTextBlock* m_floorTextBlock;
 	UPROPERTY(meta = (BindWidget))
 		UButton* m_floorViewTypeButtonAll;
 	UPROPERTY(meta = (BindWidget))
@@ -63,9 +62,13 @@ protected:
 		UButton* m_openStructureFileButton;
 public:
 	UPROPERTY(meta = (BindWidget))
+		UTextBlock* m_floorTextBlock;
+	UPROPERTY(meta = (BindWidget))
 		UTextBlock* m_frameTextBox;
 	UPROPERTY(meta = (BindWidget))
 		USlider* m_framePosSlider;
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* m_speedTextBlock;
 protected:
 
 	UFUNCTION()
@@ -92,12 +95,10 @@ protected:
 	void IncreaseSpeed();
 	UFUNCTION()
 	void DecreaseSpeed();
-	void ShowSpeedInUI();
 	UFUNCTION()
 	void IncreaseFloorPosition();
 	UFUNCTION()
 	void DecreaseFloorPosition();
-	void ShowFloorInUI();
 	UFUNCTION()
 	void OpenTrajectoryFile();
 	UFUNCTION()

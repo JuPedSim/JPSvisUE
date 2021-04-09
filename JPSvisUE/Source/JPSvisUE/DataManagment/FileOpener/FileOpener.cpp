@@ -41,7 +41,7 @@ TArray<FString> FileOpener::OpenFileDialog(const FString& DialogTitle, const FSt
 			if (DesktopPlatform)
 			{
 				//Opening the file picker!
-				 DesktopPlatform->OpenFileDialog(ParentWindowHandle, DialogTitle, DefaultPath, FString(""), FileTypes, SelectionFlag, OutFileNames);
+				DesktopPlatform->OpenFileDialog(ParentWindowHandle, DialogTitle, DefaultPath, FString(""), FileTypes, SelectionFlag, OutFileNames);
 			}
 		}
 	}

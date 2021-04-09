@@ -2,8 +2,12 @@
 
 
 #include "GlobalSettings.h"
+#include "../RuntimeControl/FramePosition.h"
+#include "../RuntimeControl/FloorPosition.h"
+#include "../RuntimeControl/AutoPlaySpeed.h"
 
-GlobalSettings* GlobalSettings::m_instance = NULL;
+GlobalSettings* GlobalSettings::m_instance = nullptr;
+std::once_flag GlobalSettings::initInstanceFlag;
 
 GlobalSettings::GlobalSettings()
 {
@@ -27,10 +31,10 @@ GlobalSettings::GlobalSettings()
 	m_cacheBitsWordOffset = 0;
 	m_isAutoPlay = false;
 	m_timePerFrame = 0.018f;
-	m_speedUpFactor = 1.0f;
 	m_speedUpFactorIncrementSize = 0.25f;
-	m_framePosition = FramePosition();
-	m_floorPosition = FloorPosition();
+	m_framePosition = std::make_shared<FramePosition>();
+	m_floorPosition = std::make_shared<FloorPosition>();
+	m_autoPlaySpeed = std::make_shared<AutoPlaySpeed>();
 	m_cameraSpringArmLengthMax = 1000.f;
 	m_cameraSpringArmLengthMin = 0.f;
 	m_zoomSpeed = 3.f;
@@ -44,11 +48,14 @@ GlobalSettings::GlobalSettings()
 	m_ui = nullptr;
 }
 
+void GlobalSettings::InitSingleton()
+{
+	m_instance = new GlobalSettings();
+}
+
 GlobalSettings* GlobalSettings::GetInstance()
 {
-	if (m_instance == NULL) {
-		m_instance = new GlobalSettings();
-	}
+	std::call_once(initInstanceFlag, &GlobalSettings::InitSingleton);
 	return m_instance;
 }
 
@@ -108,21 +115,21 @@ const float GlobalSettings::GetTimePerFrame()
 {
 	return m_timePerFrame;
 }
-const float GlobalSettings::GetSpeedUpFactor()
-{
-	return m_speedUpFactor;
-}
 const float GlobalSettings::GetSpeedUpFactorIncrementSize()
 {
 	return m_speedUpFactorIncrementSize;
 }
-FramePosition& GlobalSettings::GetFramePosition()
+std::shared_ptr<FramePosition> GlobalSettings::GetFramePosition()
 {
 	return m_framePosition;
 }
-FloorPosition& GlobalSettings::GetFloorPosition()
+std::shared_ptr<FloorPosition> GlobalSettings::GetFloorPosition()
 {
 	return m_floorPosition;
+}
+std::shared_ptr<AutoPlaySpeed> GlobalSettings::GetAutoPlaySpeed()
+{
+	return m_autoPlaySpeed;
 }
 const float GlobalSettings::GetCameraSpringArmLengthMax()
 {
@@ -205,17 +212,12 @@ void GlobalSettings::SetIsAutoPlay(bool isAutoPlay)
 	m_isAutoPlay = isAutoPlay;
 }
 
-void GlobalSettings::SetSpeedUpFactor(float speedUpFactor)
-{
-	m_speedUpFactor = speedUpFactor;
-}
-
-void GlobalSettings::SetFramePosition(FramePosition framePosition)
+void GlobalSettings::SetFramePosition(std::shared_ptr<FramePosition> framePosition)
 {
 	m_framePosition = framePosition;
 }
 
-void GlobalSettings::SetFloorPosition(FloorPosition floorPosition)
+void GlobalSettings::SetFloorPosition(std::shared_ptr<FloorPosition> floorPosition)
 {
 	m_floorPosition = floorPosition;
 }

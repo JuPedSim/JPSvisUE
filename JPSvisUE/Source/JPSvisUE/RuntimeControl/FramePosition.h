@@ -4,7 +4,7 @@
 
 #include <cmath>
 #include "CoreMinimal.h"
-//#include "../Settings/GlobalSettings.h" todo
+#include "../Settings/GlobalSettings.h"
 #include <mutex>
 
 /**
