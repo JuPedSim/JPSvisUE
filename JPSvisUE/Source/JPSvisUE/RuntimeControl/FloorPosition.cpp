@@ -55,7 +55,7 @@ void FloorPosition::SetUIinfo()
 	ss << (m_position + 1) << ". Floor";
 	std::string str = ss.str();
 	FString text(str.c_str());
-	UUIwidget* ui = (UUIwidget*)settings->GetUI();
+	UUIwidget* ui = (UUIwidget*)settings->GetUI().get();
 	if (ui != nullptr)
 	{
 		ui->m_floorTextBlock->SetText(FText::FromString(text));

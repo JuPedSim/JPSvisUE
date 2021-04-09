@@ -38,7 +38,7 @@ void AutoPlaySpeed::SetUIinfo()
 	ss << "speed Factor: " << m_speedUpFactor;
 	std::string str = ss.str();
 	FString text(str.c_str());
-	UUIwidget* ui = (UUIwidget*)settings->GetUI();
+	UUIwidget* ui = (UUIwidget*)settings->GetUI().get();
 	if (ui != nullptr)
 	{
 		ui->m_speedTextBlock->SetText(FText::FromString(text));

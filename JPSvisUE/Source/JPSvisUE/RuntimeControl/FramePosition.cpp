@@ -107,14 +107,16 @@ int FramePosition::GetLength()
 
 void FramePosition::SetUIinfo()
 {
+	float percent = (float)m_position / (float)(m_length-1);
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	std::stringstream ss;
 	ss << (m_position + 1) << ":" << m_length;
 	std::string str = ss.str();
 	FString text(str.c_str());
-	UUIwidget* ui = (UUIwidget*)settings->GetUI();
+	UUIwidget* ui = (UUIwidget*)settings->GetUI().get();
 	if (ui!=nullptr) 
 	{
 		ui->m_frameTextBox->SetText(FText::FromString(text));
+		ui->m_framePosSlider->SetValue(percent);
 	}
 }
