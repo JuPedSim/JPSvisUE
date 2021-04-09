@@ -63,7 +63,7 @@ private:
 	float m_pitchSpeed;
 	std::vector<float> m_floorHeights;
 	float m_camOffsetFromFloor;
-	UUserWidget* m_ui;
+	std::shared_ptr<UUserWidget> m_ui;
 public:
 	//Getter
 	const float GetScalingFactor();
@@ -97,7 +97,7 @@ public:
 	const float GetCamOffsetFromFloor();
 	const bool GetTrajectoryFileChanged();
 	const bool GetStructureFileChanged();
-	UUserWidget* GetUI();
+	std::shared_ptr<UUserWidget> GetUI();
 	
 		//Setter
 	void SetWallViewType(WallViewType wallViewType);
@@ -108,5 +108,5 @@ public:
 	void SetFloorHeights(std::vector<float>& floorHeights);
 	void SetTrajectoryFilePath(std::string path);
 	void SetStructureFilePath(std::string path);
-	void SetUI(UUserWidget* ui);
+	void SetUI(std::shared_ptr<UUserWidget> ui);
 };

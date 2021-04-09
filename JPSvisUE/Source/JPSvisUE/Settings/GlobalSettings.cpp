@@ -181,7 +181,7 @@ const bool GlobalSettings::GetStructureFileChanged()
 	}
 	return value;
 }
-UUserWidget* GlobalSettings::GetUI()
+std::shared_ptr<UUserWidget> GlobalSettings::GetUI()
 {
 	return m_ui;
 }
@@ -238,7 +238,7 @@ void GlobalSettings::SetStructureFilePath(std::string path)
 	m_structureFileChanged = true;
 }
 
-void GlobalSettings::SetUI(UUserWidget* ui)
+void GlobalSettings::SetUI(std::shared_ptr<UUserWidget> ui)
 {
 	m_ui = ui;
 }

@@ -26,7 +26,8 @@ void UUIwidget::NativeConstruct()
 	m_openStructureFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenStructureFile);
 
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	settings->SetUI(this);
+	std::shared_ptr<UUserWidget> uiPointer(this);
+	settings->SetUI(uiPointer);
 }
 
 void UUIwidget::SetWallViewTypeLarge()
