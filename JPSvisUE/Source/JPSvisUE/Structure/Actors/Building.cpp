@@ -164,7 +164,25 @@ void ABuilding::MovePedestrians()
 		GlobalSettings* settings = GlobalSettings::GetInstance();
 		/*if (settings->GetFramePosition().GetPositionWasChanged())
 		{*/
-		CacheEntry entry = m_cache.GetCacheEntry(settings->GetFramePosition().get()->GetPosition());
+		int pos = settings->GetFramePosition().get()->GetPosition();
+		//pre load forward
+		for (int i = settings->GetPreFetchCacheForward();i>=1;i--) 
+		{
+			if (settings->GetFramePosition().get()->CheckPositionValid(pos + i))
+			{
+				m_cache.LoadCacheEntryAsync(pos + i);
+			}
+		}
+		//pre load backward
+		for (int i = settings->GetPreFetchCacheBackward(); i >= 1; i--)
+		{
+			if (settings->GetFramePosition().get()->CheckPositionValid(pos - i))
+			{
+				m_cache.LoadCacheEntryAsync(pos - i);
+			}
+		}
+		//load needed value
+		CacheEntry entry = m_cache.GetCacheEntry(pos);
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
 			Person person = entry.GetPersons().at(i);

@@ -12,7 +12,6 @@ TrajectoryFileReader::TrajectoryFileReader()
 TrajectoryFileReader::~TrajectoryFileReader()
 {
 }
-
 CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::string filePath, int tag,unsigned int lruID)
 {
 	std::ifstream is;

@@ -29,7 +29,9 @@ GlobalSettings::GlobalSettings()
 	m_structureFileChanged = false;
 	m_cacheBitsAssociativeness = 0;
 	m_cacheBitsIndex = 0;
-	m_cacheBitsWordOffset = 0;
+	m_cacheBitsWordOffset = 8;
+	m_preFetchCacheForward = 10;
+	m_preFetchCacheBackward = 0;
 	m_isAutoPlay = false;
 	m_timePerFrame = 0.018f;
 	m_speedUpFactorIncrementSize = 0.25f;
@@ -107,6 +109,14 @@ const int GlobalSettings::GetCacheBitsIndex()
 const int GlobalSettings::GetCacheBitsWordOffset()
 {
 	return m_cacheBitsWordOffset;
+}
+const int GlobalSettings::GetPreFetchCacheForward()
+{
+	return m_preFetchCacheForward;
+}
+const int GlobalSettings::GetPreFetchCacheBackward()
+{
+	return m_preFetchCacheBackward;
 }
 const bool GlobalSettings::GetIsAutoPlay()
 {
