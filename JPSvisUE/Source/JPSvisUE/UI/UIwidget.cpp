@@ -28,6 +28,7 @@ void UUIwidget::NativeConstruct()
 	m_floorDownButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::DecreaseFloorPosition);
 	m_openTrajectoryFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenTrajectoryFile);
 	m_openStructureFileButton->OnClicked.AddUniqueDynamic(this, &UUIwidget::OpenStructureFile);
+	m_framePosSlider->OnValueChanged.AddUniqueDynamic(this,&UUIwidget::SliderValueChanged);
 
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	std::shared_ptr<UUserWidget> uiPointer(this);
@@ -135,5 +136,12 @@ void UUIwidget::OpenStructureFile()
 	{
 		settings->SetStructureFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
 	}
+}
+
+void UUIwidget::SliderValueChanged(float InValue)
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	InValue = m_framePosSlider->GetNormalizedValue();
+	settings->GetFramePosition().get()->SetPositionWithFraction(InValue);
 }
 
