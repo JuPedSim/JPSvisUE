@@ -95,6 +95,8 @@ protected:
 	void OpenTrajectoryFile();
 	UFUNCTION()
 	void OpenStructureFile();
+	UFUNCTION()
+	void SliderValueChanged(float InValue);
 
 	void NativeConstruct() override;
 };

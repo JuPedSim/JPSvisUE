@@ -9,7 +9,7 @@ std::mutex positionMutex;
 
 FramePosition::FramePosition()
 {
-	m_length = 0;
+	m_length = 1;
 	m_frameTime = 0;
 	m_position = 0;
 	m_currentTime = 0;
@@ -88,6 +88,12 @@ void FramePosition::SetPositionWithClamp(int pos)
 	m_position = FMath::Clamp(pos,0,m_length-1);
 	SetUIinfo();
 	positionMutex.unlock();
+}
+
+void FramePosition::SetPositionWithFraction(float fraction)
+{
+	int pos = round(fraction*(float)(m_length-1));
+	SetPositionWithClamp(pos);
 }
 
 const int FramePosition::GetPosition()

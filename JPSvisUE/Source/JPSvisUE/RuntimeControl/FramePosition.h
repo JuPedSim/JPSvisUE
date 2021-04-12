@@ -19,6 +19,7 @@ public:
 	void Increase();
 	void Decrease();
 	void SetPositionWithClamp(int pos);
+	void SetPositionWithFraction(float fraction);
 	const int GetPosition();
 	bool GetPositionWasChanged();
 	int GetLength();
