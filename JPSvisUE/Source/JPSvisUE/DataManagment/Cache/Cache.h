@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include "CacheLine.h"
 #include "CacheEntry.h"
+#include <mutex>
+#include <thread>
 
 /**
  * 
@@ -17,9 +19,16 @@ public:
 	Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset,std::string filePath);
 	Cache();
 	CacheEntry GetCacheEntry(int address);
+	void LoadCacheEntryAsync(int address);
 	~Cache();
 	const int GetFramesCount();
 private:
+	int GetPosition(int index, int tag);
+	int LoadCacheLineAndReturnPos(int index, int tag);
+	void LoadCacheLineAsync(int index, int tag);
+	int computeIndex(int address);
+	int computeWordOffset(int address);
+	int computeTag(int address);
 	int m_bitsAssociativeness;
 	int m_bitsIndex;
 	int m_bitsWordOffset;

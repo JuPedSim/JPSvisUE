@@ -113,6 +113,15 @@ int FramePosition::GetLength()
 	return m_length;
 }
 
+bool FramePosition::CheckPositionValid(int pos)
+{
+	if (pos>=0 && pos<m_length)
+	{
+		return true;
+	}
+	return false;
+}
+
 void FramePosition::SetUIinfo()
 {
 	float percent = (float)m_position / (float)(m_length-1);

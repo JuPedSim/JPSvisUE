@@ -44,6 +44,8 @@ private:
 	int m_cacheBitsAssociativeness;
 	int m_cacheBitsIndex;
 	int m_cacheBitsWordOffset;
+	int m_preFetchCacheForward;
+	int m_preFetchCacheBackward;
 	std::string m_trajectoryFilePath;
 	bool m_trajectoryFileChanged;
 	std::string m_structureFilePath;
@@ -83,6 +85,8 @@ public:
 	const int GetCacheBitsAssociativeness();
 	const int GetCacheBitsIndex();
 	const int GetCacheBitsWordOffset();
+	const int GetPreFetchCacheForward();
+	const int GetPreFetchCacheBackward();
 	const bool GetIsAutoPlay();
 	const float GetTimePerFrame();
 	const float GetSpeedUpFactorIncrementSize();

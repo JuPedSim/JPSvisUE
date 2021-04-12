@@ -23,6 +23,7 @@ public:
 	const int GetPosition();
 	bool GetPositionWasChanged();
 	int GetLength();
+	bool CheckPositionValid(int pos);
 private:
 	int m_position;
 	int m_length;

@@ -4,7 +4,7 @@
 #include "Cache.h"
 #include "../FileReaders/TrajectoryFileReader.h"
 
-
+std::mutex accessMutex;
 
 Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::string filePath)
 {
@@ -41,25 +41,70 @@ CacheEntry Cache::GetCacheEntry(int address)
 		throw std::invalid_argument("received negative address");
 	}
 
-	int wordOffset = address & m_bitsWordOffset;
-	int index = (address & m_bitMaskIndex) >> m_bitsWordOffset;
-	int tag = (address & m_bitMaskTag) >> (m_bitsWordOffset+m_bitsIndex);
+	int wordOffset = computeWordOffset(address);
+	int index = computeIndex(address);
+	int tag = computeTag(address);
 
-
-	for(auto &line: m_cacheLines.at(index))
+	accessMutex.lock();
+	int pos = GetPosition(index,tag);
+	if (pos>=0) 
 	{
-		if (line.GetIsValid() && line.GetTag()==tag)
+		auto& line = m_cacheLines.at(index).at(pos);
+		line.SetLruID(m_nextLRUid++);
+		accessMutex.unlock();
+		return line.GetEntry(wordOffset);
+	}
+	else
+	{
+		CacheEntry temp = m_cacheLines.at(index).at(LoadCacheLineAndReturnPos(index, tag)).GetEntry(wordOffset);
+		accessMutex.unlock();
+		return temp;
+	}
+}
+
+void Cache::LoadCacheEntryAsync(int address)
+{
+	//
+	//	needs rework with queua and only one loader thread 
+	// 
+	// 
+	//int index = computeIndex(address);
+	//int tag = computeTag(address);
+	//if (GetPosition(index, tag)<0)
+	//{
+	//	//std::thread t(&Cache::LoadCacheLineAsync,this,index,tag);//todo does not work so simple (if address=5 is loading, address=4 might not need to load but thread for it is started anyway).  Also lock locks too much (Reading from file) and no performance increase
+	//}
+}
+
+Cache::~Cache()
+{
+}
+
+const int Cache::GetFramesCount()
+{
+	return m_frameCount;
+}
+
+int Cache::GetPosition(int index,int tag)
+{
+	for (int i = 0;i<m_cacheLines.at(index).size();i++) 
+	{
+		auto& line = m_cacheLines.at(index).at(i);
+		if (line.GetIsValid() && line.GetTag() == tag)
 		{
-			line.SetLruID(m_nextLRUid++);
-			return line.GetEntry(wordOffset);
+			return i;
 		}
 	}
+	return -1;
+}
 
+int Cache::LoadCacheLineAndReturnPos(int index, int tag)
+{
 	int startAddress = (tag << (m_bitsIndex + m_bitsWordOffset)) | (index << m_bitsWordOffset);
-	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath,tag, m_nextLRUid++);
+	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath, tag, m_nextLRUid++);
 	int pos = 0;
 	unsigned int min = MAX_uint32;
-	for (int i = 0;i<m_cacheLines.at(index).size();i++)
+	for (int i = 0; i < m_cacheLines.at(index).size(); i++)
 	{
 		if (m_cacheLines.at(index).at(i).GetIsValid())
 		{
@@ -77,17 +122,29 @@ CacheEntry Cache::GetCacheEntry(int address)
 		}
 	}
 	m_cacheLines.at(index).at(pos) = newCacheLine;
-	CacheEntry temp = newCacheLine.GetEntry(wordOffset);
-	return temp;
+	return pos;
 }
 
-Cache::~Cache()
+void Cache::LoadCacheLineAsync(int index, int tag)
 {
+	accessMutex.lock();
+	LoadCacheLineAndReturnPos(index, tag);
+	accessMutex.unlock();
 }
 
-const int Cache::GetFramesCount()
+int Cache::computeIndex(int address)
 {
-	return m_frameCount;
+	return (address & m_bitMaskIndex) >> m_bitsWordOffset;
+}
+
+int Cache::computeWordOffset(int address)
+{
+	return address & m_bitMaskWordOffset;
+}
+
+int Cache::computeTag(int address)
+{
+	return (address & m_bitMaskTag) >> (m_bitsWordOffset + m_bitsIndex);
 }
 
 
