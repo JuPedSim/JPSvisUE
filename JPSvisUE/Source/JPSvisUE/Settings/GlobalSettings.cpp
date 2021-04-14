@@ -98,6 +98,10 @@ const std::string GlobalSettings::GetTrajectoryFilePath()
 {
 	return m_trajectoryFilePath;
 }
+const std::string GlobalSettings::GetStructureFilePath()
+{
+	return m_structureFilePath;
+}
 const int GlobalSettings::GetCacheBitsAssociativeness()
 {
 	return m_cacheBitsAssociativeness;

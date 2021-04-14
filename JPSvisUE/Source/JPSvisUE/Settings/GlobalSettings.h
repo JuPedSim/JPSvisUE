@@ -82,6 +82,7 @@ public:
 	const WallViewType GetWallViewType();
 	const FloorViewType GetFloorViewType();
 	const std::string GetTrajectoryFilePath();
+	const std::string GetStructureFilePath();
 	const int GetCacheBitsAssociativeness();
 	const int GetCacheBitsIndex();
 	const int GetCacheBitsWordOffset();
