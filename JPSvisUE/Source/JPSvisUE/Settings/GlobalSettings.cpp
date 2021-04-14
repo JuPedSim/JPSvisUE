@@ -29,8 +29,8 @@ GlobalSettings::GlobalSettings()
 	m_structureFileChanged = false;
 	m_cacheBitsAssociativeness = 8;
 	m_cacheBitsIndex = 0;
-	m_cacheBitsWordOffset = 0;
-	m_preFetchCacheForward = 10;
+	m_cacheBitsWordOffset = 6;
+	m_preFetchCacheForward = 100;
 	m_preFetchCacheBackward = 0;
 	m_isAutoPlay = false;
 	m_timePerFrame = 0.018f;
