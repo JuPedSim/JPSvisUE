@@ -5,6 +5,9 @@
 #include "../Cache/CacheLine.h"
 #include "../Cache/CacheEntry.h"
 
+#include <chrono>
+#include <thread>
+
 TrajectoryFileReader::TrajectoryFileReader()
 {
 }
@@ -14,6 +17,8 @@ TrajectoryFileReader::~TrajectoryFileReader()
 }
 CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count,std::string filePath, int tag,unsigned int lruID)
 {
+	//std::this_thread::sleep_for(std::chrono::milliseconds(1000)); to test cache
+
 	std::ifstream is;
 	is.open(filePath,std::ios::binary);
 	if (is.fail()) 

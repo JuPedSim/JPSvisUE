@@ -29,7 +29,7 @@ public:
 private:
 	int GetPosition(int index, int tag);
 	int ComputeStartAdress(int index, int tag);
-	int LoadCacheLineAndReturnPos(int index, int tag);
+	void LoadCacheLineAsync(int index, int tag);
 	CacheLine LoadCacheLine(int index, int tag);
 	int ComputeIndex(int address);
 	int ComputeWordOffset(int address);

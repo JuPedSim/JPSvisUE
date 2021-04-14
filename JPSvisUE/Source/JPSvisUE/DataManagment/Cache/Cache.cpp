@@ -141,7 +141,7 @@ void Cache::CheckToLoad()
 	{
 		int index = ComputeIndex(toLoad.address);
 		int tag = ComputeTag(toLoad.address);
-		LoadCacheLineAndReturnPos(index, tag);
+		LoadCacheLineAsync(index, tag);
 	}
 	
 }
@@ -164,9 +164,10 @@ int Cache::ComputeStartAdress(int index, int tag)
 	return (tag << (m_bitsIndex + m_bitsWordOffset)) | (index << m_bitsWordOffset);;
 }
 
-int Cache::LoadCacheLineAndReturnPos(int index, int tag)
+void Cache::LoadCacheLineAsync(int index, int tag)
 {
 	int startAddress = ComputeStartAdress(index,tag);
+	
 	readFileMutex.lock();
 	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath, tag, m_nextLRUid++);
 	readFileMutex.unlock();
@@ -177,6 +178,11 @@ int Cache::LoadCacheLineAndReturnPos(int index, int tag)
 	{
 		if (m_cacheLines.at(index).at(i).GetIsValid())
 		{
+			if (m_cacheLines.at(index).at(i).GetTag() == tag)
+			{
+				cacheLinesMutex.unlock();
+				return;
+			}
 			unsigned int lruID = m_cacheLines.at(index).at(i).GetLruID();
 			if (lruID < min)
 			{
@@ -190,10 +196,8 @@ int Cache::LoadCacheLineAndReturnPos(int index, int tag)
 			break;
 		}
 	}
-	
 	m_cacheLines.at(index).at(pos) = newCacheLine;
 	cacheLinesMutex.unlock();
-	return pos;
 }
 
 CacheLine Cache::LoadCacheLine(int index, int tag)
