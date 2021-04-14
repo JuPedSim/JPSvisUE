@@ -27,9 +27,9 @@ GlobalSettings::GlobalSettings()
 	m_trajectoryFileChanged = false;
 	m_structureFilePath = "";
 	m_structureFileChanged = false;
-	m_cacheBitsAssociativeness = 0;
+	m_cacheBitsAssociativeness = 8;
 	m_cacheBitsIndex = 0;
-	m_cacheBitsWordOffset = 8;
+	m_cacheBitsWordOffset = 0;
 	m_preFetchCacheForward = 10;
 	m_preFetchCacheBackward = 0;
 	m_isAutoPlay = false;

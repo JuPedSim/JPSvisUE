@@ -77,7 +77,7 @@ void ABuilding::LoadPedestrians()
 	std::shared_ptr<FramePosition> framePosition = std::make_shared<FramePosition>(m_cache.GetFramesCount(), settings->GetTimePerFrame());
 	framePosition.get()->SetPositionWithClamp(lastPos);
 	settings->SetFramePosition(framePosition);
-	CacheEntry firstEntry = m_cache.GetCacheEntry(0);
+	CacheEntry firstEntry = m_cache.LoadCacheEntrySync(0);
 
 	for (int i = 0; i < m_pedestrians.size(); i++)
 	{
@@ -182,7 +182,7 @@ void ABuilding::MovePedestrians()
 			}
 		}
 		//load needed value
-		CacheEntry entry = m_cache.GetCacheEntry(pos);
+		CacheEntry entry = m_cache.LoadCacheEntrySync(pos);
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
 			Person person = entry.GetPersons().at(i);

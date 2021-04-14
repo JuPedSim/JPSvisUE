@@ -13,22 +13,27 @@
 /**
  * 
  */
+struct LoadJob {
+	int address;
+};
 class JPSVISUE_API Cache
 {
 public:
 	Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset,std::string filePath);
 	Cache();
-	CacheEntry GetCacheEntry(int address);
+	CacheEntry LoadCacheEntrySync(int address);
 	void LoadCacheEntryAsync(int address);
 	~Cache();
 	const int GetFramesCount();
+	void CheckToLoad();
 private:
 	int GetPosition(int index, int tag);
+	int ComputeStartAdress(int index, int tag);
 	int LoadCacheLineAndReturnPos(int index, int tag);
-	void LoadCacheLineAsync(int index, int tag);
-	int computeIndex(int address);
-	int computeWordOffset(int address);
-	int computeTag(int address);
+	CacheLine LoadCacheLine(int index, int tag);
+	int ComputeIndex(int address);
+	int ComputeWordOffset(int address);
+	int ComputeTag(int address);
 	int m_bitsAssociativeness;
 	int m_bitsIndex;
 	int m_bitsWordOffset;
@@ -40,4 +45,7 @@ private:
 	std::string m_filePath;
 	void SetMasks();
 	std::vector<std::vector<CacheLine>> m_cacheLines;
+	std::vector<LoadJob> m_toLoadQueue;
+	bool m_toLoadQueueHasLength;
+	bool m_threadIsRunning;
 };
