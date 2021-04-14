@@ -59,14 +59,14 @@ CacheEntry Cache::LoadCacheEntrySync(int address)
 		auto line = m_cacheLines.at(index).at(pos);
 		m_cacheLines.at(index).at(pos).SetLruID(m_nextLRUid++);
 		cacheLinesMutex.unlock();
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
+		//UE_LOG(LogTemp, Warning, TEXT("Hit"));
 		return line.GetEntry(wordOffset);
 	}
 	else
 	{
 		CacheEntry temp = LoadCacheLine(index, tag).GetEntry(wordOffset);
 		cacheLinesMutex.unlock();
-		UE_LOG(LogTemp, Warning, TEXT("Miss"));
+		//UE_LOG(LogTemp, Warning, TEXT("Miss"));
 		return temp;
 	}
 }
