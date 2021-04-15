@@ -46,7 +46,7 @@ void FramePosition::TimeSensitiveChange(float delta)
 		{
 			newPos = 0;
 		}
-		if (newPos!=m_position) 
+		if (newPos != m_position)
 		{
 			m_positionWasChanged = true;
 		}
@@ -60,14 +60,14 @@ void FramePosition::TimeSensitiveChange(float delta)
 void FramePosition::Increase()
 {
 	positionMutex.lock();
-	if (m_position<m_length-1) 
+	if (m_position < m_length - 1)
 	{
 		m_position++;
 		m_positionWasChanged = true;
 		SetUIinfo();
 	}
 	positionMutex.unlock();
-	
+
 }
 
 void FramePosition::Decrease()
@@ -85,14 +85,14 @@ void FramePosition::Decrease()
 void FramePosition::SetPositionWithClamp(int pos)
 {
 	positionMutex.lock();
-	m_position = FMath::Clamp(pos,0,m_length-1);
+	m_position = FMath::Clamp(pos, 0, m_length - 1);
 	SetUIinfo();
 	positionMutex.unlock();
 }
 
 void FramePosition::SetPositionWithFraction(float fraction)
 {
-	int pos = round(fraction*(float)(m_length-1));
+	int pos = round(fraction * (float)(m_length - 1));
 	SetPositionWithClamp(pos);
 }
 
@@ -115,7 +115,7 @@ int FramePosition::GetLength()
 
 bool FramePosition::CheckPositionValid(int pos)
 {
-	if (pos>=0 && pos<m_length)
+	if (pos >= 0 && pos < m_length)
 	{
 		return true;
 	}
@@ -124,14 +124,14 @@ bool FramePosition::CheckPositionValid(int pos)
 
 void FramePosition::SetUIinfo()
 {
-	float percent = (float)m_position / (float)(m_length-1);
+	float percent = (float)m_position / (float)(m_length - 1);
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	std::stringstream ss;
 	ss << (m_position + 1) << ":" << m_length;
 	std::string str = ss.str();
 	FString text(str.c_str());
 	UUIwidget* ui = (UUIwidget*)settings->GetUI().get();
-	if (ui!=nullptr) 
+	if (ui != nullptr)
 	{
 		ui->m_frameTextBox->SetText(FText::FromString(text));
 		ui->m_framePosSlider->SetValue(percent);

@@ -27,7 +27,7 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 	{
 		int size = pow(2, m_bitsAssociativeness);
 		indexed.resize(size);
-		for (int i = 0;i<size;i++)
+		for (int i = 0; i < size; i++)
 		{
 			indexed.at(i) = CacheLine();
 		}
@@ -38,12 +38,12 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 
 Cache::Cache()
 {
-	
+
 }
 
 CacheEntry Cache::LoadCacheEntrySync(int address)
 {
-	if (address<0)
+	if (address < 0)
 	{
 		throw std::invalid_argument("received negative address");
 	}
@@ -53,8 +53,8 @@ CacheEntry Cache::LoadCacheEntrySync(int address)
 	int tag = ComputeTag(address);
 
 	cacheLinesMutex.lock();
-	int pos = GetPosition(index,tag);
-	if (pos>=0) 
+	int pos = GetPosition(index, tag);
+	if (pos >= 0)
 	{
 		auto line = m_cacheLines.at(index).at(pos);
 		m_cacheLines.at(index).at(pos).SetLruID(m_nextLRUid++);
@@ -82,21 +82,21 @@ void Cache::LoadCacheEntryAsync(int address)
 
 	int index = ComputeIndex(address);
 	int tag = ComputeTag(address);
-	if (GetPosition(index, tag)<0)
+	if (GetPosition(index, tag) < 0)
 	{
 		int startAdress = ComputeStartAdress(index, tag);
 		bool alreadyInQueue = false;
 		queueToLoadMutex.lock();
-		for (int i = 0;i< m_toLoadQueue.size();i++)
+		for (int i = 0; i < m_toLoadQueue.size(); i++)
 		{
-			if (m_toLoadQueue.at(i).address== startAdress)
+			if (m_toLoadQueue.at(i).address == startAdress)
 			{
 				alreadyInQueue = true;
 			}
 		}
 		queueToLoadMutex.unlock();
 
-		if (!alreadyInQueue) 
+		if (!alreadyInQueue)
 		{
 			LoadJob toLoad;
 			toLoad.address = startAdress;
@@ -127,9 +127,9 @@ void Cache::CheckToLoad()
 		queueToLoadMutex.lock();
 		if (m_toLoadQueue.size() >= 1)
 		{
-			toLoad = m_toLoadQueue.at(m_toLoadQueue.size()-1);
+			toLoad = m_toLoadQueue.at(m_toLoadQueue.size() - 1);
 			m_toLoadQueue.pop_back();
-			if (m_toLoadQueue.size()==0)
+			if (m_toLoadQueue.size() == 0)
 			{
 				m_toLoadQueueHasLength = false;
 			}
@@ -137,18 +137,18 @@ void Cache::CheckToLoad()
 		}
 		queueToLoadMutex.unlock();
 	}
-	if (hasJob) 
+	if (hasJob)
 	{
 		int index = ComputeIndex(toLoad.address);
 		int tag = ComputeTag(toLoad.address);
 		LoadCacheLineAsync(index, tag);
 	}
-	
+
 }
 
-int Cache::GetPosition(int index,int tag)
+int Cache::GetPosition(int index, int tag)
 {
-	for (int i = 0;i<m_cacheLines.at(index).size();i++) 
+	for (int i = 0; i < m_cacheLines.at(index).size(); i++)
 	{
 		auto& line = m_cacheLines.at(index).at(i);
 		if (line.GetIsValid() && line.GetTag() == tag)
@@ -166,8 +166,8 @@ int Cache::ComputeStartAdress(int index, int tag)
 
 void Cache::LoadCacheLineAsync(int index, int tag)
 {
-	int startAddress = ComputeStartAdress(index,tag);
-	
+	int startAddress = ComputeStartAdress(index, tag);
+
 	readFileMutex.lock();
 	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath, tag, m_nextLRUid++);
 	readFileMutex.unlock();
@@ -281,5 +281,5 @@ void Cache::SetMasks()
 			bitMaskTag = bitMaskTag << 1;
 		}
 	}
-	m_bitMaskTag = bitMaskTag<<(m_bitsWordOffset+ m_bitsIndex);
+	m_bitMaskTag = bitMaskTag << (m_bitsWordOffset + m_bitsIndex);
 }

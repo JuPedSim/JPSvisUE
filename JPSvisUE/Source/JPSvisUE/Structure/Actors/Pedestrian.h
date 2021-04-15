@@ -10,8 +10,8 @@ UCLASS()
 class JPSVISUE_API APedestrian : public ABuildingActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	APedestrian();
 	void InitVariables(int id);
@@ -28,7 +28,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* m_pedestrian;
+		UStaticMeshComponent* m_pedestrian;
 
 	int m_id;
 };

@@ -7,7 +7,7 @@
 
 #include <mutex>
 /**
- * 
+ *
  */
 class JPSVISUE_API FramePosition
 {

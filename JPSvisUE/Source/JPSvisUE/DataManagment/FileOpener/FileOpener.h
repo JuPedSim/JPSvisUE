@@ -6,7 +6,7 @@
 #include "CoreMinimal.h"
 
 /**
- * 
+ *
  */
 class JPSVISUE_API FileOpener
 {
@@ -24,5 +24,5 @@ public:
 	static TArray<FString> OpenFileDialogMultiSelect(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes);
 private:
 	//Selection Flag: A value of 0 represents single file selection while a value of 1 represents multiple file selection
-	static TArray<FString> OpenFileDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes,uint32 SelectionFlag);
+	static TArray<FString> OpenFileDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes, uint32 SelectionFlag);
 };

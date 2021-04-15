@@ -12,7 +12,7 @@
 
 
 enum WallViewType { LARGE_VIEW, SMALL_VIEW, DYNAMIC_VIEW };
-enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW};
+enum FloorViewType { ALL_VIEW, ALL_BELOW_VIEW, ONLY_VIEW };
 
 class FramePosition;
 class FloorPosition;
@@ -105,8 +105,8 @@ public:
 	const bool GetTrajectoryFileChanged();
 	const bool GetStructureFileChanged();
 	std::shared_ptr<UUserWidget> GetUI();
-	
-		//Setter
+
+	//Setter
 	void SetWallViewType(WallViewType wallViewType);
 	void SetFloorViewType(FloorViewType floorViewType);
 	void SetIsAutoPlay(bool isAutoPlay);

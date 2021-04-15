@@ -6,9 +6,9 @@
 
 class Cache;
 /**
- * 
+ *
  */
-class JPSVISUE_API CacheAsyncLoader : public FNonAbandonableTask 
+class JPSVISUE_API CacheAsyncLoader : public FNonAbandonableTask
 {
 public:
 	CacheAsyncLoader();
@@ -17,7 +17,7 @@ public:
 
 	FORCEINLINE TStatId GetStatId() const
 	{
-		RETURN_QUICK_DECLARE_CYCLE_STAT(CacheAsyncLoader,STATGROUP_ThreadPoolAsyncTasks);
+		RETURN_QUICK_DECLARE_CYCLE_STAT(CacheAsyncLoader, STATGROUP_ThreadPoolAsyncTasks);
 	}
 	void DoWork();
 private:

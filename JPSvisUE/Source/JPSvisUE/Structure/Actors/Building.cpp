@@ -37,7 +37,7 @@ void ABuilding::Tick(float DeltaTime)
 	{
 		LoadStructure();
 	}
-	
+
 	if (settings->GetTrajectoryFileChanged())
 	{
 		LoadPedestrians();
@@ -63,7 +63,7 @@ void ABuilding::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
 void ABuilding::SetAutoPlayFrame(float delta)
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	if (settings->GetIsAutoPlay()) 
+	if (settings->GetIsAutoPlay())
 	{
 		delta = delta * settings->GetAutoPlaySpeed().get()->GetSpeedUpFactor();
 		settings->GetFramePosition().get()->TimeSensitiveChange(delta);
@@ -100,11 +100,11 @@ void ABuilding::LoadStructure()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	std::vector<FloorWithHeight> lines = StructureFileReader::LoadStructure(settings->GetStructureFilePath());
-	
+
 	m_floors = SpawnItems<AFloorStructure>(lines.size(), m_floorStructureClass);
-	for (int i = 0; i<lines.size();i++) 
+	for (int i = 0; i < lines.size(); i++)
 	{
-		m_floors.at(i)->Init(*lines.at(i).lines.get(),i);
+		m_floors.at(i)->Init(*lines.at(i).lines.get(), i);
 	}
 	std::vector<float> floorHeights = std::vector<float>();
 	floorHeights.resize(lines.size());
@@ -122,12 +122,12 @@ void ABuilding::LoadStructure()
 
 void ABuilding::MovePedestrians()
 {
-	if (m_cacheIsSet) 
+	if (m_cacheIsSet)
 	{
 		GlobalSettings* settings = GlobalSettings::GetInstance();
 		int pos = settings->GetFramePosition().get()->GetPosition();
 		//pre load forward
-		for (int i = settings->GetPreFetchCacheForward();i>=1;i--) 
+		for (int i = settings->GetPreFetchCacheForward(); i >= 1; i--)
 		{
 			if (settings->GetFramePosition().get()->CheckPositionValid(pos + i))
 			{
@@ -165,10 +165,10 @@ bool ABuilding::GetShouldBeHidden(float height)
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	float minDis = FLT_MAX;
 	int pos = 0;
-	for (int i = 0;i<settings->GetFloorHeights().size();i++) 
+	for (int i = 0; i < settings->GetFloorHeights().size(); i++)
 	{
 		float distance = std::abs(settings->GetFloorHeights().at(i) - height);
-		if (distance<minDis) 
+		if (distance < minDis)
 		{
 			minDis = distance;
 			pos = i;
@@ -179,7 +179,7 @@ bool ABuilding::GetShouldBeHidden(float height)
 	switch (GlobalSettings::GetInstance()->GetFloorViewType())
 	{
 	case FloorViewType::ALL_BELOW_VIEW:
-		if (pos<=currentFloor) 
+		if (pos <= currentFloor)
 		{
 			return false;
 		}

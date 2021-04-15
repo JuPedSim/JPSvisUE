@@ -89,7 +89,7 @@ void AFloorStructure::InitFloors(std::vector<Line>& wallLines)
 	{
 		std::vector<FloorDimensions> vec = std::vector<FloorDimensions>();
 		vec.resize(1);
-		vec.at(0) = FloorDimensions(FVector(minX,minY,height), FVector(minX, maxY, height), FVector(maxX, minY, height), FVector(maxX, maxY, height));
+		vec.at(0) = FloorDimensions(FVector(minX, minY, height), FVector(minX, maxY, height), FVector(maxX, minY, height), FVector(maxX, maxY, height));
 		floor->InitVariables(vec, m_floorPosition);
 	}
 	for (auto floor : m_floorSegments)

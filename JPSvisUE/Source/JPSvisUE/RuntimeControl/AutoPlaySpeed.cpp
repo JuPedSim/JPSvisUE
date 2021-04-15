@@ -17,14 +17,14 @@ AutoPlaySpeed::~AutoPlaySpeed()
 void AutoPlaySpeed::Increase()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	m_speedUpFactor +=settings->GetSpeedUpFactorIncrementSize();
+	m_speedUpFactor += settings->GetSpeedUpFactorIncrementSize();
 	SetUIinfo();
 }
 
 void AutoPlaySpeed::Decrease()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	m_speedUpFactor -=settings->GetSpeedUpFactorIncrementSize();
+	m_speedUpFactor -= settings->GetSpeedUpFactorIncrementSize();
 	SetUIinfo();
 }
 

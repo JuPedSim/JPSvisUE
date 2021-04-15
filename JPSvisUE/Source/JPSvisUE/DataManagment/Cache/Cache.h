@@ -11,7 +11,7 @@
 #include <thread>
 
 /**
- * 
+ *
  */
 struct LoadJob {
 	int address;
@@ -19,7 +19,7 @@ struct LoadJob {
 class JPSVISUE_API Cache
 {
 public:
-	Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset,std::string filePath);
+	Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::string filePath);
 	Cache();
 	CacheEntry LoadCacheEntrySync(int address);
 	void LoadCacheEntryAsync(int address);

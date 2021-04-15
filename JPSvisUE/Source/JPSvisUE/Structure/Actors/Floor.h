@@ -11,8 +11,8 @@ UCLASS()
 class JPSVISUE_API AFloor : public ABuildingActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AFloor();
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
@@ -20,16 +20,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitVariables(std::vector<FloorDimensions>& dims,int floorPosition);
+	void InitVariables(std::vector<FloorDimensions>& dims, int floorPosition);
 	void SetVisible();
 
 	std::vector<FloorDimensions>& GetDimensions();
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* m_floorMesh;
+		UStaticMeshComponent* m_floorMesh;
 
 	std::vector<FloorDimensions> m_dimensions;
 

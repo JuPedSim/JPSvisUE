@@ -13,7 +13,7 @@ class AWall;
 class Line;
 
 /**
- * 
+ *
  */
 UCLASS()
 class JPSVISUE_API AFloorStructure : public ABuildingActor
@@ -22,7 +22,7 @@ class JPSVISUE_API AFloorStructure : public ABuildingActor
 public:
 	AFloorStructure();
 	~AFloorStructure();
-	void Init(std::vector<Line>& wallLines,int floorPosition);
+	void Init(std::vector<Line>& wallLines, int floorPosition);
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 protected:
 	// Called when the game starts or when spawned
@@ -30,10 +30,10 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> m_floorClass;
+		TSubclassOf<AActor> m_floorClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> m_wallClass;
+		TSubclassOf<AActor> m_wallClass;
 
 	void InitFloors(std::vector<Line>& wallLines);
 
