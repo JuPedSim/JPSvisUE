@@ -5,13 +5,13 @@
 #include "CoreMinimal.h"
 
 /**
- * 
+ *
  */
 class JPSVISUE_API Line
 {
 public:
 	Line();
-	Line(FVector p1,FVector p2);
+	Line(FVector p1, FVector p2);
 	~Line();
 private:
 	FVector m_point1;

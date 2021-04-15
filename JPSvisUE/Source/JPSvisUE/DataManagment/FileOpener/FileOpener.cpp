@@ -13,8 +13,8 @@ FileOpener::~FileOpener()
 
 FString FileOpener::OpenFileDialogSingleSelect(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes)
 {
-	TArray<FString> FileNames = FileOpener::OpenFileDialog(DialogTitle, DefaultPath, FileTypes,0);
-	if (FileNames.Num()==1)
+	TArray<FString> FileNames = FileOpener::OpenFileDialog(DialogTitle, DefaultPath, FileTypes, 0);
+	if (FileNames.Num() == 1)
 	{
 		return FileNames[0];
 	}
@@ -29,7 +29,7 @@ TArray<FString> FileOpener::OpenFileDialogMultiSelect(const FString& DialogTitle
 	return FileOpener::OpenFileDialog(DialogTitle, DefaultPath, FileTypes, 1);
 }
 
-TArray<FString> FileOpener::OpenFileDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes,  uint32 SelectionFlag)
+TArray<FString> FileOpener::OpenFileDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes, uint32 SelectionFlag)
 {
 	TArray<FString> OutFileNames;
 	if (GEngine)

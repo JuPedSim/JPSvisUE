@@ -15,8 +15,8 @@ UCLASS()
 class JPSVISUE_API ABuilding : public ABuildingActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABuilding();
 
@@ -24,17 +24,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> m_floorStructureClass;
+		TSubclassOf<AActor> m_floorStructureClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<AActor> m_pedestrianClass;
+		TSubclassOf<AActor> m_pedestrianClass;
 
 	std::vector<AFloorStructure*> m_floors;
 	std::vector<APedestrian*> m_pedestrians;
@@ -46,7 +46,7 @@ private:
 	void LoadPedestrians();
 	void LoadStructure();
 	void MovePedestrians();
-	
+
 
 	bool GetShouldBeHidden(float height);
 };

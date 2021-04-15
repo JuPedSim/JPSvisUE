@@ -13,8 +13,8 @@ UCLASS()
 class JPSVISUE_API AWall : public ABuildingActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWall();
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
@@ -23,7 +23,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int floorPosition);
@@ -31,7 +31,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* m_wallMesh;
+		UStaticMeshComponent* m_wallMesh;
 
 	std::vector<AFloor*> m_connectedFloors;
 	Line m_wallLine;
@@ -49,7 +49,7 @@ private:
 	float m_scaleY;
 	float m_scaleZbig;
 	float m_scaleZsmall;
-	
+
 	int m_floorPosition;
 
 	std::vector<FVector> m_camCheckPoints;

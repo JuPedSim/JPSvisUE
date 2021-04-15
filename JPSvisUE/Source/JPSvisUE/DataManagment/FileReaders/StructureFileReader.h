@@ -9,7 +9,7 @@
 
 class Line;
 /**
- * 
+ *
  */
 struct FloorWithHeight {
 	float height;

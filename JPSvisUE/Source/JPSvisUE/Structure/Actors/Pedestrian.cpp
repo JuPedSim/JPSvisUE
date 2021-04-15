@@ -8,7 +8,7 @@
 // Sets default values
 APedestrian::APedestrian()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	m_pedestrian = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
@@ -27,7 +27,7 @@ void APedestrian::SetVisible()
 
 void APedestrian::SetPosition(FVector position)
 {
-	SetActorLocation(position* GlobalSettings::GetInstance()->GetScalingFactor());
+	SetActorLocation(position * GlobalSettings::GetInstance()->GetScalingFactor());
 }
 
 void APedestrian::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
@@ -47,9 +47,9 @@ void APedestrian::BeginPlay()
 
 	FRotator rotation = FRotator(0.f, 0.f, 0.f);
 	FVector translation = FVector(0.f, 0.f, 0.f);
-	float width = settings->GetPedestrianWidth()/objWidth;
-	float height = settings->GetPedestrianHeight()/objHeight;
-	FVector scaling = FVector(width,width,height);
+	float width = settings->GetPedestrianWidth() / objWidth;
+	float height = settings->GetPedestrianHeight() / objHeight;
+	FVector scaling = FVector(width, width, height);
 	FTransform transform = FTransform(rotation, translation, scaling * settings->GetScalingFactor());
 	SetActorTransform(transform);
 }

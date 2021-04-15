@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 
 /**
- * 
+ *
  */
 class JPSVISUE_API AutoPlaySpeed
 {

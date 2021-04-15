@@ -77,7 +77,7 @@ void AWall::InitVariables(Line line, std::vector<AFloor*>& connectedFloors, int 
 
 	FVector temp = line.GetPoint2() - line.GetPoint1();
 	m_direction = FVector2D(temp.X, temp.Y);
-	m_normal = FVector2D(temp.Y,-temp.X);
+	m_normal = FVector2D(temp.Y, -temp.X);
 	m_direction.Normalize();
 	m_normal.Normalize();
 	m_wallLine = line;
@@ -145,12 +145,12 @@ void AWall::SetCamCheckPoints()
 
 void AWall::SetSmall(float DeltaTime)
 {
-	if (m_scaleFactor>0)
+	if (m_scaleFactor > 0)
 	{
 		GlobalSettings* settings = GlobalSettings::GetInstance();
-		
+
 		float sZ;
-		if (DeltaTime==-1) 
+		if (DeltaTime == -1)
 		{
 			sZ = m_scaleZsmall;
 			m_scaleFactor = 0;
@@ -158,19 +158,19 @@ void AWall::SetSmall(float DeltaTime)
 		else
 		{
 			float change = -DeltaTime * settings->GetWallScaleChangeSpeed();
-			m_scaleFactor = std::max(change + m_scaleFactor,0.f);
+			m_scaleFactor = std::max(change + m_scaleFactor, 0.f);
 			float range = m_scaleZbig - m_scaleZsmall;
-			sZ= m_scaleZsmall + m_scaleFactor * range;
+			sZ = m_scaleZsmall + m_scaleFactor * range;
 		}
-		SetActorScale3D(FVector(m_scaleX, m_scaleY,sZ));
+		SetActorScale3D(FVector(m_scaleX, m_scaleY, sZ));
 	}
 }
 
 void AWall::SetBig(float DeltaTime)
 {
-	if (m_scaleFactor<1)
+	if (m_scaleFactor < 1)
 	{
-		GlobalSettings *settings = GlobalSettings::GetInstance();
+		GlobalSettings* settings = GlobalSettings::GetInstance();
 
 		float sZ;
 		if (DeltaTime == -1)
@@ -195,9 +195,9 @@ FVector AWall::ComputeViewObstructedVector(FVector dir)
 
 	float x = dir.X;
 	float y = dir.Y;
-	float lengthHor = sqrt(x*x+y*y);
+	float lengthHor = sqrt(x * x + y * y);
 
-	float lenghtVer = lengthHor/tan((settings->GetViewObstractedCheckerDegree()/360)*2.f*PI);
+	float lenghtVer = lengthHor / tan((settings->GetViewObstractedCheckerDegree() / 360) * 2.f * PI);
 
 	FVector v = FVector(x, y, -lenghtVer);
 	v.Normalize();

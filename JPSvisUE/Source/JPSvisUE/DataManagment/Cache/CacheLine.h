@@ -7,13 +7,13 @@
 
 class CacheEntry;
 /**
- * 
+ *
  */
 class JPSVISUE_API CacheLine
 {
 public:
 	CacheLine();
-	CacheLine(int tag, std::vector<CacheEntry> &entries, int lruID);
+	CacheLine(int tag, std::vector<CacheEntry>& entries, int lruID);
 	~CacheLine();
 	int GetTag();
 	bool GetIsValid();
