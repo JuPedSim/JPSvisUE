@@ -12,6 +12,25 @@
 class CacheLine;
 class CacheEntry;
 enum DataType { BIN, TXT, NONE };
+struct TrajectoryFileDataPositions 
+{
+	int id;
+	int x;
+	int y;
+	int z;
+	int frame;
+};
+struct TrajectoryFileFrameInfo 
+{
+	int pos;
+	int frame;
+	int startPos;
+};
+struct TrajectoryFileFrameBoundaries
+{
+	int startPos;
+	int stopPos;
+};
 /**
  *
  */
@@ -23,10 +42,16 @@ public:
 	static CacheLine LoadCacheLine(int startAddress, int count, std::string filePath, int tag, unsigned int lruID);
 	static int GetFrames(std::string filePath);
 private:
-	static CacheLine CacheLineConstractor(std::vector<CacheEntry> entries, int tag, unsigned int lruID);
+	static CacheLine CacheLineConstructor(std::vector<CacheEntry> entries, int tag, unsigned int lruID);
 	static std::vector<CacheEntry> LoadCacheLineBin(int startAddress, int count, std::string filePath);
 	static std::vector<CacheEntry> LoadCacheLineTxt(int startAddress, int count, std::string filePath);
 	static int GetFramesBin(std::string filePath);
 	static int GetFramesTxt(std::string filePath);
+	static TrajectoryFileFrameInfo GetFrameInfoWithoutStartPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries);
+	static TrajectoryFileFrameInfo GetFrameInfoWithStartPos(std::ifstream& is, long size, TrajectoryFileFrameInfo frameInfo, TrajectoryFileDataPositions trajectoryFileDataPositions);
+
+
+	static TrajectoryFileFrameBoundaries GetFrameBoundaries(std::ifstream& is, long size);
+
 	static DataType GetDataType(std::string filePath);
 };

@@ -122,7 +122,7 @@ void UUIwidget::DecreaseFloorPosition()
 void UUIwidget::OpenTrajectoryFile()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
-	FString fileName = FileOpener::OpenFileDialogSingleSelect("Trajectory Files", "", "Trajectory File|*.bin");
+	FString fileName = FileOpener::OpenFileDialogSingleSelect("Trajectory Files", "", "Trajectory File|*.bin;*.txt");
 	if (!fileName.IsEmpty()) 
 	{
 		settings->SetTrajectoryFilePath(std::string(TCHAR_TO_UTF8(*fileName)));
