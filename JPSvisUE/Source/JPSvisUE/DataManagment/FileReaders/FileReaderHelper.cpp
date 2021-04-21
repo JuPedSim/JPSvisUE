@@ -67,10 +67,12 @@ long FileReaderHelper::SeekPosSave(std::ifstream& is, long pos, long size)
 
 long FileReaderHelper::GetSize(std::string path)
 {
-	struct stat sBuffer;
+	/*struct stat sBuffer;
 	const char* acFileName = path.c_str();
 	stat(acFileName, &sBuffer);
-	return sBuffer.st_size;
+	return sBuffer.st_size;*/
+	std::ifstream in(path, std::ifstream::ate | std::ifstream::binary);
+	return in.tellg();
 }
 
 std::vector<std::string> FileReaderHelper::GetValuesInLine(std::string line, std::vector<int> positons)

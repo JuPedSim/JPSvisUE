@@ -47,8 +47,13 @@ private:
 	static std::vector<CacheEntry> LoadCacheLineTxt(int startAddress, int count, std::string filePath);
 	static int GetFramesBin(std::string filePath);
 	static int GetFramesTxt(std::string filePath);
-	static TrajectoryFileFrameInfo GetFrameInfoWithoutStartPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries);
+	static TrajectoryFileFrameInfo GetFrameInfoWithoutStartPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions);
 	static TrajectoryFileFrameInfo GetFrameInfoWithStartPos(std::ifstream& is, long size, TrajectoryFileFrameInfo frameInfo, TrajectoryFileDataPositions trajectoryFileDataPositions);
+	
+
+	static TrajectoryFileFrameInfo Search(std::string filePath,int frame);
+	static TrajectoryFileFrameInfo SearchForward(std::ifstream& is, int frame, long size, TrajectoryFileFrameInfo startInfo, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries);
+	static TrajectoryFileFrameInfo SearchBackward(std::ifstream& is, int frame, long size, TrajectoryFileFrameInfo startInfo, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries);
 
 
 	static TrajectoryFileFrameBoundaries GetFrameBoundaries(std::ifstream& is, long size);

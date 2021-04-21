@@ -106,7 +106,7 @@ std::vector<CacheEntry> TrajectoryFileReader::LoadCacheLineBin(int startAddress,
 
 std::vector<CacheEntry> TrajectoryFileReader::LoadCacheLineTxt(int startAddress, int count, std::string filePath)
 {
-	TrajectoryFileDataPositions positions;
+	/*TrajectoryFileDataPositions positions;
 	positions.id = 0;
 	positions.frame = 1;
 	positions.x = 2;
@@ -129,16 +129,23 @@ std::vector<CacheEntry> TrajectoryFileReader::LoadCacheLineTxt(int startAddress,
 
 	TrajectoryFileFrameBoundaries boundaries = TrajectoryFileReader::GetFrameBoundaries(is, size);
 
-	TrajectoryFileFrameInfo info = TrajectoryFileReader::GetFrameInfoWithoutStartPos(is, boundaries.stopPos-50, size, positions, boundaries);
+	TrajectoryFileFrameInfo info = TrajectoryFileReader::GetFrameInfoWithoutStartPos(is, boundaries.startPos+50000, size, positions);
 
 	TrajectoryFileFrameInfo info2 = TrajectoryFileReader::GetFrameInfoWithStartPos(is, size, info, positions);
 
-	/*volatile int asdwww = info2.frame;
+	volatile int asdwww1 = boundaries.startPos;
+	volatile int asdww1 = boundaries.stopPos;
+
+	*/
+
+	TrajectoryFileFrameInfo info2 = TrajectoryFileReader::Search(filePath, 80000);
+
+	volatile int asdwww = info2.frame;
 	volatile int asdww = info2.pos;
-	volatile int asdw = info2.startPos;*/
+	volatile int asdw = info2.startPos;
 
 	std::vector<CacheEntry> entries;
-	entries.resize(count);// +0 * asdwww * asdww * asdw);
+	entries.resize(count +0 * asdwww * asdww * asdw);
 	return entries;
 }
 
@@ -161,12 +168,11 @@ int TrajectoryFileReader::GetFramesTxt(std::string filePath)
 	{
 		throw std::invalid_argument("File not found");
 	}
-	is;
 
 	return 1;
 }
 
-TrajectoryFileFrameInfo TrajectoryFileReader::GetFrameInfoWithoutStartPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries)
+TrajectoryFileFrameInfo TrajectoryFileReader::GetFrameInfoWithoutStartPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions)
 {
 	std::vector<int> posFrameID;
 	posFrameID.push_back(trajectoryFileDataPositions.frame);
@@ -226,6 +232,112 @@ TrajectoryFileFrameInfo TrajectoryFileReader::GetFrameInfoWithStartPos(std::ifst
 		pos = pos - 1;
 	}
 	info.startPos = lastpos;
+	return info;
+}
+
+TrajectoryFileFrameInfo TrajectoryFileReader::Search(std::string filePath, int frame)
+{
+	TrajectoryFileDataPositions positions;
+	positions.id = 0;
+	positions.frame = 1;
+	positions.x = 2;
+	positions.y = 3;
+	positions.z = 4;
+
+	std::ifstream is;
+	is.open(filePath, std::ios_base::binary);
+	if (is.fail())
+	{
+		throw std::invalid_argument("File not found");
+	}
+	long size = FileReaderHelper::GetSize(filePath);
+
+
+
+	TrajectoryFileFrameBoundaries boundaries = TrajectoryFileReader::GetFrameBoundaries(is, size);
+	TrajectoryFileFrameInfo info1 = TrajectoryFileReader::GetFrameInfoWithoutStartPos(is, boundaries.startPos, size, positions);
+	//TrajectoryFileFrameInfo info1 = TrajectoryFileReader::GetFrameInfoWithoutStartPos(is, boundaries.stopPos, size, positions);
+	//TrajectoryFileFrameInfo info3 = TrajectoryFileReader::SearchBackward(is, frame,size,info1,positions,boundaries);
+	TrajectoryFileFrameInfo info3 = TrajectoryFileReader::SearchForward(is, frame, size, info1, positions, boundaries);
+
+	is.close();
+	return info3;
+}
+
+TrajectoryFileFrameInfo TrajectoryFileReader::SearchForward(std::ifstream& is,int frame, long size, TrajectoryFileFrameInfo startInfo, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries)
+{
+	std::vector<int> posFrameID;
+	posFrameID.push_back(trajectoryFileDataPositions.frame);
+
+	int currentFrame = startInfo.frame;
+	long pos = FileReaderHelper::SeekPosSave(is,startInfo.pos,size);
+	std::string line;
+	while (currentFrame<=frame)
+	{
+		bool endReached = !std::getline(is, line);
+		std::vector<std::string> vec = FileReaderHelper::GetValuesInLine(line, posFrameID);
+		if (vec.size()==1) 
+		{
+			currentFrame = atoi(vec.at(0).c_str());
+		}
+		if (currentFrame == frame) 
+		{
+			TrajectoryFileFrameInfo info;
+			info.frame = currentFrame;
+			info.pos = pos;
+			return TrajectoryFileReader::GetFrameInfoWithStartPos(is, size, info, trajectoryFileDataPositions);
+
+		}
+		pos = is.tellg();
+		if (endReached || pos>= boundaries.stopPos)
+		{
+			break;
+		}
+	}
+	
+	TrajectoryFileFrameInfo info;
+	info.frame = -1;
+	info.pos = -1;
+	info.startPos = -1;
+	return info;
+}
+
+TrajectoryFileFrameInfo TrajectoryFileReader::SearchBackward(std::ifstream& is, int frame, long size, TrajectoryFileFrameInfo startInfo, TrajectoryFileDataPositions trajectoryFileDataPositions, TrajectoryFileFrameBoundaries boundaries)
+{
+	std::vector<int> posFrameID;
+	posFrameID.push_back(trajectoryFileDataPositions.frame);
+
+	int currentFrame = startInfo.frame;
+	long pos = FileReaderHelper::SeekPosSave(is, startInfo.pos, size);
+	std::string line;
+	while (currentFrame >= frame)
+	{
+		pos = FileReaderHelper::SeekLineSave(is, pos, size);
+		bool endReached = !std::getline(is, line);
+		std::vector<std::string> vec = FileReaderHelper::GetValuesInLine(line, posFrameID);
+		if (vec.size() == 1)
+		{
+			currentFrame = atoi(vec.at(0).c_str());
+		}
+		if (currentFrame == frame)
+		{
+			TrajectoryFileFrameInfo info;
+			info.frame = currentFrame;
+			info.pos = pos;
+			return TrajectoryFileReader::GetFrameInfoWithStartPos(is,size,info, trajectoryFileDataPositions);
+
+		}
+		pos = pos - 1;
+		if (endReached || pos <= boundaries.startPos)
+		{
+			break;
+		}
+	}
+
+	TrajectoryFileFrameInfo info;
+	info.frame = -1;
+	info.pos = -1;
+	info.startPos = -1;
 	return info;
 }
 
