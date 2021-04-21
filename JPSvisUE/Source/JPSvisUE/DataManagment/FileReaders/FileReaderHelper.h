@@ -18,8 +18,8 @@ public:
 	static long SeekLineSave(std::ifstream& is, long pos, long size);
 	static long GetSize(std::string path);
 	static std::vector<std::string> GetValuesInLine(std::string line,std::vector<int> positons);
-private:
 	static long SeekPosSave(std::ifstream& is, long pos, long size);
+private:
 	static long GetPositionBeforeNewLineIfNeeded(std::ifstream& is, long pos, long size);
 	
 };
