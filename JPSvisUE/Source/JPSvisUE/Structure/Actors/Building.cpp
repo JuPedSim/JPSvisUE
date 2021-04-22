@@ -78,20 +78,9 @@ void ABuilding::LoadPedestrians()
 	std::shared_ptr<FramePosition> framePosition = std::make_shared<FramePosition>(m_cache.GetFramesCount(), settings->GetTimePerFrame());
 	framePosition.get()->SetPositionWithClamp(lastPos);
 	settings->SetFramePosition(framePosition);
-	CacheEntry firstEntry = m_cache.LoadCacheEntrySync(0);
-
 	for (int i = 0; i < m_pedestrians.size(); i++)
 	{
 		m_pedestrians.at(i)->DestroyAll();
-	}
-
-	m_pedestrians = SpawnItems<APedestrian>(firstEntry.GetPersons().size(), m_pedestrianClass);
-	for (int i = 0; i < m_pedestrians.size(); i++)
-	{
-		Person person = firstEntry.GetPersons().at(i);
-		m_pedestrians.at(i)->InitVariables(person.id);
-		m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
-		m_pedestrians.at(i)->SetVisible();
 	}
 	m_cacheIsSet = true;
 }
@@ -144,18 +133,77 @@ void ABuilding::MovePedestrians()
 		}
 		//load needed value
 		CacheEntry entry = m_cache.LoadCacheEntrySync(pos);
+		std::vector<Person> persons = entry.GetPersons();
+		std::vector<Person> toCreate;
+		//toDelete
+		for (int i = 0;i< m_pedestrians.size();i++)
+		{
+			bool found = false;
+			for (int n = 0;n< persons.size();n++)
+			{
+				if (persons.at(n).id==m_pedestrians.at(i)->GetID()) 
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found) 
+			{
+				m_pedestrians.at(i)->DestroyAll();
+				m_pedestrians.erase(m_pedestrians.begin()+i);
+				i--;
+			}
+		}
+		//toCreate
+		for (int n = 0;n<persons.size();n++) 
+		{
+			bool found = false;
+			for (int i = 0; i < m_pedestrians.size(); i++)
+			{
+				if (persons.at(n).id == m_pedestrians.at(i)->GetID())
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				toCreate.push_back(persons.at(n));
+			}
+		}
+		//sync
 		for (int i = 0; i < m_pedestrians.size(); i++)
 		{
-			Person person = entry.GetPersons().at(i);
+			for (int n = 0; n < persons.size(); n++)
+			{
+				Person person = persons.at(n);
+				if (person.id == m_pedestrians.at(i)->GetID())
+				{
+					if (GetShouldBeHidden(person.z))
+					{
+						m_pedestrians.at(i)->SetActorHiddenInGame(true);
+					}
+					else
+					{
+						m_pedestrians.at(i)->SetActorHiddenInGame(false);
+					}
+					m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
+					break;
+				}
+			}
+		}
+		//create
+		for (int i = 0; i < toCreate.size(); i++)
+		{
+			Person person = toCreate.at(i);
+			APedestrian* pedestrian = SpawnItem<APedestrian>(m_pedestrianClass);
+			pedestrian->InitVariables(person.id);
+			pedestrian->SetPosition(FVector(person.x, person.y, person.z));
 			if (GetShouldBeHidden(person.z))
 			{
-				m_pedestrians.at(i)->SetActorHiddenInGame(true);
+				pedestrian->SetVisible();
 			}
-			else
-			{
-				m_pedestrians.at(i)->SetActorHiddenInGame(false);
-			}
-			m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
+			m_pedestrians.push_back(pedestrian);
 		}
 	}
 }

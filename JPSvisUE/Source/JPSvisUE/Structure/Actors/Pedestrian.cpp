@@ -35,6 +35,11 @@ void APedestrian::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
 	Destroy(bNetForce, bShouldModifyLevel);
 }
 
+int APedestrian::GetID()
+{
+	return m_id;
+}
+
 // Called when the game starts or when spawned
 void APedestrian::BeginPlay()
 {

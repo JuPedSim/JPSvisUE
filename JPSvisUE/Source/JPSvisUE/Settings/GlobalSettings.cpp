@@ -49,6 +49,7 @@ GlobalSettings::GlobalSettings()
 	m_floorHeights.at(0) = 0;
 	m_camOffsetFromFloor = 2;
 	m_ui = nullptr;
+	m_lastFileReaderPos = 0;
 }
 
 void GlobalSettings::InitSingleton()
@@ -200,6 +201,10 @@ std::shared_ptr<UUserWidget> GlobalSettings::GetUI()
 {
 	return m_ui;
 }
+const int GlobalSettings::GetLastFileReaderPos()
+{
+	return m_lastFileReaderPos;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -256,4 +261,9 @@ void GlobalSettings::SetStructureFilePath(std::string path)
 void GlobalSettings::SetUI(std::shared_ptr<UUserWidget> ui)
 {
 	m_ui = ui;
+}
+
+void GlobalSettings::SetLastFileReaderPos(int pos)
+{
+	m_lastFileReaderPos = pos;
 }
