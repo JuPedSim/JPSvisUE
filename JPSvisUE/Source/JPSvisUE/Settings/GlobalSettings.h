@@ -68,6 +68,7 @@ private:
 	std::vector<float> m_floorHeights;
 	float m_camOffsetFromFloor;
 	std::shared_ptr<UUserWidget> m_ui;
+	int m_lastFileReaderPos;
 public:
 	//Getter
 	const float GetScalingFactor();
@@ -105,6 +106,7 @@ public:
 	const bool GetTrajectoryFileChanged();
 	const bool GetStructureFileChanged();
 	std::shared_ptr<UUserWidget> GetUI();
+	const int GetLastFileReaderPos();
 
 	//Setter
 	void SetWallViewType(WallViewType wallViewType);
@@ -116,4 +118,5 @@ public:
 	void SetTrajectoryFilePath(std::string path);
 	void SetStructureFilePath(std::string path);
 	void SetUI(std::shared_ptr<UUserWidget> ui);
+	void SetLastFileReaderPos(int pos);
 };

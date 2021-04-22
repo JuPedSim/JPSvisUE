@@ -18,6 +18,7 @@ public:
 	void SetVisible();
 	void SetPosition(FVector position);
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
+	int GetID();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
