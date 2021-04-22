@@ -14,6 +14,16 @@ StructureFileReader::~StructureFileReader()
 
 std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string filePath)
 {
+
+
+
+
+
+
+
+
+
+
 	float h1 = 20;
 	float h2 = 40;
 

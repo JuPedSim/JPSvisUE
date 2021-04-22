@@ -1,0 +1,191 @@
+variables:
+    GIT_SUBMODULE_STRATEGY: "recursive"
+    GIT_STRATEGY: "fetch"
+    GIT_CHECKOUT: "true"
+    GIT_SSL_NO_VERIFY: "1"
+    GET_SOURCES_ATTEMPTS: "10"
+
+stages:
+    - static-analysis
+    - build
+    - package
+
+clang-format:
+    image: alpine
+    stage: static-analysis
+    variables:
+        GIT_LFS_SKIP_SMUDGE: "1"
+    # empty dependencies = do not need artifacts from previous stages
+    dependencies: []
+    script:
+        - apk update && apk add clang git bash dos2unix
+        - exclude=$(for d in $(git config --file .gitmodules --get-regexp path | awk '{ print $2 }'); do echo "-not \( -path ./$d -prune \) "; done)
+        - A="find . $exclude -iname *.h -o -iname *.c -o -iname *.cpp -o -iname *.hpp -o -iname *.cc"
+        - B=$(echo -e "$A" | tr -d '\n')
+        - C="$B | xargs dos2unix"
+        - bash -c "eval '$C'" || true
+        - bash -c "if (( $(git ls-files -m |wc -l) > 0 )); then git ls-files -m; echo 'WRONG encoding or line feed'; exit 1; fi"
+        - A="$B | xargs clang-format -style=file -i"
+        - bash -c "eval '$A'" || true
+        - bash -c "if (( $(git ls-files -m |wc -l) > 0 )); then git ls-files -m; exit 1; fi"
+    # Select runner
+    tags:
+        - linux
+        - docker
+
+compile-development-linux:
+    image: adamrehn/ue4-full:4.25.3
+    stage: build
+    script:
+        - ue4 build Development
+    only:
+        - merge_requests
+    # Select runner
+    tags:
+        - linux
+        - docker
+        - ue4
+
+compile-development-windows:
+    image: adamrehn/ue4-full:4.25.3
+    stage: build
+    script:
+        - ue4 build Development
+    only:
+        - merge_requests
+    # Select runner
+    tags:
+        - windows
+        - docker
+        - ue4
+    # Allow failre because the windows build machine is slow
+    # and sometimes we want to manual delete this job
+    # and only keep the linux (fast) job running
+    allow_failure: true
+
+# Linux 
+.package-template-shipping-linux:
+    image: adamrehn/ue4-full:4.25.3
+    stage: package
+    variables:
+        GIT_STRATEGY: "clone"
+    script:
+        - ue4 package
+        - mv dist/LinuxNoEditor .
+    artifacts:
+        name: "app_$CI_COMMIT_SHORT_SHA"
+        paths:
+            - LinuxNoEditor/*
+    # Select runner
+    tags:
+        - linux
+        - docker
+        - ue4
+    interruptible: true
+
+.package-template-development-linux:
+    image: adamrehn/ue4-full:4.25.3
+    stage: package
+    variables:
+        GIT_STRATEGY: "clone"
+    script:
+        - ue4 package Development
+        - mv dist/LinuxNoEditor .
+    artifacts:
+        name: "app_dev_$CI_COMMIT_SHORT_SHA"
+        paths:
+            - LinuxNoEditor/*
+    # Select runner
+    tags:
+        - linux
+        - docker
+        - ue4
+    interruptible: true
+
+# Windows
+
+.package-template-shipping-windows:
+    image: adamrehn/ue4-full:4.25.3-cef-fix
+    stage: package
+    variables:
+        GIT_STRATEGY: "clone"
+    script:
+        - ue4 package
+        - mv dist/WindowsNoEditor .
+    artifacts:
+        name: "app_$CI_COMMIT_SHORT_SHA"
+        paths:
+            - WindowsNoEditor/*
+    # Select runner
+    tags:
+        - windows
+        - docker
+        - ue4
+    interruptible: true
+
+.package-template-development-windows:
+    image: adamrehn/ue4-full:4.25.3-cef-fix
+    stage: package
+    variables:
+        GIT_STRATEGY: "clone"
+    script:
+        - ue4 package Development
+        - mv dist/WindowsNoEditor .
+    artifacts:
+        name: "app_dev_$CI_COMMIT_SHORT_SHA"
+        paths:
+            - WindowsNoEditor/*
+    # Select runner
+    tags:
+        - windows
+        - docker
+        - ue4
+    interruptible: true
+
+# Linux
+
+package-shipping-linux:
+    extends: .package-template-shipping-linux
+    when: manual
+    except:
+        - schedules
+
+package-development-linux:
+    extends: .package-template-development-linux
+    when: manual
+    except:
+        - schedules
+
+scheduled-package-shipping-linux:
+    extends: .package-template-shipping-linux
+    only:
+        - schedules
+
+scheduled-package-development-linux:
+    extends: .package-template-development-linux
+    only:
+        - schedules
+
+# Windows
+
+package-shipping-windows:
+    extends: .package-template-shipping-windows
+    when: manual
+    except:
+        - schedules
+
+package-development-windows:
+    extends: .package-template-development-windows
+    when: manual
+    except:
+        - schedules
+
+scheduled-package-shipping-windows:
+    extends: .package-template-shipping-windows
+    only:
+        - schedules
+
+scheduled-package-development-windows:
+    extends: .package-template-development-windows
+    only:
+        - schedules
