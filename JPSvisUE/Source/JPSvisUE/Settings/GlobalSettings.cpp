@@ -29,11 +29,11 @@ GlobalSettings::GlobalSettings()
 	m_structureFileChanged = false;
 	m_cacheBitsAssociativeness = 8;
 	m_cacheBitsIndex = 0;
-	m_cacheBitsWordOffset = 6;
+	m_cacheBitsWordOffset = 4;
 	m_preFetchCacheForward = 100;
-	m_preFetchCacheBackward = 0;
+	m_preFetchCacheBackward = 100;
 	m_isAutoPlay = false;
-	m_timePerFrame = 0.018f;
+	m_timePerFrame = 1.f;
 	m_speedUpFactorIncrementSize = 0.25f;
 	m_framePosition = std::make_shared<FramePosition>();
 	m_floorPosition = std::make_shared<FloorPosition>();
@@ -50,6 +50,9 @@ GlobalSettings::GlobalSettings()
 	m_camOffsetFromFloor = 2;
 	m_ui = nullptr;
 	m_lastFileReaderPos = 0;
+	m_txtReaderForwardThreshhold = 10;
+	m_txtReaderBackwardThreshhold = 3;
+	m_txtReaderBinaryTreeMinimumGap = 1000;
 }
 
 void GlobalSettings::InitSingleton()
@@ -205,6 +208,18 @@ const int GlobalSettings::GetLastFileReaderPos()
 {
 	return m_lastFileReaderPos;
 }
+const int GlobalSettings::GetTxtReaderForwardThreshhold()
+{
+	return m_txtReaderForwardThreshhold;
+}
+const int GlobalSettings::GetTxtReaderBackwardThreshhold()
+{
+	return m_txtReaderBackwardThreshhold;
+}
+const int GlobalSettings::GetTxtReaderBinaryTreeMinimumGap()
+{
+	return m_txtReaderBinaryTreeMinimumGap;
+}
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {
 	return m_wallScaleChangeSpeed;
@@ -266,4 +281,9 @@ void GlobalSettings::SetUI(std::shared_ptr<UUserWidget> ui)
 void GlobalSettings::SetLastFileReaderPos(int pos)
 {
 	m_lastFileReaderPos = pos;
+}
+
+void GlobalSettings::SetTimePerFrame(float time)
+{
+	m_timePerFrame = time;
 }
