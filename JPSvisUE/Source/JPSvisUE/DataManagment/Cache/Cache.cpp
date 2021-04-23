@@ -17,6 +17,7 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 	m_filePath = filePath;
 	m_nextLRUid = 0;
 	m_frameCount = TrajectoryFileReader::GetFrames(m_filePath);
+	TrajectoryFileReader::SetFramerate(m_filePath);
 	m_toLoadQueueHasLength = false;
 	m_toLoadQueue.resize(0);
 

@@ -49,6 +49,23 @@ int TrajectoryFileReader::GetFrames(std::string filePath)
 	}
 }
 
+void TrajectoryFileReader::SetFramerate(std::string filePath)
+{
+	switch (GetDataType(filePath))
+	{
+	case DataType::BIN:
+		TrajectoryFileReader::SetFramerateBin(filePath);
+		return;
+	case DataType::TXT:
+		TrajectoryFileReader::SetFramerateTxt(filePath);
+		return;
+	case DataType::NONE:
+		throw std::invalid_argument("Unsuported File Format");
+	default:
+		throw std::invalid_argument("Unsuported File Format");
+	}
+}
+
 CacheLine TrajectoryFileReader::CacheLineConstructor(std::vector<CacheEntry> entries, int tag, unsigned int lruID)
 {
 	return CacheLine(tag, entries, lruID);
@@ -148,6 +165,53 @@ int TrajectoryFileReader::GetFramesTxt(std::string filePath)
 	TrajectoryFileFrameInfo info = TrajectoryFileReader::GetFrameInfoWithoutStartEndPos(is, boundaries.stopPos, size, positions);
 	is.close();
 	return info.frame+1;
+}
+
+void TrajectoryFileReader::SetFramerateBin(std::string filePath)
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	settings->SetTimePerFrame(0.018f);
+}
+
+void TrajectoryFileReader::SetFramerateTxt(std::string filePath)
+{
+	std::ifstream is;
+	is.open(filePath, std::ios_base::binary);
+	if (is.fail())
+	{
+		throw std::invalid_argument("File not found");
+	}
+	std::string line;
+	std::string comp = "#framerate: ";
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+	while (std::getline(is, line))
+	{
+		if (line.size()>0 && line.at(0)=='#') 
+		{
+			bool found = true;
+			for (int i = 0;i< comp.size();i++)
+			{
+				if (line.at(i) != comp.at(i)) 
+				{
+					found = false;
+					break;
+				}
+			}
+			if (found) 
+			{
+				std::string number = "";
+				for (int i = comp.size();i<line.size();i++) 
+				{
+					number+=line.at(i);
+				}
+				settings->SetTimePerFrame(1.0f / std::stof(number.c_str()));
+				is.close();
+				return;
+			}
+		}
+	}
+	is.close();
+	settings->SetTimePerFrame(1.f);
 }
 
 TrajectoryFileFrameInfo TrajectoryFileReader::GetFrameInfoWithoutStartEndPos(std::ifstream& is, long pos, long size, TrajectoryFileDataPositions trajectoryFileDataPositions)
@@ -301,13 +365,97 @@ std::vector<std::vector<Person>> TrajectoryFileReader::Search(std::string filePa
 	
 	std::vector<std::vector<Person>> vec;
 	
-	for (int i = 0;i<count;i++)
+	bool useBinaryTree = true;
+	if (useBinaryTree) 
 	{
-		vec.push_back(TrajectoryFileReader::ConvertFrameInfoToPersons(is,size, TrajectoryFileReader::SearchHelper(is, size, frame+i, boundaries, positions), positions));
+		BinaryTreeInformation binaryTreeInformation;
+		binaryTreeInformation.startFrame = INT_MIN;
+		binaryTreeInformation.startPos = boundaries.startPos;
+		binaryTreeInformation.stopFrame = INT_MAX;
+		binaryTreeInformation.stopPos = boundaries.stopPos;
+
+		TrajectoryFileFrameInfo info;
+		info.endPos = -1;
+		info.startPos = -1;
+		info.frame = -1;
+		info.pos = -1;
+		for (int i = 0; i < count; i++)
+		{
+			if (info.frame == -1)
+			{
+				info = TrajectoryFileReader::SearchBinaryTree(is, binaryTreeInformation, size, frame + i, boundaries, positions);
+			}
+			else
+			{
+				info = TrajectoryFileReader::SearchHelper(is, size, frame + i, boundaries, positions);
+			}
+
+			vec.push_back(TrajectoryFileReader::ConvertFrameInfoToPersons(is, size, info, positions));
+		}
+	}
+	else
+	{
+		for (int i = 0; i < count; i++)
+		{
+			vec.push_back(TrajectoryFileReader::ConvertFrameInfoToPersons(is, size, TrajectoryFileReader::SearchHelper(is, size, frame + i, boundaries, positions), positions));
+		}
 	}
 	
 	is.close();
 	return vec;
+}
+
+TrajectoryFileFrameInfo TrajectoryFileReader::SearchBinaryTree(std::ifstream& is, BinaryTreeInformation binaryTreeInformation, int size, int searchedFrame, TrajectoryFileFrameBoundaries boundaries, TrajectoryFileDataPositions positions)
+{
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
+
+	int dif2 = binaryTreeInformation.stopPos - binaryTreeInformation.startPos;
+	int pos = binaryTreeInformation.startPos+0.5*dif2;
+
+	TrajectoryFileFrameInfo info1 = TrajectoryFileReader::GetFrameInfoWithoutStartEndPos(is, pos, size, positions);
+	settings->SetLastFileReaderPos(info1.pos);
+
+	int dif = searchedFrame - info1.frame;
+	
+	if (dif>=0 && (dif<=settings->GetTxtReaderForwardThreshhold()||dif2<= settings->GetTxtReaderBinaryTreeMinimumGap()))
+	{
+		TrajectoryFileFrameInfo info2 = TrajectoryFileReader::SearchForward(is, searchedFrame, size, info1, positions, boundaries);
+		if (info2.endPos >= 0)
+		{
+			settings->SetLastFileReaderPos(info2.endPos);
+		}
+		return info2;
+	}
+	if (dif < 0 && (dif >= -settings->GetTxtReaderBackwardThreshhold() || dif2 <= settings->GetTxtReaderBinaryTreeMinimumGap()))
+	{
+		TrajectoryFileFrameInfo info2 = TrajectoryFileReader::SearchBackward(is, searchedFrame, size, info1, positions, boundaries);
+		if (info2.endPos >= 0)
+		{
+			settings->SetLastFileReaderPos(info2.endPos);
+		}
+		return info2;
+	}
+
+	BinaryTreeInformation newTree;
+	if (dif>=0) //forward
+	{
+		newTree.startFrame = info1.frame;
+		newTree.startPos = info1.pos;
+		newTree.stopFrame = binaryTreeInformation.stopFrame;
+		newTree.stopPos = binaryTreeInformation.stopPos;
+	}
+	else //backward
+	{
+		newTree.startFrame = binaryTreeInformation.startFrame;
+		newTree.startPos = binaryTreeInformation.startPos;
+		newTree.stopFrame = info1.frame;
+		newTree.stopPos = info1.pos;
+	}
+
+	
+
+	return TrajectoryFileReader::SearchBinaryTree(is,newTree,size,searchedFrame,boundaries,positions);
 }
 
 TrajectoryFileFrameInfo TrajectoryFileReader::SearchHelper(std::ifstream& is,int size,int frame, TrajectoryFileFrameBoundaries boundaries, TrajectoryFileDataPositions positions)
@@ -329,7 +477,6 @@ TrajectoryFileFrameInfo TrajectoryFileReader::SearchHelper(std::ifstream& is,int
 	{
 		settings->SetLastFileReaderPos(info2.endPos);
 	}
-
 	return info2;
 }
 
@@ -355,7 +502,6 @@ TrajectoryFileFrameInfo TrajectoryFileReader::SearchForward(std::ifstream& is,in
 			info.frame = currentFrame;
 			info.pos = pos;
 			return TrajectoryFileReader::GetFrameInfoWithStartEndPos(is, size, info, trajectoryFileDataPositions);
-
 		}
 		pos = is.tellg();
 		if (endReached || pos>= boundaries.stopPos)
@@ -408,6 +554,7 @@ TrajectoryFileFrameInfo TrajectoryFileReader::SearchBackward(std::ifstream& is, 
 	info.frame = -1;
 	info.pos = -1;
 	info.startPos = -1;
+	info.endPos = -1;
 	return info;
 }
 
