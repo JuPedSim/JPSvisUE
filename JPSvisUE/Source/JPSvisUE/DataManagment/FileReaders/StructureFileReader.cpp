@@ -4,6 +4,14 @@
 #include "StructureFileReader.h"
 #include "../../Structure/Data/Line.h"
 
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include "DXFfileReader.h"
+#include <libdxfrw.h>
+#include <libdwgr.h>
+
+
 StructureFileReader::StructureFileReader()
 {
 }
@@ -14,10 +22,14 @@ StructureFileReader::~StructureFileReader()
 
 std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string filePath)
 {
+	DXFfileReader* dxffileReader = new DXFfileReader();
+
+	/*dxfRW* dxf = new dxfRW(filePath.c_str());
+
+	bool success = dxf->read(dxffileReader, false);*/
 
 
-
-
+	
 
 
 

@@ -1,0 +1,219 @@
+﻿  drw_classes.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  drw_entities.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.cpp(205,20): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.cpp(1870,37): warning C4805: "|=": unsichere Kombination von Typ "bool" mit Typ "int" in einer Operation
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.cpp(1870,37): warning C4805: "|": unsichere Kombination von Typ "bool" mit Typ "int" in einer Operation
+  drw_header.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  drw_objects.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_objects.cpp(95,20): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_objects.cpp(132,17): warning C4244: "Initialisierung": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_objects.cpp(457,23): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+  drw_dbg.cpp
+  drw_textcodec.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+  dwgbuffer.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.cpp(157,28): warning C4244: "=": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.cpp(164,28): warning C4244: "=": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.cpp(172,28): warning C4244: "=": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.cpp(860,13): warning C4244: "Initialisierung": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.cpp(883,13): warning C4244: "Initialisierung": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgreader.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader.cpp(163,37): warning C4244: "=": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgreader15.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader15.cpp(91,59): warning C4244: "Argument": Konvertierung von "duint64" in "dint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader15.cpp(126,37): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader15.cpp(127,34): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader15.cpp(175,65): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader15.cpp(175,53): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+  dwgreader18.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(61,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(68,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(74,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(119,52): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(153,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(156,47): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(167,53): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(167,43): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(385,48): warning C4244: "=": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(416,38): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(422,44): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(445,32): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(469,32): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(557,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(559,56): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.cpp(587,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgreader21.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.h(42,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.h(48,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(62,20): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(68,35): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(70,57): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(71,72): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(71,56): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(85,41): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(96,23): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint8", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(110,70): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(110,60): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(239,41): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(252,27): warning C4244: "Argument": Konvertierung von "duint64" in "const unsigned int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(252,59): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(261,48): warning C4244: "Argument": Konvertierung von "duint64" in "const unsigned int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(269,47): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(277,56): warning C4244: "=": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(284,56): warning C4244: "=": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(288,49): warning C4244: "Argument": Konvertierung von "duint64" in "duint16", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(293,24): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(294,24): warning C4244: "Initialisierung": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(298,30): warning C4244: "=": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(342,40): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(343,42): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(363,38): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(381,41): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(447,41): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(449,52): warning C4244: "Argument": Konvertierung von "duint64" in "duint32", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(473,32): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.cpp(482,32): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgreader24.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(61,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(68,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(74,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(33,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(39,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(45,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgreader27.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(61,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(68,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(74,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(33,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(39,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(45,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  dwgutil.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+  dxfreader.cpp
+  dxfwriter.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(178,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(179,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(180,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(181,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(182,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dxfwriter.cpp(183,22): warning C4244: "=": Konvertierung von "unsigned __int64" in "char", möglicher Datenverlust
+  rscodec.cpp
+  libdwgr.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(70,70): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgbuffer.h(137,44): warning C4244: "return": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(61,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(68,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader18.h(74,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.h(42,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader21.h(48,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(33,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(39,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader24.h(45,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(33,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(39,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\intern\dwgreader27.h(45,36): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdwgr.cpp(99,46): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdwgr.cpp(100,47): warning C4244: "Argument": Konvertierung von "duint64" in "int", möglicher Datenverlust
+  libdxfrw.cpp
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_entities.h(923,1): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\drw_base.h(13,30): warning C4081: "newline" erwartet; ";" gefunden
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdxfrw.cpp(738,46): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdxfrw.cpp(806,41): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdxfrw.cpp(904,45): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\src\libdxfrw.cpp(992,53): warning C4244: "Argument": Konvertierung von "unsigned __int64" in "double", möglicher Datenverlust
+  Code wird generiert...
+  libdxfrw.vcxproj -> E:\Arbeit_Forschungszentrum\DXF3\libdxfrw-master\vs2013\x64\Debug\libdxfrw.lib
