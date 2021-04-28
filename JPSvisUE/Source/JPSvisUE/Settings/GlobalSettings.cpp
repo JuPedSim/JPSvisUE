@@ -27,9 +27,9 @@ GlobalSettings::GlobalSettings()
 	m_trajectoryFileChanged = false;
 	m_structureFilePath = "";
 	m_structureFileChanged = false;
-	m_cacheBitsAssociativeness = 8;
+	m_cacheBitsAssociativeness = 0;// 8;
 	m_cacheBitsIndex = 0;
-	m_cacheBitsWordOffset = 4;
+	m_cacheBitsWordOffset = 0;// 4;
 	m_preFetchCacheForward = 100;
 	m_preFetchCacheBackward = 100;
 	m_isAutoPlay = false;
@@ -50,8 +50,20 @@ GlobalSettings::GlobalSettings()
 	m_camOffsetFromFloor = 2;
 	m_ui = nullptr;
 	m_lastFileReaderPos = 0;
-	m_txtReaderForwardThreshhold = 10;
-	m_txtReaderBackwardThreshhold = 3;
+	/*
+		At 88195 frames with 297 Pedestrians each:
+
+		57.43 seconds to Load from beginning to end (without binary Tree)
+		1407.77 seconds to Load from end to beginning (without binary Tree)
+	
+		forward: 0.00000219 seconds per Pedestrian
+		backward: 0.00005374 seconds per Pedestrian
+		
+		forward is 24.51 times faster than backwards
+
+	*/
+	m_txtReaderForwardThreshhold =  2;
+	m_txtReaderBackwardThreshhold = (int)round((float)m_txtReaderForwardThreshhold/24.51);// 3;
 	m_txtReaderBinaryTreeMinimumGap = 1000;
 }
 

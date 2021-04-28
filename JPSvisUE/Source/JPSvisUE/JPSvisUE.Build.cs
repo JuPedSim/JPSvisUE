@@ -14,12 +14,14 @@ public class JPSvisUE : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 
+		//string dir = @"E:\Arbeit_Forschungszentrum\DXF2\libdxfrw-master";
 		string dir = @"E:\Arbeit_Forschungszentrum\Repo\JPSvisUE\DXF";
 
 		PublicIncludePaths.Add(Path.Combine(dir, "src"));
+		//PublicIncludePaths.Add(Path.Combine(dir, "src","intern"));
 
 		// Add any import libraries or static libraries
-		PublicAdditionalLibraries.Add(Path.Combine(dir, "vs2013","Debug", "libdxfrw.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(dir, "vs2013","x64", "Release", "libdxfrw.lib"));
 
 
 		// Uncomment if you are using Slate UI

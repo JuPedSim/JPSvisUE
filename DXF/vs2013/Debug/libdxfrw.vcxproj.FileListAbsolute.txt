@@ -1,1 +1,0 @@
-E:\Arbeit_Forschungszentrum\Repo\DXF\libdxfrw-master\vs2013\Debug\libdxfrw.lib
