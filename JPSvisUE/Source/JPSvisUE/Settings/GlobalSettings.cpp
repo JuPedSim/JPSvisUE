@@ -49,7 +49,6 @@ GlobalSettings::GlobalSettings()
 	m_floorHeights.at(0) = 0;
 	m_camOffsetFromFloor = 2;
 	m_ui = nullptr;
-	m_lastFileReaderPos = 0;
 	/*
 		At 88195 frames with 297 Pedestrians each:
 
@@ -216,10 +215,6 @@ std::shared_ptr<UUserWidget> GlobalSettings::GetUI()
 {
 	return m_ui;
 }
-const int GlobalSettings::GetLastFileReaderPos()
-{
-	return m_lastFileReaderPos;
-}
 const int GlobalSettings::GetTxtReaderForwardThreshhold()
 {
 	return m_txtReaderForwardThreshhold;
@@ -288,11 +283,6 @@ void GlobalSettings::SetStructureFilePath(std::string path)
 void GlobalSettings::SetUI(std::shared_ptr<UUserWidget> ui)
 {
 	m_ui = ui;
-}
-
-void GlobalSettings::SetLastFileReaderPos(int pos)
-{
-	m_lastFileReaderPos = pos;
 }
 
 void GlobalSettings::SetTimePerFrame(float time)
