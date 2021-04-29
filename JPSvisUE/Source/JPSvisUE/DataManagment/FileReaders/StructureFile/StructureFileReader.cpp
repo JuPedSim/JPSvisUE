@@ -2,7 +2,7 @@
 
 
 #include "StructureFileReader.h"
-#include "../../Structure/Data/Line.h"
+#include "../../../Structure/Data/Line.h"
 
 #include <iostream>
 #include <fstream>
@@ -27,11 +27,6 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 	/*dxfRW* dxf = new dxfRW(filePath.c_str());
 
 	bool success = dxf->read(dxffileReader, false);*/
-
-
-	
-
-
 
 
 

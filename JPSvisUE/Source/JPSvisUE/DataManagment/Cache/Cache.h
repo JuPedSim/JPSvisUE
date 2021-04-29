@@ -6,6 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include "CacheLine.h"
+#include "../FileReaders/TrajectoryFile/TrajectoryFileReader.h"
 #include "CacheEntry.h"
 #include <mutex>
 #include <thread>
@@ -26,6 +27,7 @@ public:
 	~Cache();
 	const int GetFramesCount();
 	void CheckToLoad();
+	std::shared_ptr<TrajectoryFileReader> GetFileReader();
 private:
 	int GetPosition(int index, int tag);
 	int ComputeStartAdress(int index, int tag);
@@ -40,9 +42,8 @@ private:
 	int m_bitMaskIndex;
 	int m_bitMaskWordOffset;
 	int m_bitMaskTag;
-	int m_frameCount;
+	std::shared_ptr<TrajectoryFileReader> m_FileReader;
 	unsigned int m_nextLRUid;
-	std::string m_filePath;
 	void SetMasks();
 	std::vector<std::vector<CacheLine>> m_cacheLines;
 	std::vector<LoadJob> m_toLoadQueue;

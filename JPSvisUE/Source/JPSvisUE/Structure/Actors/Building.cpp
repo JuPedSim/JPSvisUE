@@ -12,7 +12,7 @@
 #include "../../RuntimeControl/FloorPosition.h"
 #include "../../RuntimeControl/FramePosition.h"
 #include "../../RuntimeControl/AutoPlaySpeed.h"
-#include "../../DataManagment/FileReaders/StructureFileReader.h"
+#include "../../DataManagment/FileReaders/StructureFile/StructureFileReader.h"
 
 // Sets default values
 ABuilding::ABuilding()
@@ -74,6 +74,7 @@ void ABuilding::LoadPedestrians()
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 	m_cache = Cache(settings->GetCacheBitsAssociativeness(), settings->GetCacheBitsIndex(), settings->GetCacheBitsWordOffset(), settings->GetTrajectoryFilePath());
+	settings->SetTimePerFrame(m_cache.GetFileReader().get()->GetTimePerFrame());
 	int lastPos = settings->GetFramePosition().get()->GetPosition();
 	std::shared_ptr<FramePosition> framePosition = std::make_shared<FramePosition>(m_cache.GetFramesCount(), settings->GetTimePerFrame());
 	framePosition.get()->SetPositionWithClamp(lastPos);

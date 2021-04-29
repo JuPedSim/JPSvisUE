@@ -2,8 +2,8 @@
 
 
 #include "Cache.h"
-#include "../FileReaders/TrajectoryFileReader.h"
 #include "CacheAsyncLoader.h"
+#include "../FileReaders/TrajectoryFile/TrajectoryFileReaderTXT.h"
 
 std::mutex cacheLinesMutex;
 std::mutex queueToLoadMutex;
@@ -14,10 +14,10 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 	m_bitsAssociativeness = bitsAssociativeness;
 	m_bitsIndex = bitsIndex;
 	m_bitsWordOffset = bitsWordOffset;
-	m_filePath = filePath;
+	
+	m_FileReader = TrajectoryFileReader::CreateFileReader(filePath);
+
 	m_nextLRUid = 0;
-	m_frameCount = TrajectoryFileReader::GetFrames(m_filePath);
-	TrajectoryFileReader::SetFramerate(m_filePath);
 	m_toLoadQueueHasLength = false;
 	m_toLoadQueue.resize(0);
 
@@ -39,7 +39,6 @@ Cache::Cache(int bitsAssociativeness, int bitsIndex, int bitsWordOffset, std::st
 
 Cache::Cache()
 {
-
 }
 
 CacheEntry Cache::LoadCacheEntrySync(int address)
@@ -116,7 +115,7 @@ Cache::~Cache()
 
 const int Cache::GetFramesCount()
 {
-	return m_frameCount;
+	return m_FileReader.get()->GetFramesCount();
 }
 
 void Cache::CheckToLoad()
@@ -147,6 +146,11 @@ void Cache::CheckToLoad()
 
 }
 
+std::shared_ptr<TrajectoryFileReader> Cache::GetFileReader()
+{
+	return m_FileReader;
+}
+
 int Cache::GetPosition(int index, int tag)
 {
 	for (int i = 0; i < m_cacheLines.at(index).size(); i++)
@@ -170,7 +174,7 @@ void Cache::LoadCacheLineAsync(int index, int tag)
 	int startAddress = ComputeStartAdress(index, tag);
 
 	readFileMutex.lock();
-	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath, tag, m_nextLRUid++);
+	CacheLine newCacheLine = m_FileReader.get()->LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), tag, m_nextLRUid++);
 	readFileMutex.unlock();
 	int pos = 0;
 	unsigned int min = MAX_uint32;
@@ -205,7 +209,7 @@ CacheLine Cache::LoadCacheLine(int index, int tag)
 {
 	int startAddress = ComputeStartAdress(index, tag);
 	readFileMutex.lock();
-	CacheLine newCacheLine = TrajectoryFileReader::LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), m_filePath, tag, m_nextLRUid++);
+	CacheLine newCacheLine = m_FileReader.get()->LoadCacheLine(startAddress, pow(2, m_bitsWordOffset), tag, m_nextLRUid++);
 	readFileMutex.unlock();
 	int pos = 0;
 	unsigned int min = MAX_uint32;
