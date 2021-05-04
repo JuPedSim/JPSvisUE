@@ -33,41 +33,54 @@ private:
 	static std::once_flag initInstanceFlag;
 
 	//Settings
+	//Visualisation factors
 	float m_scalingFactor;
 	float m_floorThigness;
 	float m_wallBigHeight;
 	float m_wallSmallHeight;
+	//dynamic wall settings
 	float m_viewObstractedCheckerDegree;
 	float m_allowedObstractionDegree;
+	//pedestrian settings
 	float m_pedestrianHeight;
 	float m_pedestrianWidth;
+	//cache settings
 	int m_cacheBitsAssociativeness;
 	int m_cacheBitsIndex;
 	int m_cacheBitsWordOffset;
 	int m_preFetchCacheForward;
 	int m_preFetchCacheBackward;
+	//File information
 	std::string m_trajectoryFilePath;
 	bool m_trajectoryFileChanged;
 	std::string m_structureFilePath;
 	bool m_structureFileChanged;
+	//auto play values
 	bool m_isAutoPlay;
 	float m_timePerFrame;
-	float m_wallScaleChangeSpeed;//fraction per second
 	float m_speedUpFactorIncrementSize;
-	WallViewType m_wallViewType;
-	FloorViewType m_floorViewType;
+	//runtime Values
 	std::shared_ptr<FramePosition> m_framePosition;
 	std::shared_ptr<FloorPosition> m_floorPosition;
 	std::shared_ptr<AutoPlaySpeed> m_autoPlaySpeed;
+	//transition speed from for example small to big
+	float m_wallScaleChangeSpeed;//fraction per second
+	//view types
+	WallViewType m_wallViewType;
+	FloorViewType m_floorViewType;
+	//camera settings
 	float m_cameraSpringArmLengthMax;
 	float m_cameraSpringArmLengthMin;
 	float m_zoomSpeed;
 	float m_movementSpeed;
 	float m_yawSpeed;
 	float m_pitchSpeed;
-	std::vector<float> m_floorHeights;
 	float m_camOffsetFromFloor;
+	//structure floor heights
+	std::vector<float> m_floorHeights;
+	//ui pointer
 	std::shared_ptr<UUserWidget> m_ui;
+	//txt trajectory file loader settings
 	int m_txtReaderForwardThreshhold;
 	int m_txtReaderBackwardThreshhold;
 	int m_txtReaderBinaryTreeMinimumGap;
