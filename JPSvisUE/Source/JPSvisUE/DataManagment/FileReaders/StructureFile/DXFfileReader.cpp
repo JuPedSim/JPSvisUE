@@ -2,6 +2,7 @@
 
 
 #include "DXFfileReader.h"
+#include "..\..\..\Structure\Data\Line.h"
 
 DXFfileReader::DXFfileReader()
 {
@@ -13,16 +14,15 @@ DXFfileReader::~DXFfileReader()
 
 void DXFfileReader::addLine(const DRW_Line& data)
 {
-}
-
-void DXFfileReader::addXline(const DRW_Xline& data)
-{
+	//m_lines.push_back();
 }
 
 void DXFfileReader::addLWPolyline(const DRW_LWPolyline& data)
 {
+	//m_lines.push_back();
 }
 
-void DXFfileReader::addPolyline(const DRW_Polyline& data)
+std::vector<Line>& DXFfileReader::GetLines()
 {
+	return m_lines;
 }

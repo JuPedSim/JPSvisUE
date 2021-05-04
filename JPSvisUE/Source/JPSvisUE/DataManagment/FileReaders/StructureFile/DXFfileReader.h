@@ -2,11 +2,14 @@
 
 #pragma once
 
+//#include <iconv.h>
 #include "drw_interface.h"
 
+
+#include <vector>
 #include "CoreMinimal.h"
 
-
+class Line;
 /**
  * 
  */
@@ -19,15 +22,22 @@ public:
     /** Called for every line */
     virtual void addLine(const DRW_Line& data);
 
-    /** Called for every xline */
-    virtual void addXline(const DRW_Xline& data);
 
     /** Called for every lwpolyline */
     virtual void addLWPolyline(const DRW_LWPolyline& data);
 
-    /** Called for every polyline start */
-    virtual void addPolyline(const DRW_Polyline& data);
+    std::vector<Line>& GetLines();
+
 private:
+    std::vector<Line> m_lines;
+
+
+    /** Called for every polyline start */
+    virtual void addPolyline(const DRW_Polyline& data) {};
+
+    /** Called for every xline */
+    virtual void addXline(const DRW_Xline& data) {};
+
     virtual void addHeader(const DRW_Header* data) {};
 
     /** Called for every line Type.  */

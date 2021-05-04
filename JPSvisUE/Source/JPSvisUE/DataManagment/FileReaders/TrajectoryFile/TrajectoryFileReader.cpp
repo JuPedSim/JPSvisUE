@@ -11,17 +11,6 @@
 #include <chrono>
 #include <thread>
 
-
-//int TrajectoryFileReader::GetFramesCount()
-//{
-//	return m_framesCount;
-//}
-
-//CacheLine TrajectoryFileReader::LoadCacheLine(int startAddress, int count, int tag, unsigned int lruID)
-//{
-//	throw std::exception("should only be called in child");
-//}
-
 int TrajectoryFileReader::GetFramesCount()
 {
 	return m_framesCount;

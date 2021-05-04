@@ -21,4 +21,6 @@ public:
 	StructureFileReader();
 	~StructureFileReader();
 	static std::vector<FloorWithHeight> LoadStructure(std::string filePath);
+private:
+	bool compare(Line l1, Line l2);
 };

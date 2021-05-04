@@ -10,7 +10,7 @@
 #include "DXFfileReader.h"
 #include <libdxfrw.h>
 #include <libdwgr.h>
-
+#include <algorithm>
 
 StructureFileReader::StructureFileReader()
 {
@@ -24,11 +24,48 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 {
 	DXFfileReader* dxffileReader = new DXFfileReader();
 
-	/*dxfRW* dxf = new dxfRW(filePath.c_str());
+	dxfRW* dxf = new dxfRW(filePath.c_str());
 
-	bool success = dxf->read(dxffileReader, false);*/
+	bool success = dxf->read(dxffileReader, false);
 
+	/*if (success)
+	{
+		std::vector<Line> lines = dxffileReader->GetLines();
+		std::sort(lines.begin(),lines.end(), StructureFileReader::compare);
+	
+		std::vector<std::vector<Line>> splitet;
 
+		float z = 0;
+		bool first = true;
+		for (int i = 0;i<lines.size();i++) 
+		{
+			if (first||lines.at(i).GetPoint1().Z!=z)
+			{
+				splitet.push_back(std::vector<Line>());
+				first = false;
+			}
+			splitet.at(splitet.size() - 1).push_back(lines.at(i));
+		}
+
+		std::vector<FloorWithHeight> structure;
+		structure.resize(splitet.size());
+
+		for (int i = 0;i<splitet.size();i++) 
+		{
+			std::shared_ptr<std::vector<Line>> l = std::make_shared<std::vector<Line>>();
+			l.reset(&splitet.at(i));
+
+			FloorWithHeight f;
+			f.height = splitet.at(i).at(0).GetPoint1().Y;
+			f.lines = l;
+			structure.at(i) = f;
+		}
+		return structure;
+	}
+	else
+	{
+		throw std::exception("could not load file");
+	}*/
 
 
 	float h1 = 20;
@@ -89,4 +126,9 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 	structure.at(2) = f3;
 
 	return structure;
+}
+
+bool StructureFileReader::compare(Line l1, Line l2)
+{
+	return l1.GetPoint1().Z<l2.GetPoint1().Z;
 }
