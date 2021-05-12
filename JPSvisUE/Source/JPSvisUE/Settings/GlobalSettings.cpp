@@ -35,9 +35,9 @@ GlobalSettings::GlobalSettings()
 	m_isAutoPlay = false;
 	m_timePerFrame = 1.f;
 	m_speedUpFactorIncrementSize = 0.25f;
-	m_framePosition = std::make_shared<FramePosition>();
-	m_floorPosition = std::make_shared<FloorPosition>();
-	m_autoPlaySpeed = std::make_shared<AutoPlaySpeed>();
+	m_framePosition = std::make_unique<FramePosition>();
+	m_floorPosition = std::make_unique<FloorPosition>();
+	m_autoPlaySpeed = std::make_unique<AutoPlaySpeed>();
 	m_cameraSpringArmLengthMax = 1000.f;
 	m_cameraSpringArmLengthMin = 0.f;
 	m_zoomSpeed = 3.f;

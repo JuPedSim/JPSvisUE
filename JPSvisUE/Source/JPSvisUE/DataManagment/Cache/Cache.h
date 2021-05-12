@@ -11,12 +11,12 @@
 #include <mutex>
 #include <thread>
 
-/**
- *
- */
 struct LoadJob {
 	int address;
 };
+/**
+ *
+ */
 class JPSVISUE_API Cache
 {
 public:
