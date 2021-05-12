@@ -26,7 +26,7 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 
 	dxfRW* dxf = new dxfRW(filePath.c_str());
 
-	bool success = dxf->read(dxffileReader, false);
+	bool success = false;//dxf->read(dxffileReader, false);
 
 	/*if (success)
 	{
@@ -52,7 +52,7 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 
 		for (int i = 0;i<splitet.size();i++) 
 		{
-			std::shared_ptr<std::vector<Line>> l = std::make_shared<std::vector<Line>>();
+			std::unique_ptr<std::vector<Line>> l = std::make_unique<std::vector<Line>>();
 			l.reset(&splitet.at(i));
 
 			FloorWithHeight f;
