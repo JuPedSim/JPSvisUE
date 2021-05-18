@@ -2,7 +2,7 @@
 
 
 #include "Pedestrian.h"
-
+#include "../../DataManagment/Cache/CacheEntry.h"
 #include "../../Settings/GlobalSettings.h"
 
 // Sets default values
@@ -13,11 +13,14 @@ APedestrian::APedestrian()
 
 	m_pedestrian = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	SetRootComponent(m_pedestrian);
+	m_lastTimeInSec = 0;
+	m_animationPosition = (float)rand() / RAND_MAX;
 }
 
-void APedestrian::InitVariables(int id)
+void APedestrian::InitVariables(int id,float creationTime)
 {
 	m_id = id;
+	m_lastTimeInSec = creationTime;
 }
 
 void APedestrian::SetVisible()
@@ -25,9 +28,38 @@ void APedestrian::SetVisible()
 	SetActorHiddenInGame(false);
 }
 
-void APedestrian::SetPosition(FVector position)
+void APedestrian::SetPosition(Person person,float timeInSec)
 {
-	SetActorLocation(position * GlobalSettings::GetInstance()->GetScalingFactor());
+	GlobalSettings* settings = GlobalSettings::GetInstance();
+
+	float changePerSec = settings->GetAnimationChangePerSec();
+
+	float delta = timeInSec - m_lastTimeInSec;
+	float change = delta * changePerSec;
+	float newAnimationPosition = m_animationPosition + change;
+	float temp;
+	newAnimationPosition = modf(newAnimationPosition, &temp);
+	m_animationPosition = newAnimationPosition;
+	m_lastTimeInSec = timeInSec;
+
+	float t = m_animationPosition * 2;
+	if (t>1) 
+	{
+		t = 2 - t;
+	}
+	t = t * 0.3;
+
+	float objHeight = 100;
+	float objWidth = 100;
+	float width = settings->GetPedestrianWidth() / objWidth;
+	float height = settings->GetPedestrianHeight() / objHeight;
+
+	FRotator rotation = FRotator(0, person.rotationAngle, 0);
+	FVector translation = FVector(person.x, person.y, person.z) * settings->GetScalingFactor();
+	FVector scaling = FVector(width + width * t, width - width * t, height) * settings->GetScalingFactor();
+
+	FTransform transform = FTransform(rotation, translation, scaling);
+	SetActorTransform(transform);
 }
 
 void APedestrian::DestroyAll(bool bNetForce, bool bShouldModifyLevel)
@@ -44,19 +76,6 @@ int APedestrian::GetID()
 void APedestrian::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GlobalSettings* settings = GlobalSettings::GetInstance();
-
-	float objHeight = 100;
-	float objWidth = 100;
-
-	FRotator rotation = FRotator(0.f, 0.f, 0.f);
-	FVector translation = FVector(0.f, 0.f, 0.f);
-	float width = settings->GetPedestrianWidth() / objWidth;
-	float height = settings->GetPedestrianHeight() / objHeight;
-	FVector scaling = FVector(width, width, height);
-	FTransform transform = FTransform(rotation, translation, scaling * settings->GetScalingFactor());
-	SetActorTransform(transform);
 }
 
 // Called every frame

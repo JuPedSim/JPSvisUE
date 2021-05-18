@@ -13,12 +13,17 @@ public class JPSvisUE : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		string dir = @"E:\Arbeit_Forschungszentrum\Repo\JPSvisUE\Extern"; 
+        string dir = @"E:\Arbeit_Forschungszentrum\Repo\JPSvisUE\Extern";
 
-		PublicIncludePaths.Add(Path.Combine(dir,"libiconv", "Header"));
+        PublicIncludePaths.Add(Path.Combine(dir, "DXF", "Header"));
+        PublicAdditionalLibraries.Add(Path.Combine(dir, "DXF", "libdxfrw.lib"));
+
+        PublicIncludePaths.Add(Path.Combine(dir,"libiconv", "Header"));
 		PublicAdditionalLibraries.Add(Path.Combine(dir, "libiconv", "libiconv.lib"));
 
-		PublicIncludePaths.Add(Path.Combine(dir, "DXF", "Header"));
-		PublicAdditionalLibraries.Add(Path.Combine(dir, "DXF", "libdxfrw.lib"));
+		
+
+
+		
 	}
 }

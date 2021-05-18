@@ -15,6 +15,7 @@ struct TrajectoryFileDataPositions
 	int y;
 	int z;
 	int frame;
+	int angle;
 };
 struct TrajectoryFileFrameInfo
 {

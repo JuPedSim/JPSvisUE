@@ -187,7 +187,7 @@ std::vector<Person> TrajectoryFileReaderTXT::ConvertFrameInfoToPersons(std::ifst
 	posFrameID.push_back(m_positions.x);
 	posFrameID.push_back(m_positions.y);
 	posFrameID.push_back(m_positions.z);
-
+	posFrameID.push_back(m_positions.angle);
 
 	std::vector<Person> persons;
 	if (frameInfo.frame != -1)
@@ -198,13 +198,14 @@ std::vector<Person> TrajectoryFileReaderTXT::ConvertFrameInfoToPersons(std::ifst
 		while (pos <= frameInfo.endPos && run)
 		{
 			std::vector<std::string> vec = FileReaderHelper::GetValuesInLine(line, posFrameID);
-			if (vec.size() == 4)
+			if (vec.size() == 5)
 			{
 				Person person;
 				person.id = atoi(vec.at(0).c_str());
 				person.x = std::stof(vec.at(1).c_str());
 				person.y = std::stof(vec.at(2).c_str());
 				person.z = std::stof(vec.at(3).c_str());
+				person.rotationAngle = std::stof(vec.at(4).c_str());
 				persons.push_back(person);
 			}
 			pos = is.tellg();
@@ -216,13 +217,6 @@ std::vector<Person> TrajectoryFileReaderTXT::ConvertFrameInfoToPersons(std::ifst
 
 std::vector<std::vector<Person>> TrajectoryFileReaderTXT::Search(int frame, int count)
 {
-	TrajectoryFileDataPositions positions;
-	positions.id = 0;
-	positions.frame = 1;
-	positions.x = 2;
-	positions.y = 3;
-	positions.z = 4;
-
 	std::ifstream is;
 	is.open(m_filePath, std::ios_base::binary);
 	if (is.fail())
@@ -487,6 +481,7 @@ void TrajectoryFileReaderTXT::SetTrajectoryFileDataPositions()
 	m_positions.x = 2;
 	m_positions.y = 3;
 	m_positions.z = 4;
+	m_positions.angle = 7;
 }
 
 
