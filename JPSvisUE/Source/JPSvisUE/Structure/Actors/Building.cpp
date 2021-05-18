@@ -132,6 +132,9 @@ void ABuilding::MovePedestrians()
 				m_cache.LoadCacheEntryAsync(pos - i);
 			}
 		}
+
+		float time = (float)pos * settings->GetTimePerFrame();
+
 		//load needed value
 		CacheEntry entry = m_cache.LoadCacheEntrySync(pos);
 		std::vector<Person> persons = entry.GetPersons();
@@ -188,7 +191,7 @@ void ABuilding::MovePedestrians()
 					{
 						m_pedestrians.at(i)->SetActorHiddenInGame(false);
 					}
-					m_pedestrians.at(i)->SetPosition(FVector(person.x, person.y, person.z));
+					m_pedestrians.at(i)->SetPosition(person, time);
 					break;
 				}
 			}
@@ -198,8 +201,8 @@ void ABuilding::MovePedestrians()
 		{
 			Person person = toCreate.at(i);
 			APedestrian* pedestrian = SpawnItem<APedestrian>(m_pedestrianClass);
-			pedestrian->InitVariables(person.id);
-			pedestrian->SetPosition(FVector(person.x, person.y, person.z));
+			pedestrian->InitVariables(person.id,time);
+			pedestrian->SetPosition(person, time);
 			if (GetShouldBeHidden(person.z))
 			{
 				pedestrian->SetVisible();

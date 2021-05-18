@@ -8,8 +8,8 @@
 #include <fstream>
 #include <sys/stat.h>
 #include "DXFfileReader.h"
-#include <libdxfrw.h>
-#include <libdwgr.h>
+//#include <libdxfrw.h>
+//#include <libdwgr.h>
 #include <algorithm>
 
 StructureFileReader::StructureFileReader()
@@ -22,18 +22,63 @@ StructureFileReader::~StructureFileReader()
 
 std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string filePath)
 {
-	DXFfileReader* dxffileReader = new DXFfileReader();
+	//DXFfileReader* dxffileReader = new DXFfileReader();
 
-	dxfRW* dxf = new dxfRW(filePath.c_str());
+	//dxfRW* dxf = new dxfRW(filePath.c_str());
 
-	bool success = false;//dxf->read(dxffileReader, false);
+	bool success = true;//dxf->read(dxffileReader, false);
 
-	/*if (success)
+
+
+	if (success)
 	{
-		std::vector<Line> lines = dxffileReader->GetLines();
-		std::sort(lines.begin(),lines.end(), StructureFileReader::compare);
+		//temp
+		std::string line;
+		std::vector<Line> lines;
+		std::ifstream stream(filePath);
+		while (getline(stream,line))
+		{
+			if (line.size()>=11) 
+			{
+				std::string arr[6];
+				std::string temp = "";
+				int m = 0;
+				for (int i = 0;i<line.size();i++) 
+				{
+					if (line[i]==';') 
+					{
+						arr[m] = temp;
+						temp = "";
+						m++;
+					}
+					else
+					{
+						temp += line[i];
+					}
+				}
+				arr[m] = temp;
+
+				float x1 = std::stof(arr[0]);
+				float y1 = std::stof(arr[1]);
+				float z1 = std::stof(arr[2]);
+				float x2 = std::stof(arr[3]);
+				float y2 = std::stof(arr[4]);
+				float z2 = std::stof(arr[5]);
+				lines.push_back(Line(FVector(x1,y1,z1), FVector(x2, y2, z2)));
+			}
+		}
+		//end temp
+
+
+
+
+
+
+
+		//std::vector<Line> lines = dxffileReader->GetLines();
+		//std::sort(lines.begin(),lines.end(), StructureFileReader::compare);
 	
-		std::vector<std::vector<Line>> splitet;
+		std::vector<std::shared_ptr<std::vector<Line>>> splited;
 
 		float z = 0;
 		bool first = true;
@@ -41,23 +86,20 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 		{
 			if (first||lines.at(i).GetPoint1().Z!=z)
 			{
-				splitet.push_back(std::vector<Line>());
+				splited.push_back(std::make_shared<std::vector<Line>>());
 				first = false;
 			}
-			splitet.at(splitet.size() - 1).push_back(lines.at(i));
+			splited.at(splited.size() - 1).get()->push_back(lines.at(i));
 		}
 
 		std::vector<FloorWithHeight> structure;
-		structure.resize(splitet.size());
+		structure.resize(splited.size());
 
-		for (int i = 0;i<splitet.size();i++) 
+		for (int i = 0;i< splited.size();i++)
 		{
-			std::unique_ptr<std::vector<Line>> l = std::make_unique<std::vector<Line>>();
-			l.reset(&splitet.at(i));
-
 			FloorWithHeight f;
-			f.height = splitet.at(i).at(0).GetPoint1().Y;
-			f.lines = l;
+			f.height = splited.at(i).get()->at(0).GetPoint1().Y;
+			f.lines = splited.at(i);
 			structure.at(i) = f;
 		}
 		return structure;
@@ -65,10 +107,10 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 	else
 	{
 		throw std::exception("could not load file");
-	}*/
+	}
 
 
-	float h1 = 20;
+	/*float h1 = 20;
 	float h2 = 40;
 
 	std::vector<float> floorHeights = std::vector<float>();
@@ -125,7 +167,7 @@ std::vector<FloorWithHeight> StructureFileReader::LoadStructure(std::string file
 	structure.at(1) = f2;
 	structure.at(2) = f3;
 
-	return structure;
+	return structure;*/
 }
 
 bool StructureFileReader::compare(Line l1, Line l2)

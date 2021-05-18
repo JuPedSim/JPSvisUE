@@ -6,6 +6,7 @@
 #include "../BuildingActor.h"
 #include "Pedestrian.generated.h"
 
+struct Person;
 UCLASS()
 class JPSVISUE_API APedestrian : public ABuildingActor
 {
@@ -14,9 +15,9 @@ class JPSVISUE_API APedestrian : public ABuildingActor
 public:
 	// Sets default values for this actor's properties
 	APedestrian();
-	void InitVariables(int id);
+	void InitVariables(int id, float creationTime);
 	void SetVisible();
-	void SetPosition(FVector position);
+	void SetPosition(Person person, float timeInSec);
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
 	int GetID();
 protected:
@@ -30,6 +31,7 @@ public:
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 		UStaticMeshComponent* m_pedestrian;
-
 	int m_id;
+	float m_animationPosition;
+	float m_lastTimeInSec;
 };

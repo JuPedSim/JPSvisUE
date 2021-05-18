@@ -12,15 +12,15 @@ std::once_flag GlobalSettings::initInstanceFlag;
 
 GlobalSettings::GlobalSettings()
 {
-	m_scalingFactor = 10.0;
+	m_scalingFactor = 40.0;
 	m_floorThigness = 1.0;
-	m_wallBigHeight = 10.0;
-	m_wallSmallHeight = 1.0;
+	m_wallBigHeight = 3.0;
+	m_wallSmallHeight = 0.3;
 	m_viewObstractedCheckerDegree = 10;
 	m_allowedObstractionDegree = 20;
 	m_wallScaleChangeSpeed = 4;
-	m_pedestrianHeight = 8;
-	m_pedestrianWidth = 2;
+	m_pedestrianHeight = 2;
+	m_pedestrianWidth = 0.5;
 	m_wallViewType = WallViewType::DYNAMIC_VIEW;
 	m_floorViewType = FloorViewType::ALL_BELOW_VIEW;
 	m_trajectoryFilePath = "";
@@ -64,6 +64,8 @@ GlobalSettings::GlobalSettings()
 	m_txtReaderForwardThreshhold =  2;
 	m_txtReaderBackwardThreshhold = (int)round((float)m_txtReaderForwardThreshhold/24.51);// 3;
 	m_txtReaderBinaryTreeMinimumGap = 1000;
+
+	m_animationChangePerSec = 1.5;
 }
 
 void GlobalSettings::InitSingleton()
@@ -226,6 +228,10 @@ const int GlobalSettings::GetTxtReaderBackwardThreshhold()
 const int GlobalSettings::GetTxtReaderBinaryTreeMinimumGap()
 {
 	return m_txtReaderBinaryTreeMinimumGap;
+}
+const float GlobalSettings::GetAnimationChangePerSec()
+{
+	return m_animationChangePerSec;
 }
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {

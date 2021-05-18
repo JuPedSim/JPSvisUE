@@ -12,6 +12,7 @@ struct Person {
 	float x;
 	float y;
 	float z;
+	float rotationAngle = 0;
 };
 class JPSVISUE_API CacheEntry
 {
