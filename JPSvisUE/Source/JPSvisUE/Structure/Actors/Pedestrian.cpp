@@ -17,10 +17,11 @@ APedestrian::APedestrian()
 	m_animationPosition = (float)rand() / RAND_MAX;
 }
 
-void APedestrian::InitVariables(int id,float creationTime)
+void APedestrian::InitVariables(int id,float creationTime, FVector intialPosition)
 {
 	m_id = id;
 	m_lastTimeInSec = creationTime;
+	m_lastPosition = intialPosition;
 }
 
 void APedestrian::SetVisible()
@@ -32,22 +33,25 @@ void APedestrian::SetPosition(Person person,float timeInSec)
 {
 	GlobalSettings* settings = GlobalSettings::GetInstance();
 
-	float changePerSec = settings->GetAnimationChangePerSec();
+	float changePerUnitTraveled = settings->GetAnimationChangePerUnitTraveled();
 
-	float delta = timeInSec - m_lastTimeInSec;
-	float change = delta * changePerSec;
+	FVector pos = FVector(person.x, person.y, person.z);
+
+	float delta = (m_lastPosition - pos).Size();
+	float change = delta * changePerUnitTraveled;
 	float newAnimationPosition = m_animationPosition + change;
 	float temp;
 	newAnimationPosition = modf(newAnimationPosition, &temp);
 	m_animationPosition = newAnimationPosition;
 	m_lastTimeInSec = timeInSec;
+	m_lastPosition = pos;
 
 	float t = m_animationPosition * 2;
 	if (t>1) 
 	{
 		t = 2 - t;
 	}
-	t = t * 0.3;
+	t = t * 0.2;
 
 	float objHeight = 100;
 	float objWidth = 100;
@@ -55,7 +59,7 @@ void APedestrian::SetPosition(Person person,float timeInSec)
 	float height = settings->GetPedestrianHeight() / objHeight;
 
 	FRotator rotation = FRotator(0, person.rotationAngle, 0);
-	FVector translation = FVector(person.x, person.y, person.z) * settings->GetScalingFactor();
+	FVector translation = pos * settings->GetScalingFactor();
 	FVector scaling = FVector(width + width * t, width - width * t, height) * settings->GetScalingFactor();
 
 	FTransform transform = FTransform(rotation, translation, scaling);

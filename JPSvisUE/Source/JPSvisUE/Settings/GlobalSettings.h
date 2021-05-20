@@ -85,7 +85,7 @@ private:
 	int m_txtReaderBackwardThreshhold;
 	int m_txtReaderBinaryTreeMinimumGap;
 	//animation
-	float m_animationChangePerSec;
+	float m_animationChangePerUnitTraveled;
 public:
 	//Getter
 	const float GetScalingFactor();
@@ -126,7 +126,7 @@ public:
 	const int GetTxtReaderForwardThreshhold();
 	const int GetTxtReaderBackwardThreshhold();
 	const int GetTxtReaderBinaryTreeMinimumGap();
-	const float GetAnimationChangePerSec();
+	const float GetAnimationChangePerUnitTraveled();
 
 	//Setter
 	void SetWallViewType(WallViewType wallViewType);
