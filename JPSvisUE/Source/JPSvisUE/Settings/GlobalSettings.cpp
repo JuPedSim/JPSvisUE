@@ -65,7 +65,7 @@ GlobalSettings::GlobalSettings()
 	m_txtReaderBackwardThreshhold = (int)round((float)m_txtReaderForwardThreshhold/24.51);// 3;
 	m_txtReaderBinaryTreeMinimumGap = 1000;
 
-	m_animationChangePerSec = 1.5;
+	m_animationChangePerUnitTraveled = 2;
 }
 
 void GlobalSettings::InitSingleton()
@@ -229,9 +229,9 @@ const int GlobalSettings::GetTxtReaderBinaryTreeMinimumGap()
 {
 	return m_txtReaderBinaryTreeMinimumGap;
 }
-const float GlobalSettings::GetAnimationChangePerSec()
+const float GlobalSettings::GetAnimationChangePerUnitTraveled()
 {
-	return m_animationChangePerSec;
+	return m_animationChangePerUnitTraveled;
 }
 const float GlobalSettings::GetWallScaleChangeSpeed()
 {

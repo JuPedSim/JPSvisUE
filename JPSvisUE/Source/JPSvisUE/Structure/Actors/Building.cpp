@@ -201,7 +201,7 @@ void ABuilding::MovePedestrians()
 		{
 			Person person = toCreate.at(i);
 			APedestrian* pedestrian = SpawnItem<APedestrian>(m_pedestrianClass);
-			pedestrian->InitVariables(person.id,time);
+			pedestrian->InitVariables(person.id,time,FVector(person.x,person.y,person.z));
 			pedestrian->SetPosition(person, time);
 			if (GetShouldBeHidden(person.z))
 			{

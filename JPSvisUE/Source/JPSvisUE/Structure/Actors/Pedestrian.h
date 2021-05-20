@@ -15,7 +15,7 @@ class JPSVISUE_API APedestrian : public ABuildingActor
 public:
 	// Sets default values for this actor's properties
 	APedestrian();
-	void InitVariables(int id, float creationTime);
+	void InitVariables(int id, float creationTime, FVector intialPosition);
 	void SetVisible();
 	void SetPosition(Person person, float timeInSec);
 	void DestroyAll(bool bNetForce = false, bool bShouldModifyLevel = true);
@@ -32,6 +32,8 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Building, meta = (AllowPrivateAccess = "true"))
 		UStaticMeshComponent* m_pedestrian;
 	int m_id;
+	//value between 0 and 1
 	float m_animationPosition;
 	float m_lastTimeInSec;
+	FVector m_lastPosition;
 };
